@@ -1,0 +1,3 @@
+"0",""
+"0","# add a line for the sample mean. "
+"0","abline(v = mean(sample_of_fish),lwd = 2)"

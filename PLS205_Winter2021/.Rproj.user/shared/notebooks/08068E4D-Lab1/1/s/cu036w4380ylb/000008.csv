@@ -1,0 +1,4 @@
+"0",""
+"0","# add a line showing the true population distribution"
+"0","x = seq(0,300)"
+"0","lines(x,dnorm(x = x,mean = 106, sd = 30))"
