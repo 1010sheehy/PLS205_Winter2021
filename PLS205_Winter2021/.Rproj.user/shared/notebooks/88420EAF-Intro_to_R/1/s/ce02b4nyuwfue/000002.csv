@@ -1,0 +1,9 @@
+"0","```r
+# vector of characters
+furniture <- c(\"sofa\", \"chair\", \"table\", \"desk\")
+furniture
+
+# vector of numbers
+heights <- c(85.4, 98, 45, 55, 3.7)
+heights
+```"

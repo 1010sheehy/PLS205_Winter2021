@@ -1,0 +1,8 @@
+"0","```r
+means <- rep(0,100) # prepare a vector for the results
+for(i in 1:100){  # this for loop repeates the commands below between the brackets for each number between 1 and 100
+  # each time through, the object `i` gets assigned to the current iteration number
+  sample <- rnorm(n = 10, mean = 20, sd = 3)  # we use `rnorm` to draw 10 values from a normal distribution. See ?rnorm
+  means[i] <- mean(sample)  # we calculate the mean of the 10 sampled numbers, and assign the value to the ith element of the vector `means`
+}
+```"

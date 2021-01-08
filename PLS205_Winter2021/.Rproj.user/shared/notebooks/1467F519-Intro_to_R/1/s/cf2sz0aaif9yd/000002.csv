@@ -1,0 +1,4 @@
+"0","```r
+setosa <- subset(iris,Species == 'setosa')
+str(setosa)
+```"

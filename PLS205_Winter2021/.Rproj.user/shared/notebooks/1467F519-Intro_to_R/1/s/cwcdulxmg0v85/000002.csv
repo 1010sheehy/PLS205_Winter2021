@@ -1,0 +1,4 @@
+"0","```r
+iris$Sepal.Length
+# alternatives: iris[,1], iris[,'Sepal.Length'], iris[['Sepal.Length]]
+```"

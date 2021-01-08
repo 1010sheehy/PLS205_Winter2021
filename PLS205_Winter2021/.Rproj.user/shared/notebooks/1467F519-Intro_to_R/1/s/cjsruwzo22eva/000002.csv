@@ -1,0 +1,8 @@
+"0","```r
+sqrt(4) # square root
+pi
+exp(1) # the natural exponential
+log(exp(1)) # natural log
+log2(2) # log base 2
+log10(10) # log base 10
+```"

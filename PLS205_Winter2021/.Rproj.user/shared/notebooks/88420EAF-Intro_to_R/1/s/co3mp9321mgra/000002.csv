@@ -1,0 +1,7 @@
+"0","```r
+observation_1 <- iris[1,]
+observation_1
+
+data_1 <- iris$Sepal.Length
+data_1
+```"

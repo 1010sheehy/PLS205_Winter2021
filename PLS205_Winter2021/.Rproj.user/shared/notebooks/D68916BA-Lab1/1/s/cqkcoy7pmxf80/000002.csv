@@ -1,0 +1,11 @@
+"0","```r
+SE = sample_sd / sqrt(n)
+SE
+
+alpha = 0.05
+t_crit = qt(p = 1-alpha/2,df = n-1)  # this gives the value greater than 1-0.05/2 = .975 possible values from the t-distribution
+t_crit
+
+CI = sample_mean + c(-t_crit * SE, t_crit*SE)
+CI
+```"

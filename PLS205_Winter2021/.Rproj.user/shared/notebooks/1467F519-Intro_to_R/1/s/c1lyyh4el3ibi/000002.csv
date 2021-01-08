@@ -1,0 +1,9 @@
+"0","```r
+# The pound sign/hashtag is very important in R, even though it isn't a function. 
+# The '#' denotes that the text following it is a comment. 
+# Anything written after a '#' will not be treated as an instruction for R to run. 
+# In RStudio, you can see that text after a '#' changes color to indicate it's a comment, and not code. 
+# You can use comments to explain in plain English what your code is doing, and why. 
+# Your code should have lots of comments.  
+# Comments can come after a command on the same line or on their own line. Nothing is returned from this chunk.
+```"

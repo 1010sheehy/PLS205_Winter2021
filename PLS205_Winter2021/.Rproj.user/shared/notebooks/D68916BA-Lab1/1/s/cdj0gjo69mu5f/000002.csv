@@ -1,0 +1,9 @@
+"0","```r
+t_test_result = t.test(x=sample_of_fish,  # your data
+       y = NULL,          # NULL, because it's a one-sample test (testing mean against known value)
+       mu = mu,           # mean of the null hypothesis
+       alternative = 'two.sided',     # two-sided alternative hypothesis
+       conf.level = 1-alpha    # confidence level (desired frequence)
+       )
+t_test_result
+```"

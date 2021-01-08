@@ -1,0 +1,4 @@
+"0","```r
+?read.csv	# the same as help(read.csv)
+??lmer	# the same as help.search(\"lmer\")
+```"

@@ -1,0 +1,7 @@
+"0","```r
+# We can print out the list of fish by just giving the variable name and running it
+sample_of_fish
+```"
+"1"," [1] 104.74995 121.57508  96.91242 109.21877 145.27163 102.49178  59.08849
+ [8]  92.08840  88.85443  65.77575
+"

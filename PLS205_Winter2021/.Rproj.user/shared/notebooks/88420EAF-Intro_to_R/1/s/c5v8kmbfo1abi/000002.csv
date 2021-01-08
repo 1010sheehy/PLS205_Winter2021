@@ -1,0 +1,15 @@
+"0","# the tab key can be used to auto-complete words in R. This can save a lot of typing!
+
+# It works for the columns of a data.frame (the standard object for holding data files)
+# try hitting tab with the cursor after `iris$Sep` below:
+iris$Sepal.
+
+# It works for variable names you've used already in this document:
+# try below;  
+seto
+
+# It works for any R function in any package you've already loaded:
+read.cs
+
+# It also works with files and directories:
+'iris_"

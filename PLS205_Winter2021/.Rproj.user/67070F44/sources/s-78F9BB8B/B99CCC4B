@@ -1,0 +1,25 @@
+{
+    "id": "B99CCC4B",
+    "path": "~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/course_materials/Lab1.rmd",
+    "project_path": "course_materials/Lab1.rmd",
+    "type": "r_markdown",
+    "hash": "2301580734",
+    "contents": "",
+    "dirty": false,
+    "created": 1609871144932.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "chunk_output_type": "inline",
+        "cursorPosition": "229,0",
+        "scrollLine": "205"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1610070534,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1610070534517,
+    "read_only": false,
+    "read_only_alternatives": []
+}

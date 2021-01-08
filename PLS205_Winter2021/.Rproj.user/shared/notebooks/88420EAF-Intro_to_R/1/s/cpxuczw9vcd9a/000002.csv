@@ -1,0 +1,5 @@
+"0","```r
+mean(c(1,2,3)) # calculates the mean
+sort(c(10,3,2,5)) # sorts numbers
+qnorm(p = 0.95,mean = 10,sd = 3) # finds the 0.95 critical value of a normal distribution with mean = 10 and sd = 3
+```"

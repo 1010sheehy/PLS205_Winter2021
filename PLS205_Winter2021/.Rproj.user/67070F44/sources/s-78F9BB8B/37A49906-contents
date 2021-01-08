@@ -1,0 +1,176 @@
+---
+title: "PLS 205 HW Guidelines"
+output: html_notebook
+---
+
+1. Submit the `*.nb.html` file, not the `*.Rmd` file
+2. Clean up your document before submitting. Don't include extra R output that is not needed in the answer.
+For example, the following code chunk calculates a t-test, but also checks that it is loaded correctly. 
+In the HTML file, 
+```{r}
+data = data.frame(groupA = rnorm(10,3,1),groupB = rnorm(10,5,1))
+
+# checks the data is coded correctly. This is important to do, but should not be included in the final output
+str(data)
+
+# performs and outputs the t-test. This should be included in the report
+t.test(data$groupA,data$groupB, var.equal = TRUE)
+```
+Typically, only the statistical output is needed to answer the question. 
+The steps of loading and checking the data are necessary for you to do, but not to include in the final analysis.
+You can hide them by **commenting** the line (include the # character before the line). 
+Or, break the chunk into two chunks, and include the command `include=F` in the chunk that you don't want included in your final document
+```{r include=F}
+data2 = data.frame(groupA = rnorm(10,3,1),groupB = rnorm(10,5,1))
+
+# checks the data is coded correctly
+str(data2)
+```
+
+```{r}
+# performs and outputs the t-test
+t.test(data2$groupA,data2$groupB, var.equal = TRUE) 
+```
+
+
+3. Write any textual explanations **outside** of the chunks. When we grade, we will *hide* the code and just look at the R output and your written answers.
+```{r}
+# use comments in chunks for notes about what the code does
+# DON'T USE these comments to give your answers!!
+```
+Write your answers out here.
+
+4. Give a brief title/description before each output box. Unlike the t-test function above, 
+some output boxes don't give any context by themselves.
+
+**SumSS:**
+```{r}
+SumSS = 37
+SumSS
+```
+
+5. Use the `>` to indent and highlight textboxes for your answers:
+
+> Writing your answer here makes it stand out and easier to find.
+
+> Start each paragraph with a new `>` and be sure to include a blank line 
+before each new paragraph (including the first)
+
+6. Add bold highlighting in a textbox by surrounding the text with two asterisks **`**like this**`**. 
+
+7. Copy/paste numbers from the R output into your text boxes. 
+Or you can use inline code chunks: `mean(data$groupA) = `r mean(data$groupA)`` to directly incorporate results of calculations. 
+    --> NOTE you need BOTH the backtick and the r: ``r then your code``
+
+8. To pull out specific items from an `anova(lm_model)` display, do:
+
+ANOVA on Soil pH:
+```{r}
+data("CO2")
+lm_model = lm(uptake~Treatment,CO2)
+lm_anova = anova(lm_model)
+lm_anova
+```
+
+
+```{r}
+# extract statistics from ANOVA
+Df_Treatment = lm_anova$Df[1]
+Df_Residuals = lm_anova$Df[2]
+F_Treatment = lm_anova$`F value`[1]
+p_Treatment = lm_anova$`Pr(>F)`[1]
+```
+
+Df Treatment: `r Df_Treatment`
+
+Df Residuals: `r Df_Residuals`
+
+F value Treatment: `r F_Treatment`
+
+p value Treatment: `r p_Treatment`
+
+
+### Suggestions for making documents easier to read
+
+1. Set margin column in RStudio: Tool -> Global Option -> Code -> Display -> Margin Column set to 100, 
+so there will be a line on the right in the script. Do not type code beyond the line because codes 
+beyond the line will be shown in the next line when Knitting the RMarkDown, 
+which makes it hard to read the code. 
+
+For example, if I type beyond the margin line, the code will be shown as:
+
+```{r}
+barley_data <- data.frame(Var1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), Var2 = c(1, 2, 3, 4, 5, 6.1, 7.3, 8.2, 9, 10, 11))
+```
+
+which is hard to read.
+
+So instead of putting all arguments into one line, use multiple lines for long functions/codes like:
+
+```{r}
+barley_data <- data.frame(
+  Var1 = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11), 
+  Var2 = c(1, 2, 3, 4, 5, 6.1, 7.3, 8.2, 9, 10, 11)
+)
+```
+
+2. Add space between words/ symbols/ variable names, etc. It's hard to read something like
+
+```{r}
+variable<-function(x){(sd(x)/sqrt(length(x)))+mean(x)}
+```
+
+but 
+
+```{r}
+variable <- function(x) { (sd(x) / sqrt(length(x))) + mean(x) }
+``` 
+
+is much better.
+
+3. Give variables descriptive names. Don't name variables like "a", "b", "aa", "bb", "temporary", etc.
+
+4. Add comments to explain what the code does or what you want to get from the code.
+You can add comments by:
+
+Method 1: IN the R code chunk ("```{r} Your Code ```") after "#", like
+```{r}
+# Calculate the mean:
+mean1 = mean(c(1, 2, 3, 4, 5))
+mean1
+``` 
+
+OR
+
+Method 2: Out of the R code chunk (you don't need "#" in this case), like
+
+Calculate the mean:
+```{r}
+mean1 = mean(c(1, 2, 3, 4, 5))
+mean1
+``` 
+
+
+5. When you see: "ENTER YOUR RESPONSE HERE", explain your results and give a conclusion. 
+You will lose points if you only show your code and corresponding result without an explanation and conclusion.
+
+6. In plots, add appropriate title (main = "") and axis names (xlab = "", ylab = ""). 
+Use color (col), line types (lty) and plotting characters (pch) for different groups if necessary.  
+And add a legend to indicate the grouping. If you can, use `ggplot` - it does a lot of this for you.
+
+Example:
+```{r warning=F}
+library(ggplot2)
+data = data.frame(X = rnorm(20), Group = rep(c('Control','Treatment'),10))
+data$Y = data$X + rnorm(20)
+
+# make a traditional R plot
+with(data,plot(Y~X,col = Group,main = 'Trt vs Control',xlab = 'Size',ylab = 'Mass'))
+legend('bottomright',legend = c('Control','Treatment'),pch= 1,col=1:2)
+
+# make a nicer ggplot
+ggplot(data,aes(x=X,y=Y,group = Group)) + geom_point(aes(color = Group)) + 
+    labs(title = 'Trt vs Control', x = 'Size', y= 'Mass')
+```
+
+

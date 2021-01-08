@@ -1,0 +1,12 @@
+"0","```r
+# as you would expect the standard computer calculator symbols apply: 
+# + is addition
+# - is subtraction
+# * is multiplication
+# / is division
+# ^ or ** are exponents
+
+2*3
+(1+2+3)/3
+2^3
+```"

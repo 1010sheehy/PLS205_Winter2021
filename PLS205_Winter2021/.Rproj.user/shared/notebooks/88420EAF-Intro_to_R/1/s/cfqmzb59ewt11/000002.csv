@@ -1,0 +1,6 @@
+"0","```r
+# base
+hist(iris$Sepal.Width,breaks = 10)
+# ggplot
+ggplot(iris,aes(x=Sepal.Width)) + geom_histogram(bins = 10,alpha = 0.7,color='white')
+```"

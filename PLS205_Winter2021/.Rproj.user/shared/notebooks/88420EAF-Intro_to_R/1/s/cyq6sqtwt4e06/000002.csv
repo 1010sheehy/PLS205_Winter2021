@@ -1,0 +1,4 @@
+"0","```r
+furniture_sizes <- c(sofa = 83, chair = 30, table = 102)
+furniture_sizes
+```"

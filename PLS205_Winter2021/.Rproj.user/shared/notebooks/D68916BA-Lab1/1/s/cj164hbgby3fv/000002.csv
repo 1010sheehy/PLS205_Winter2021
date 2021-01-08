@@ -1,0 +1,15 @@
+"0","```r
+hist(sample_of_fish, xlim = c(0,300),prob = T)
+
+# add a line for the sample mean. 
+abline(v = mean(sample_of_fish),lwd = 2)
+```"
+"0","```r
+
+# add a red line for the true population mean
+abline(v = 106, col=2,lwd=2)
+
+# add a line showing the true population distribution
+x = seq(0,300)
+lines(x,dnorm(x = x,mean = 106, sd = 30))
+```"

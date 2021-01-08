@@ -1,0 +1,7 @@
+"0","```r
+# base
+boxplot(iris$Petal.Length~iris$Species,ylab = 'Petal.Length',ylim = c(0,8),main = 'Iris petals')
+# ggplot
+ggplot(iris,aes(x=Species,y=Petal.Length)) + geom_boxplot() + ylim(c(0,8))
+
+```"
