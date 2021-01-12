@@ -1,0 +1,4 @@
+"0","simulation1_sitting_se <- sd(simulation1_sitting) / sqrt(20)
+"
+"2","Error in is.data.frame(x) : object 'simulation1_sitting' not found
+"

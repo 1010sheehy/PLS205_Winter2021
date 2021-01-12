@@ -37,7 +37,7 @@ Here's an example:
 ![](example_experiment.jpg)
 
 
-> ![Experimental design for effect of audience familiarity on aggressive interactions in the Amazon molly, *P. formosa*.](~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/images/P.formosa_Familiarity_ExperimentalDesign.jpg)
+![Experimental design for effect of audience familiarity on aggressive interactions in the Amazon molly, _P. formosa_.] (~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/images/P.formosa_Familiarity_ExperimentalDesign.jpg)
 
 **Note:** You can use PowerPoint or a drawing tool to create the diagram on your computer, or you can draw on paper, take a picture with your phone, and then download that file here.
     
@@ -76,7 +76,19 @@ hw1 <- c(10, 18, 23, 9, 15, 12, 15, 22)
 ```{r}
 # enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
 
-sd(hw1)
+hw1_mean <- sum(hw1)/8
+mean_hw1
+
+hw1_diff <- hw1 - mean_hw1
+hw1_diff
+
+
+hw1_sumdifsqr <- sum((diff_hw1)^2)
+hw1_sumdifsqr
+
+hw1_sd <- sqrt( sumdifsqr_hw1 / (8-1) )
+hw1_sd
+
 
 ```
 
@@ -88,11 +100,9 @@ sd(hw1)
 # enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
 # you can use the answers to the intermediate results above directly rather than re-calculating them
 
-hw1_stddev <- sd(hw1)
+hw1_se <- hw1_sd / sqrt(8)
+hw1_se
 
-hw1_stderr <- hw1_stddev / sqrt(8)
-
-hw1_stderr
 ```
 
 > SE = 1.841971 cm
@@ -105,7 +115,7 @@ This is a normalized measure of the amount of variation in a population.
 # enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
 # you can use the answers to the intermediate results above directly rather than re-calculating them
 
-hw1_stddev/mean(hw1)
+hw1_sd / hw1_mean
 ```
 
 > Coeff. of Var = 0.3361213
@@ -124,17 +134,17 @@ b) Say the original data were reported in mm instead of cm. How would the standa
 c) Add 20cm to each value in the original sample (including the $n$th value). How would the standard deviation of the sample change? How would the CV of the population change?
 
 ```{r include=FALSE}
-hw1_plus10 <- hw1 + 10
+hw1_plus20 <- hw1 + 20
 
-hw1_plus10_sd <- sd(hw1_plus10)
+hw1_plus20_sd <- sd(hw1_plus20)
 
-hw1_plus10_sd / mean(hw1_plus10)
+hw1_plus20_sd / mean(hw1_plus20)
 
 ```
 
-> The SD does not change, as adding 10 to each value only serves to shift the curve on the x axis. It does not change the shape of the curve.
+> The SD does not change, as adding 20 to each value only serves to shift the curve on the x axis. It does not change the shape of the curve.
 
-> However, the coefficient of variation does change from 0.3361213 to 0.204309. This is because adding 10 to the values increases the mean of the data, which is in the denominator of the coeff. of var. formula, thus decreasing the size of the coeff..
+> However, the coefficient of variation does change from 0.3361213 to 0.1467572. This is because adding 10 to the values increases the mean of the data, which is in the denominator of the coefficient of variation formula, thus decreasing the size of the coefficient.
 
 
 ---
@@ -184,10 +194,19 @@ simulation1_standing_var <- var(simulation1_standing)
 
 ```
 
-> The true population variance for sitting is \simulation1_sitting_var  
+> The true population variance for sitting is \simulation1_sitting_var.
+> The true population variance for standing is \simulation1_sitting_var.
 
 d) What is the TRUE Standard Error of the Difference for this experiment?
+```{r include = FALSE}
+simulation1_sitting_se <- sd(simulation1_sitting) / sqrt(20)
 
+simulation1_standing_se <- sd(simulation1_standing) / sqrt(20)
+
+```
+
+> The true standard error for sitting is \simulation1_sitting_se.
+> The true standard error for standing is \simulation1_standing_se.
 
 ## Estimate the effect of standing on pulse in this simulated experiment and compare your answer with the TRUE value.
 
