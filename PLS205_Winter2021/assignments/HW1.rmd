@@ -32,12 +32,9 @@ about the issues in experimental design, and to help me understand the range of 
 
 To upload your diagram, save it as a file (jpeg, png, etc, but not pdf) in the directory of this .Rmd file, and include it's file name below:
 
-Here's an example:
 
-![](example_experiment.jpg)
+> ![Experimental design for effect of audience familiarity on aggressive interactions in the Amazon molly, _P. formosa._](P.formosa_Familiarity_ExperimentalDesignSetup.jpg)
 
-
-![Experimental design for effect of audience familiarity on aggressive interactions in the Amazon molly, _P. formosa_.] (~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/images/P.formosa_Familiarity_ExperimentalDesign.jpg)
 
 **Note:** You can use PowerPoint or a drawing tool to create the diagram on your computer, or you can draw on paper, take a picture with your phone, and then download that file here.
     
@@ -54,13 +51,13 @@ we can calculate the $n$th value, so this last number is redundant; it doesn't c
 
 ## Prove this by calculating the $n$th value for the data below:
 Data: Plant heights (cm)
-sample: 10, 18, 23, 9, 15, 12, 15
+sample: 10, 18, 23, 9, 15, 12, 15, n
 mean: 15.5 cm
 
+**Solving for n**
 ```{r}
-# enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
-
 # solving the algebraic problem, (10+18+23+9+15+12+15+n)/8 = 15.5
+
 15.5*8-(10+18+23+9+15+12+15)
 
 ```
@@ -73,21 +70,19 @@ mean: 15.5 cm
 hw1 <- c(10, 18, 23, 9, 15, 12, 15, 22)
 ```
 
-```{r}
-# enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
+**Calculating the Standard Deviation**
+```{r include = TRUE}
+hw1_mean <- sum(hw1)/8                   # recalculating the mean
+hw1_mean
 
-hw1_mean <- sum(hw1)/8
-mean_hw1
-
-hw1_diff <- hw1 - mean_hw1
+hw1_diff <- hw1 - hw1_mean               # calculating the difference
 hw1_diff
 
-
-hw1_sumdifsqr <- sum((diff_hw1)^2)
+hw1_sumdifsqr <- sum((hw1_diff)^2)       # adding up the sqr of the difference
 hw1_sumdifsqr
 
-hw1_sd <- sqrt( sumdifsqr_hw1 / (8-1) )
-hw1_sd
+hw1_sd <- sqrt( hw1_sumdifsqr / (8-1) )  # sqrt of the sum of  sqr of the diff
+hw1_sd                                   # print the standard deviation
 
 
 ```
@@ -96,13 +91,10 @@ hw1_sd
 
 ## Estimate the Standard Error of the mean
 
+**Estimating the SE of the mean**
 ```{r}
-# enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
-# you can use the answers to the intermediate results above directly rather than re-calculating them
-
-hw1_se <- hw1_sd / sqrt(8)
-hw1_se
-
+hw1_se <- hw1_sd / sqrt(8) # calculating the standard error
+hw1_se                     # print the standard error
 ```
 
 > SE = 1.841971 cm
@@ -111,14 +103,13 @@ hw1_se
 The coefficient of variation (or CV) is defined as $\sigma/\mu$, i.e. the standard deviation divided by the population mean.
 This is a normalized measure of the amount of variation in a population.
 
+**Estimating the Coefficient of Variation**
 ```{r}
-# enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
-# you can use the answers to the intermediate results above directly rather than re-calculating them
-
-hw1_sd / hw1_mean
+hw1_cv <- hw1_sd / hw1_mean # calculating the coefficient of variation
+hw1_cv                      # print the coeff. of var.
 ```
 
-> Coeff. of Var = 0.3361213
+> Coefficient of Variation = 0.3361213
 
 a) What are the units of CV?
 
@@ -126,10 +117,26 @@ a) What are the units of CV?
 
 b) Say the original data were reported in mm instead of cm. How would the standard deviation of the sample change? How would the CV of the population change?
 
+```{r include = FALSE}
+hw1_mm <- hw1 * 10
 
-> The SD of the sample would be the same, just with the unit mm (instead of cm).
+hw1_mm_mean <- mean(hw1_mm)                  # recalculating the mean
 
-> The coeff. of var. would not change, as it is a unitless number.
+hw1_mm_diff <- hw1_mm - hw1_mm_mean          # calculating the difference
+
+hw1_mm_sumdifsqr <- sum((hw1_mm_diff)^2)     # adding up the square of the diff
+
+hw1_mm_sd <- sqrt( hw1_mm_sumdifsqr / (8-1) )# sqrt of the sum of sqr of the diff
+hw1_mm_sd                                    # print the standard deviation
+
+hw1_mm_cv <- hw1_mm_sd / hw1_mm_mean         # calc the coefficient of variation
+hw1_mm_cv
+
+```
+
+> By converting cm to mm, we multiply every value in the dataset by 10. This has the same effect on the sd, increasing the sd from 5.209881 to 52.09881
+
+> There are no changes in the CV. This is because the data and the mean are changed in equal proportions, leading to the same value of of sd/mean.
 
 c) Add 20cm to each value in the original sample (including the $n$th value). How would the standard deviation of the sample change? How would the CV of the population change?
 
@@ -137,14 +144,16 @@ c) Add 20cm to each value in the original sample (including the $n$th value). Ho
 hw1_plus20 <- hw1 + 20
 
 hw1_plus20_sd <- sd(hw1_plus20)
+hw1_plus20_sd
 
-hw1_plus20_sd / mean(hw1_plus20)
+hw1_plus20_cv <- hw1_plus20_sd / mean(hw1_plus20)
+hw1_plus20_cv
 
 ```
 
 > The SD does not change, as adding 20 to each value only serves to shift the curve on the x axis. It does not change the shape of the curve.
 
-> However, the coefficient of variation does change from 0.3361213 to 0.1467572. This is because adding 10 to the values increases the mean of the data, which is in the denominator of the coefficient of variation formula, thus decreasing the size of the coefficient.
+> However, the coefficient of variation does change from 0.3361213 to 0.1467572. This is because adding 20 to the values increases the mean of the data, which is in the denominator of the coefficient of variation formula, thus decreasing the size of the coefficient.
 
 
 ---
@@ -179,46 +188,57 @@ print(simulation1_standing)
 
 ## Answer the following questions about this simulation:
 a) How many people were in each treatment?
+
 > 20 people per treatment
 
 b) What is the TRUE effect of the treatment (in this simulation)?
-> The true effect is an increase from a mean of 80bpm to 90 bpm.
+
+> The true effect is an increase from a mean of 80 bpm to 90 bpm, a difference of 10 bpm.
 
 c) What is the TRUE population variance?
 
 ```{r include = FALSE}
 
-simulation1_sitting_var <- var(simulation1_sitting)
-
-simulation1_standing_var <- var(simulation1_standing)
+baseline_i_cv <- 10 / ((80+90)/2)
+baseline_i_cv
 
 ```
 
-> The true population variance for sitting is \simulation1_sitting_var.
-> The true population variance for standing is \simulation1_sitting_var.
+> The true population variance is 0.1176471.
 
 d) What is the TRUE Standard Error of the Difference for this experiment?
 ```{r include = FALSE}
-simulation1_sitting_se <- sd(simulation1_sitting) / sqrt(20)
+baseline_i_sitting_se <- 10 / sqrt(20)
+baseline_i_sitting_se
 
-simulation1_standing_se <- sd(simulation1_standing) / sqrt(20)
+baseline_i_standig_se <- 10 / sqrt(20)
+baseline_i_standig_se
 
 ```
 
-> The true standard error for sitting is \simulation1_sitting_se.
-> The true standard error for standing is \simulation1_standing_se.
+> The true standard error for sitting is 2.236068.
 
 ## Estimate the effect of standing on pulse in this simulated experiment and compare your answer with the TRUE value.
 
-```{r}
-# enter your code here.
+**Estimating the effect of standing**
+```{r include = TRUE}
+simulation1_standing_effect <- mean(simulation1_standing) - mean(simulation1_sitting)
+simulation1_standing_effect
 ```
 
-> ENTER YOUR RESPONSE HERE
+> The effect of standing on our simulated experiment is an increase of 12.3 bpm. This is slightly higher than the true value, 10 bpm.
 
 ## What is the Error in your estimate? How does this compare to the TRUE Standard Error of the difference?
 
-> ENTER YOUR RESPONSE HERE
+```{r include = FALSE}
+
+simulation1_se <- 12.3 / sqrt(20)
+simulation1_se
+
+
+
+```
+> The error in my estimate is 2.750364. This is also slightly higher than the true se, 2.236068.
 
 -----
 
@@ -244,20 +264,47 @@ for(i in 1:20) {
 simulation2
 ```
 ## Estimate the effect of standing on pulse in this second simulated experiment and compare your answer with the TRUE value.
+
+**Estimating the effect of standing**
 ```{r}
-# enter your code here.
+simulation2_effect <- mean(simulation2$Effect)
+simulation2_effect
 ```
 
-> ENTER YOUR RESPONSE HERE
+> The effect of standing in simulation2 is 9.6 bpm, slightly lower than the true effect, 10 bpm.
 
 ## Speculate on why the effect estimate in the second experiment was more accurate
 Cover these areas:
+
 a) Was more data collected in the second experiment?
+
+> Instead of two treatment groups of ten, we sampled the same 10 people twice. This is an example of pseudo replication; we did not collect more data in the second experiment.
+
 b) Was the variance of the sitting pulses smaller? The variance of the standing pulses?
+
+```{r include = FALSE}
+simulation2_sit_var <- sd(simulation2$Sitting) / mean(simulation2$Sitting)
+simulation2_sit_var
+
+simulation1_sitting_var <- sd(simulation1_sitting) / mean(simulation1_sitting)
+simulation1_sitting_var
+
+simulation2_stand_var <- sd(simulation2$Standing) / mean(simulation2$Standing)
+simulation2_stand_var
+
+simulation1_stand_var <- sd(simulation1_standing) / mean(simulation1_standing)
+simulation1_stand_var
+```
+
+> The variance of the sitting pulses in the second experiment (0.09327363) were slightly lower than those in the first experiment (0.09344243). The standing pulse for the second experiment (0.08421494) were also lower than those in the first (0.1032855).
+
 c) Was the second experiment more controlled?
+
+> Yes, the second experiment was more controlled as we were comparing sitting and standing within an individual.
+
 d) Are the two experiments designed to measure the same thing?
 
-> ENTER YOUR RESPONSE HERE
+> No, the two experiments do not measure the same thing. Experiment one compares the effect of standing on a population, while the second examines the effect on an individual.
 
 -----
 
@@ -307,10 +354,23 @@ boxplot(list(Type1 = type_1_results,Type2 = type_2_results))
 Compare these values to the TRUE Standard Error of a difference for the first experiment.
 For an extra point, also calculate the TRUE Standard Error for the Type2 experiment.
 
+**Calculating the SD of the effect estimates for Type1 and Type2**
 ```{r}
-# enter your code here.
+
+type1_sd <- sd(type_1_results)
+type1_sd
+
+type2_sd <- sd(type_2_results)
+type2_sd
 ```
 
-> ENTER YOUR RESPONSE HERE
+**Calculating the TRUE SE for the Type2 Experiment**
+```{r}
+type2_se <- 10 / sqrt(10)
+type2_se
+```
+> The type1 SD was 2.849405 and the type2 sd was 0.5110644. The true SE for the first experiment was 2.236068. As illustrated by the graph output of the final simulation, the type1 experiment has a much larger variance in the effect size than the type2 experiment. This is because in the type1 experiment, we are comparing two _independent_ groups (sitting and standing). Each group might be above or below the true mean. This means that occasionally, by chance, the sitting group would be below the mean while the standing group is above, leading to a larger difference. This does not happen with the type2 experiment, as the sample of indiviudals are measured repeatedly. So if a sample happens to be below the true mean when sitting, they will also likely be below the true mean while standing.
+
+> Bonus, TRUE standard error for Type2 = 3.162278.
 
 

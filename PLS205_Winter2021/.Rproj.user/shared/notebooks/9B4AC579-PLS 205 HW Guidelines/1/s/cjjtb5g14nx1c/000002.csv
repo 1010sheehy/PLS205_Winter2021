@@ -1,0 +1,5 @@
+"0","# extract statistics from ANOVA"
+"0","Df_Treatment = lm_anova$Df[1]"
+"0","Df_Residuals = lm_anova$Df[2]"
+"0","F_Treatment = lm_anova$`F value`[1]"
+"0","p_Treatment = lm_anova$`Pr(>F)`[1]"

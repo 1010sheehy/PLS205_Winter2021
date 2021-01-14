@@ -1,0 +1,1 @@
+"0","variable <- function(x) { (sd(x) / sqrt(length(x))) + mean(x) }"

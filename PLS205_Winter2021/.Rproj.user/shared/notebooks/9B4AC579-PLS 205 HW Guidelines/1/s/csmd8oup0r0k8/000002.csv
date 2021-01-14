@@ -1,0 +1,8 @@
+"0","library(ggplot2)"
+"0","data = data.frame(X = rnorm(20), Group = rep(c('Control','Treatment'),10))"
+"0","data$Y = data$X + rnorm(20)"
+"0",""
+"0","# make a traditional R plot"
+"0","with(data,plot(Y~X,col = Group,main = 'Trt vs Control',xlab = 'Size',ylab = 'Mass'))"
+"2","Error in plot.xy(xy, type, ...) : invalid color name 'Control'
+"

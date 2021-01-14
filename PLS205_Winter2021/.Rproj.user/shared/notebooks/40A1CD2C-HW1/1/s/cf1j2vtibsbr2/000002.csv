@@ -1,6 +1,5 @@
-"0","# enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions"
-"0",""
 "0","# solving the algebraic problem, (10+18+23+9+15+12+15+n)/8 = 15.5"
+"0",""
 "0","15.5*8-(10+18+23+9+15+12+15)"
 "1","[1]"
 "1"," 22"

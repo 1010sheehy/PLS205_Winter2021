@@ -1,4 +1,12 @@
-"0","simulation1_sitting_se <- sd(simulation1_sitting) / sqrt(20)
+"0","baseline_i_sitting_se <- 10 / sqrt(20)"
+"0","baseline_i_sitting_se"
+"1","[1]"
+"1"," 2.236068"
+"1","
 "
-"2","Error in is.data.frame(x) : object 'simulation1_sitting' not found
+"0","baseline_i_standig_se <- 10 / sqrt(20)"
+"0","baseline_i_standig_se"
+"1","[1]"
+"1"," 2.236068"
+"1","
 "
