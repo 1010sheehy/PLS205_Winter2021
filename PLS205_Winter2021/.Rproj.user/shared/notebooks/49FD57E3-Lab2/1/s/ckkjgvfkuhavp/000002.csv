@@ -1,0 +1,4 @@
+"0","library(emmeans)  # load the  emmeans package"
+"0","means_model1 <- emmeans(model_1,spec = 'Variety') # prep the emmeans"
+"2","Error in is(object, ""emmGrid"") : object 'model_1' not found
+"

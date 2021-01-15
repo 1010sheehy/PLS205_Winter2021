@@ -1,0 +1,2 @@
+"0","Variety_A <- data_1$Root_length[data_1$Variety == 'A']"
+"0","Variety_B <- data_1$Root_length[data_1$Variety == 'B']"

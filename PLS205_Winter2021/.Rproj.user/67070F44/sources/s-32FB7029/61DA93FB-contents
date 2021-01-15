@@ -1,0 +1,202 @@
+# Week 4
+
+set.seed(15)
+?set.seed
+hw3 <- runif(50, 4, 50)
+?runif
+hw3
+hw3 <- replace(hw3, c(4,12,22,27), NA)
+hw3
+
+# Problem1
+
+prob1 <- hw3[!is.na(hw3)]
+
+# Gillian's solution (This works, but...)
+prob1 <- prob1[prob1 > 14 & prob1 < 38]
+prob1
+
+# Make sure you be specific
+prob1 <- prob1[prob1 >= 14 & prob1 <= 38]
+prob1
+
+# We got lucky in this set (no 14 or 38), so better to use <= or>=
+prob1 <- prob1[prob1 >= 14 & prob1 <= 38]
+prob1
+
+# One step --> !! this does not work for me, I just get four NA values !!
+prob1 <- hw3[is.na(hw3) & hw3 >= 14 & hw3 <= 38]
+
+# Problem 2
+
+times3 <- prob1 * 3
+times3
+
+plus10 <- times3 + 10
+plus10
+
+# ..... see live code...
+
+# vector math -- recycling ----
+
+x <- 1:10
+x
+
+y <- 1:2
+y
+
+x+y
+
+# ^ y cycles through, so (1x+1y)+(2x+2y)+(3x+1y)+(4x+2y)...
+
+# Vectors of odd lengths?
+
+z <- 1:3
+z
+
+x+z
+
+
+# Reviewing factors -------
+
+# Why do we care so much about factors? Why do they matter?
+
+## Plotting - plots may reject things (require a variable)
+## Modeling - 
+
+treatment <- factor(c("control", "low", "low", "high", "high", "control"))
+treatment
+
+class(treatment)
+typeof(treatment)
+levels(treatment)
+
+# reassigning order (b/c originally alphabetical) --> WRONG. Do not use levels() to reorder
+# levels(treatment) <- c("control", "low", "high")
+# levels(treatment)
+
+# renaming levels --> use levels()
+levels(treatment)[1]
+levels(treatment)[2] <- "brackish"
+levels(treatment)[3] <- "salty"
+levels( treatment)
+
+# reorder using factor()
+treatmentReLev = factor(treatment, levels = c("L","M","H"))
+treatmentReLev
+
+# Challenge
+treatment <- factor(c("high", "low", "low", "medium", "high"))
+treatment
+
+#what went wrong?
+levels(treatment)[1:3] <- c("H","L", "M")
+levels(treatment)[1:3]
+levels(treatment) <- c("L", "M", "H")
+treatment
+
+levels(treatment)[1:3] <- c("H","L", "M")
+levels(treatment)[1]
+
+levels(treatment) <- c("L", "M", "H")
+treatment
+
+
+# Reading in data -------
+
+# Start in your project! You need this for relative filepaths
+
+# read.csv() to read .csv
+# use quotations to call up file path --> (")
+
+surveys <- read.csv("data/portal_data_joined.csv", stringsAsFactors = TRUE) # in old R, default
+# was TRUE, now it is not. --> need to do this "manually" by typing stringsAsFactors = TRUE
+
+## looking at data
+
+surveys # cmd + click "surveys" to pull up csv in a nice table
+
+## How big is my data set?
+nrow(surveys)
+ncol(surveys)
+
+# What is in my dataset
+view(surveys) # look at the while dataset in a new tab
+head(surveys)
+tail(surveys)
+
+# you can specify how many rows you want to look at
+
+head(surveys, n = 10)
+
+# what are my columns and rows called
+colnames(surveys)
+rownames(surveys) # often not named, but indexed (numbered)
+
+## Summarize data
+summary(surveys)
+str(surveys)
+
+
+## CHALLENGE
+# Challenge
+# Based on the output of str(surveys), can you answer the following questions?
+str(surveys)
+  #What is the class of the object surveys? --> 'data.frame'
+  #How many rows and how many columns are in this object? --> 34786 rows, 13 columns
+  #How are our character data represented in this data frame? --> ?
+  #How many species have been recorded during these surveys? --> ?
+
+
+
+## Column subsetting (use "$" to call up column names)
+surveys$genus
+surveys[10] # creates new subset dataset?
+surveys[,10] # to pull out as vector?
+
+surveys[2:12,] # leave blank after comma to indicate that you want rows 2-12 and ALL columns
+
+# Subset
+surveys[15:20, c("hindfoot_length", "genus", "species")]
+
+# subset by removal
+surveys[,-1] # this is the whole survey without "record id" (the first column)
+surveys[,-c(1,2,3)] #this is the whole survey without the first three columns
+
+## To get a count of unique values
+
+
+## CHALLENGE
+
+# Create a new data frame called surveys_200 containing row 200 of the surveys dataset.
+
+surveys_200 <- surveys[200,]
+
+#Create a new data frame called surveys_last, which extracts only the last row in the surveys data.
+#  Hint: Remember that nrow() gives you the number of rows in a data.frame
+#  Compare your surveys_last data frame with what you see as the last row using tail() with the
+#  surveys data frame to make sure it’s meeting expectations.
+surveys_last <- surveys[34786,]
+surveys_last
+tail(surveys, n=1)
+
+# Use nrow() to identify the row that is in the middle of surveys.
+# Subset this row and store it in a new data frame called surveys_middle.
+nrow(surveys)
+
+34786 / 2
+
+surveys_middle <- surveys[17393,]
+surveys_middle
+
+# Reproduce the output of the head() function by using the - notation (e.g. removal) and the nrow()
+#function, keeping just the first through 6th rows of the surveys dataset.  
+
+head(surveys)
+surveys[-c(7:34786),]
+
+
+
+## JUST DO PROBLEM 1 for hw
+
+install.packages("tidyverse")
