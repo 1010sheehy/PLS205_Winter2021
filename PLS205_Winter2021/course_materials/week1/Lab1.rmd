@@ -129,7 +129,7 @@ sample_means
 
 Calculate the mean of the 100 samples
 ```{r}
-mean(sample_means)˜
+mean(sample_means)
 ```
 
 Calculate the standard deviation of the 100 samples

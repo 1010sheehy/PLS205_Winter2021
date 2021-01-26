@@ -1,0 +1,326 @@
+---
+title: "HW 1"
+author: "YOUR NAME"
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+> Grading Notes:
+>
+> For questions with a numeric result:
+> Full credit: correct value
+>  - wrong value due to data entry error / type: lose one point
+>  - wrong value due to wrong approach: zero points
+>  - wrong value due to previous error (ie a previous calculation was wrong): 
+> full credit, but first fix the value above and re-run your code to check that you get the
+> right value now.
+>
+> For questions that require a text answer:
+> Full credit: requires an answer to each question asked. Your explanations need to valid
+and logical. You don't need to use the same words as the key, but the meaning needs to be complete.
+> Assign partial credit for answers that are incomplete. For multi-part questions, divide points
+approximatly equally unless otherwise specified.
+>
+> For all questions, if you get the right answer using a different approach than I use, that is fine.
+
+> Fill out the table below for each question (you can copy to another text file and fill it out there)
+Then copy the table and paste it into the comments section for the submitted assignment on Canvas.
+> You will receive 50 points to turning in your assignment on time, plus up to 50 based on these scores. The TAs will re-grade one question.
+
+Grading table
+
+| Question | Value | Score |
+|----------|-------|-------|
+| 1        | 10    |  10   |
+| 2.1      | 3     |  3    |
+| 2.2      | 3     |  3    |
+| 2.3      | 3     |  3    |
+| 2.4      | 8     |  6    |
+| 3.1      | 8     |  4    |
+| 3.2      | 3     |  3    |
+| 3.3      | 3     |  1    |
+| 3.4      | 3     |  3    |
+| 3.5      | 4     |  4    |
+| 3.6      | 2     |  2    |
+| Total    | 50    |  42   |
+---
+
+# Part 1
+
+Draw a diagram of an experiment that you are currently running, one that you have run in the past, or will run soon, 
+or make up an experiment that is relevant to your research. Label the diagram using the terms we discussed in the first class. 
+Try to show how you'll lay out your experiment; you don't have to be precise about where every sample will come from,
+but try to show the overall structure of how you'll lay out your sampling strategy, how you'll assign treatments, and
+what you'll measure. You can include a couple sentences below to help explain if it's helpful. The goal of this is to get you thinking
+about the issues in experimental design, and to help me understand the range of questions students are studying.
+
+To upload your diagram, save it as a file (jpeg, png, etc, but not pdf) in the directory of this .Rmd file, and include it's file name below:
+
+Here's an example:
+
+...removed
+
+> This is called a split-split-plot experiment where we're testing the effects of 3 treatments: Temperature, Soil, and Genotype, and the randomization is done to optimize the precision of different types of comparisions. We'll build up to thinking about experiments like this later in the quarter.
+
+
+**Note:** You can use PowerPoint or a drawing tool to create the diagram on your computer, or you can draw on paper, take a picture with your phone, and then download that file here.
+
+> [10 points] for your drawing. 
+    
+
+---
+
+# Part 2
+
+When calculating $s^2$ to estimate the population variance ($\sigma^2$), we divide by $n-1$ instead of $n$. 
+I mentioned in class that this was because once we know the **mean of a sample** ($\bar{y}$) and the first $n-1$ values,
+we can calculate the $n$th value, so this last number is redundant; it doesn't contain any new information for us to use.
+
+> Note: Put your cursor between each $..$ and hover your mouse over the text to see it rendered into pretty mathematics 
+
+## Prove this by calculating the $n$th value for the data below:
+Data: Plant heights (cm)
+sample (8 plants): 10, 18, 23, 9, 15, 12, 15, ?
+mean: 15.5 cm
+
+```{r}
+# we want sum(sample)/(7+1) = 15.5
+10+18+23+9+15+12+15
+# (102 + x)/8 = 15.5
+# 102 + x = 15.5*8 = 124
+124-102
+```
+
+> The 8th value was 22 cm
+
+> [3 points] -1 for no units
+
+## Estimate the Standard Deviation of the full population
+
+```{r}
+sqrt(((10-15.5)^2 + (18-15.5)^2 + (23-15.5)^2 + (9-15.5)^2 + (15-15.5)^2 + (12-15.5)^2 + (15-15.5)^2 + (22-15.5)^2)/(8-1))
+```
+
+> The estimated SD = 5.2cm
+
+> [3 points]  -1 for no units
+
+## Estimate the Standard Error of the mean
+
+```{r}
+# enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
+# you can use the answers to the intermediate results above directly rather than re-calculating them
+5.2 / sqrt(8)
+```
+
+> The SEM is 1.8 cm
+> [3 points]  -1 for no units
+
+## Estimate the Coefficient of Variation of this population
+The coefficient of variation (or CV) is defined as $\sigma/\mu$, i.e. the standard deviation divided by the population mean.
+This is a normalized measure of the amount of variation in a population.
+
+```{r}
+# enter your code here. Do this using basic mathematics operators +,-,*,/ you don't need to use R functions
+# you can use the answers to the intermediate results above directly rather than re-calculating them
+5.2/15.5
+```
+
+> The CV is 0.34
+> [2 points]
+
+a) What are the units of CV?
+
+> There are no units, but a better way to think of the CV as in units of the mean. So the CV here is 0.34 times the mean, or 34%.
+
+> [2 points] any of these answers is fine.
+
+b) Say the original data were reported in mm instead of cm. How would the standard deviation of the sample change? How would the CV of the population change?
+
+> The SD would be 10x larger, but the CV would not change because the mean would also be 10x larger.
+> [2 points] 
+
+c) Add 20cm to each value in the original sample (including the $n$th value). How would the standard deviation of the sample change? How would the CV of the population change?
+
+> The SD will stay the same, but the CV will be lower. It will now be 0.15 or 15%.
+> [2 points] Saying "lower" for CV is fine without quantifying how much.
+
+---
+
+# Part 3
+
+The following code runs a simulation of an experiment like we ran in class. 
+Each iteration of the for-loop, we sample the pulse of someone sitting and someone standing and record those in two data vectors.
+Run the simulation by clicking the green arrow in the code block below.
+
+> Note: While the simulation is random, by putting `set.seed(1)` in the first line, we will always get the same random draws. But if you change the seed to a different number you'll get a different (but equally valid) simulated experiment.
+
+```{r}
+set.seed(1) # this makes the results repeatable 
+simulation1_sitting = c()
+simulation1_standing = c()
+for(i in 1:20) {
+    # measure a person sitting
+    baseline_i_sitting = rnorm(n = 1,mean = 80,sd = 10)  # their true baseline pulse
+    person_sitting_i = round(baseline_i_sitting + rnorm(n=1,mean = 0,sd = 1)) # measured pulse - includes some measurement error and is rounded to the nearest 1 bpm
+    simulation1_sitting[i] = person_sitting_i
+    # measure a person standing
+    baseline_i_standing = rnorm(n = 1,mean = 90,sd = 10) # their true baseline pulse
+    person_standing_i = round(baseline_i_standing + rnorm(n=1,mean = 0,sd = 1)) # measured pulse
+    simulation1_standing[i] = person_standing_i
+}
+print("Sitting data")
+print(simulation1_sitting)
+print("Standing data")
+print(simulation1_standing)
+```
+
+## Answer the following questions about this simulation:
+a) How many people were in each treatment?
+b) What is the TRUE effect of the treatment (in this simulation)?
+c) What is the TRUE population variance?
+d) What is the TRUE Standard Error of the Difference for this experiment?
+
+> There were 20 people in each treatment
+> The TRUE effect of the treatment was 10 bpm (90 - 80)
+> The TRUE population variance was 101 = 10^2 + 1^2. We add the different sources of variance together (here variation in baseline + variation in measurement). It was the same for the sitting population and the standing population. This includes the variance in pulse, and the variance due to measurement error. I'd also accept 100 = variance of pulses itself. But more formally, the population variance that we're interested in for statistical reports is the variance in the values we'd actually measure, not necessarily the variance in the true underlying characteristic. But we'll elaborate on this as we go along.
+> The TRUE SED is 3.2 bpm = sqrt(101/20 + 101/20). The SED = sqrt(s2_1/n_1 + s2_2/n_2). Also accept 3.2bpm = sqrt(100/20+100/20)
+
+> [2 points per sub-question = 8 pts]
+
+## Estimate the effect of standing on pulse in this simulated experiment and compare your answer with the TRUE value.
+
+```{r}
+mean(simulation1_standing) - mean(simulation1_sitting)
+```
+
+> The best estimate of the effect of standing on pulse is 12.3 bpm
+> [3 points] Needs to include a statement of the effect + units.
+
+## What is the Error in your estimate? How does this compare to the TRUE Standard Error of the difference?
+
+> The error was 2.3 bpm. The TRUE SED is 3.2 bpm, so we actually lucked out a bit and got closer to the true value of the treatment effect than a typical experiment would have gotten, on average.
+> [3 points] 2 for number, 1 for comparison.
+
+-----
+
+The following code runs a slight modification to the above experiment. 
+Each iteration of the for-loop, instead of sampling two different people, we sample a single person and measure 
+their pulse both sitting and standing.
+
+> Note: in a real experiment, we'd randomize whether the sitting or standing treatment happend first. 
+Here I've skipped this to make the code simpler
+> Note2: You don't need to be able to create R code like below in this course, but it's good practice trying to read it and try to figure out how it works.
+
+```{r}
+set.seed(1)
+simulation2 = c()
+for(i in 1:20) {
+    baseline_i_pulse = rnorm(n=1,mean=80,sd = 10)   # baseline pulse of this person
+    standing_i_effect = rnorm(n=1,mean=10,sd = 2)   # effect of standing on the pulse for this person
+    sitting_pulse_i = round(baseline_i_pulse + rnorm(1,0,1))  # measured pulse when sitting
+    standing_pulse_i = round(baseline_i_pulse + standing_i_effect + rnorm(1,0,1)) # measured pulse when standing
+    treatment_effect_i = standing_pulse_i - sitting_pulse_i  # observed difference between sitting and standing for this person
+    simulation2 = rbind(simulation2,data.frame(Person = i, Sitting = sitting_pulse_i, Standing = standing_pulse_i, Effect = treatment_effect_i))  # collect the results
+}
+simulation2
+```
+## Estimate the effect of standing on pulse in this second simulated experiment and compare your answer with the TRUE value.
+```{r}
+# Option 1
+mean(simulation2$Effect)
+# Option 2:
+mean(simulation2$Standing) - mean(simulation2$Sitting)
+# Option 3: 
+mean(simulation2$Standing - simulation2$Sitting)
+```
+
+> The best estimate of the treatment effect here was 9.6 bpm. The error here was only 0.4 bpm.
+
+> Note: Options 1 and 3 are really the same; They both rely on the average difference between the two measures per persion. Option 2 works here, but wouldn't if the experimental design were any more complicated as we'll see later in the quarter.
+> [3 points] -1 for no units
+
+## Speculate on why the effect estimate in the second experiment was more accurate
+Cover these areas:
+a) Was more data collected in the second experiment?
+b) Was the variance of the sitting pulses smaller? The variance of the standing pulses?
+c) Was the second experiment more controlled?
+d) Are the two experiments designed to measure the same thing?
+
+> The second experiment is expected to have much lower error. This is because we are controlling for the baseline variation in pulse rates among people; this baseline variation cancels out in the subtraction of standing - sitting FOR EACH PERSON. The baseline variation had a variance of 100 bpm^2, while the variation in treatment effects among people had a variance of 4 bpm^2, and the measurment errors had a variance of only 1 bpm^2 for each measurement, so the baseline variation was the dominant source of uncertainty in the experiment.
+> a) No, the same amount of data were collected. In fact, we used only 1/2 as many subjects because we measured each 2x.
+> b) The variances within the sitting groups were similar, though the variation in the standing group from experiment 1 was a fair amount larger (see code below) - this is just the luck of the draw here and wouldn't be the case in general.
+> c) Yes, the cross-over design is much more controlled in this case because we're controlling for variation in pulse baseline
+> d) Yes or no, though it's a bit subtle. Experiment 1 tests the difference in mean pulse between people standing and sitting. Experiment 2 tests the average difference in pulse between a person standing and that same person sitting. The second sounds much more like what we actually want to study (the effect of standing for a particular person). However this exercise is designed to show you that we get to this same value through experiment 1 as well, though a bit less efficiently.
+
+```{r}
+print('Sitting')
+c(`1` = var(simulation1_sitting), `2` = var(simulation2$Sitting))
+print('Standing')
+c(`1` = var(simulation1_standing), `2` = var(simulation2$Standing))
+```
+
+> [4 points, 1 per sub-question] The answers do not need to be correct here, I'm looking for you to have thought about each answer.
+-----
+
+In general, we only run an experiment once, or maybe a couple times. But on the computer we can run experiments hundreds of times and compare the results. Repeating experiments over and over is the conceptual idea behind "Standard Errors", Confidence intervals and p-values which we use to report what could happen in a replicate experiment. We use statistics to substitute for the effort of actually repeating experiments many times. But on the computer we can just do the replication directly!
+
+The following code repeats the two experiments 100 times each, and collects the answers from each replicate.
+Each iteration is a completely new experiment with new experimental units and new measurement errors.
+
+```{r}
+set.seed(1)
+# repeat experiment-type1 100 times
+type_1_results = c()
+for(j in 1:100) {  # Each iteration of this for-loop we run both the Type1 and Type2 experiments
+    simulation1_sitting = c()
+    simulation1_standing = c()
+    for(i in 1:20) {
+        # measure person sitting
+        baseline_i_sitting = rnorm(n = 1,mean = 80,sd = 10)  # true pulse
+        person_sitting_i = round(baseline_i_sitting + rnorm(n=1,mean = 0,sd = 1)) # measured_pulse - rounded to the 1 bpm
+        simulation1_sitting[i] = person_sitting_i
+        # measure person standing
+        baseline_i_standing = rnorm(n = 1,mean = 90,sd = 10) # true pulse
+        person_standing_i = round(baseline_i_standing + rnorm(n=1,mean = 0,sd = 1)) # measured_pulse
+        simulation1_standing[i] = person_standing_i
+    }
+    type_1_results[j] = mean(simulation1_standing) - mean(simulation1_sitting)
+}
+# repeat experiment-type2 100 times
+type_2_results = c()
+for(j in 1:100) {
+    simulation2 = c()
+    for(i in 1:20) {
+        baseline_i_pulse = rnorm(n=1,mean=80,sd = 10)
+        standing_i_effect = rnorm(n=1,mean=10,sd = 2)
+        sitting_pulse_i = round(baseline_i_pulse + rnorm(1,0,1))
+        standing_pulse_i = round(baseline_i_pulse + standing_i_effect + rnorm(1,0,1))
+        treatment_effect_i = standing_pulse_i - sitting_pulse_i
+        simulation2 = rbind(simulation2,data.frame(Person = i, Sitting = sitting_pulse_i, Standing = standing_pulse_i, Effect = treatment_effect_i))
+    }
+    type_2_results[j] = mean(simulation2$Effect)
+}
+boxplot(list(Type1 = type_1_results,Type2 = type_2_results))
+```
+
+## Calculate the standard deviation of the effect estimates for the Type1 and Type2 experiment
+Compare these values to the TRUE Standard Error of a difference for the first experiment.
+For an extra point, also calculate the TRUE Standard Error for the Type2 experiment.
+
+```{r}
+sd(type_1_results)
+sd(type_2_results)
+```
+
+> The SD from the Type1 experiments was 2.8bpm. The TRUE value is 3.2, so a bit greater than this simulation.
+> The SD from the Type2 experiments was only 0.5 bpm, so replicate experiments would be much more similar in results with this design. 
+> The TRUE value here is sqrt(1/20 + 5/20) is 0.55 bpm. This is a bit tricky. The baseline variance does not contribute to the SED. We'll discuss this more later in the quarter. Following the code above, the remaining variance (ie measurement error) for the sitting group is 1bpm^2. For the standing group, we also have measurement error (1bpm^2), but also variance in the treatment effect (4 bpm^2), so a total of 5 bpm^2
+
+> [1 points for sd's, 1 for comparison + 1 bonus]
+
+
+---

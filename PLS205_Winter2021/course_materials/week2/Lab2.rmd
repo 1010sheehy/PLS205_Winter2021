@@ -115,7 +115,7 @@ The general functions for reading data into R are `read.csv`, `read.table` and `
 The output, or **return value** of these functions is an R object called a `data.frame`. Look at the help page. `data.frame`s are tables with columns that correspond to the columns in your `csv` file. 
 
 ```{r}
-barley_data_tall = read.csv('Barley_data_tall.csv')  
+barley_data_tall <- read.csv('~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/data/Barley_data_tall.csv')  
 ```
 
 Once the data is loaded, you must check to see that it has loaded correctly.
@@ -218,6 +218,7 @@ Where `data_table` is a `data.frame` in the **tall** format (one row per observa
 with columns for `y` (the dependent or response variable), and for **terms** in the model. 
 `model` is a set of codes describing the statistical model you're using.
 
+^^ `y~model` means `y` (the response/dependent variable) `~` (is dependent/regresses on) `model` (the model terms/independent variables/block treatments)
 
 A `model` is a way to explain the variation in the data: `data$Extract` given the provided information about each observation. 
 Here, that *information* is the Variety of each plant: `data$Variety`. A model has two components:
@@ -265,7 +266,7 @@ plot(model_1,which = c(2,5)) # there are several diagnostic plots that R can mak
 ```
 The first plot is a Normal Q-Q plot used to assess normality. The residuals lie very well on the one-to-one line, suggesting no problems there.
 
-The second plot shows the residuals for each of the Varieties, and can be used to see if the variances of the groups are diffent from each other. Var 2 may be slightly more variable than Var 1, so we might want to keep this in mind when we make confidence intervals. But overall, the data look consistent with our assumptions
+The second plot shows the residuals for each of the Varieties, and can be used to see if the variances of the groups are different from each other. Var 2 may be slightly more variable than Var 1, so we might want to keep this in mind when we make confidence intervals. But overall, the data look consistent with our assumptions
 
 ## Extracting estimates and confidence intervals
 Now that we have fit a model, we want to use it to produce estimates of treatment means, effects, and confidence intervals.
@@ -306,10 +307,10 @@ To run a power analysis for a two-treatment experiment, you need to know:
 
 1. The within-group variation
 2. The alpha-level of your test (your false-positive threshold)
-3. The minimum effect size that you would deem intersting.
+3. The minimum effect size that you would deem interesting.
 
-(2) and (3) are numbers that you as a researcher can deside. But (1) is a problem because
-we don't know this beforehand. We could run a trial experiment to assess this, but we this estimate
+(2) and (3) are numbers that you as a researcher can decide. But (1) is a problem because
+we don't know this beforehand. We could run a trial experiment to assess this, but this estimate
 will not be perfect. 
 
 A function to calculate the power of a t-test in R is: `power.t.test`. Look at the help page. The key parameters are:

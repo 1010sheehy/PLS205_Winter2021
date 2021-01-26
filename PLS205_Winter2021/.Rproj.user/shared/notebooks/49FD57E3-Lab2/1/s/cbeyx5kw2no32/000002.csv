@@ -1,0 +1,23 @@
+"0","model_1 <- lm(Malt ~ Variety, data = barley_data_tall)  # fit the model"
+"0","model_1  # git a quick summary of the fit to make sure it worked"
+"1","
+Call:
+"
+"1",""
+"1","lm(formula = Malt ~ Variety, data = barley_data_tall)"
+"1",""
+"1","
+
+"
+"1","Coefficients:
+"
+"1","(Intercept)  "
+"1","VarietyVar2  "
+"1","
+"
+"1","      75.94  "
+"1","       0.85  "
+"1","
+"
+"1","
+"

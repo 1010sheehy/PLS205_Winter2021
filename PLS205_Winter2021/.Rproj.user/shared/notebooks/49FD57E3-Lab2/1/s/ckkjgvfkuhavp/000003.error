@@ -1,1 +1,0 @@
-{"frames":[{"func":"emmeans(model_1, spec = \"Variety\")","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0},{"func":"is(object, \"emmGrid\")","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in is(object, \"emmGrid\") : object 'model_1' not found\n"}

@@ -1,0 +1,4 @@
+"0","n = 10"
+"0","mu = 106"
+"0","sd = 30"
+"0","sample_of_fish = rnorm(n=n, mean = mu, sd = sd)"

@@ -1,0 +1,5 @@
+"0",""
+"0","# add line for expected distribution"
+"0","x_positions = seq(0,300)  # create a list of x-values"
+"0","y_positions = dnorm(x,mean = 106,sd = 30/sqrt(10))  # at each x-value, calculate the distribution at that point"
+"0","lines(x_positions,y_positions)"

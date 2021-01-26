@@ -1,0 +1,1 @@
+"0","barley_data_tall$Malt = as.numeric(as.character(barley_data_tall$Malt))"

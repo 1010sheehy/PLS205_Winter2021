@@ -1,7 +1,0 @@
-"0","```r
-sample_mean = mean(sample_of_fish)
-sample_mean
-
-sample_sd = sd(sample_of_fish)
-sample_sd
-```"

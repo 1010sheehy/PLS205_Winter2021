@@ -1,0 +1,5 @@
+"0","```r
+SE = sample_sd / sqrt(n)
+```"
+"1","Error: object 'sample_sd' not found
+"

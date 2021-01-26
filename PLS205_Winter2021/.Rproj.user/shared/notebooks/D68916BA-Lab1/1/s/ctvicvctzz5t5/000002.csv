@@ -1,6 +1,0 @@
-"0","```r
-n = 10
-mu = 106
-sd = 30
-sample_of_fish = rnorm(n=n, mean = mu, sd = sd)
-```"
