@@ -1,0 +1,220 @@
+---
+title: "HW4"
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+When you are done:
+
+1. Select 'Run All' from the 'Run' dropdown menue.
+2. Save (File -> Save)
+3. Click 'Preview' to bring up the `HW4.nb.html` file. Check through this to make sure it rendered correctly.
+4. Upload the `HW4.nb.html` to Canvas.
+
+
+Necessary libraries
+```{r echo = F}
+library(ggplot2)
+library(emmeans)
+library(lme4)
+library(lmerTest)
+library(car)
+```
+
+## Question 1
+
+To study the effect of burial time on germination and dormancy of *Hordeum murinum ssp. leporinum* (Hare Barley), 
+overwintering seeds were placed in bags in a field, and then removed and tested at six time intervals (0, 30, 60, 90, 180, and 360 days after burial). The design was a completely randomized design, with 5 replicate bags per burial time.
+Each bag contained 200 seeds. At the designed time, each bag was opened, and then the seeds were split evenly between two 
+germination trays, and the number of germinating seeds was measured in each tray.
+
+
+```{r echo = FALSE}
+# Ensure the data file is in the same directory as this document
+germinant_data = read.csv('~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/data/Germination.csv')
+str(germinant_data)
+```
+
+## 1 Describe the design of this experiment in detail.
+
+**Design**: Completely randomized design
+
+| Structure | Variable   | Type        | # levels | Experimental Unit |
+|-----------|------------|-------------|----------|-------------------|
+| Treatment | Days       | Categorical | 6        | Bag               |
+| Design    | Bag        | Categorical | 30       |                   |
+|           | Tray       | Categorical | 60       |                   |
+| Response  | Germinants | Numeric     | 60       |                   |
+
+> ENTER YOUR RESPONSE HERE
+
+# For the first set of analyses, treat **Days** as a factor
+```{r}
+germinant_data$DaysFactor = as.factor(germinant_data$Days)
+str(germinant_data)
+```
+
+## 2 Use a boxplot to visualize the dose-response curve (ie the number of Germinants observed each Day).
+Does there appear to be an effect of age (Date) on number of germinating seeds?
+
+> **Note** For visualization, refer back to the visualization techniques in Lab3 when there were subsamples.
+> You should be able to use the same code, just be sure to change all the variable names to match the new dataset
+> Be sure to make a new variable called something like `DaysFactor`
+
+```{r}
+# grouping subsamples
+germinant_means = aggregate(Germinants ~ Bag + DaysFactor , data = germinant_data, FUN = mean)
+
+
+#inspecting the germination data
+library(ggplot2)
+ggplot(germinant_means,aes(x=DaysFactor)) + 
+    geom_boxplot(aes(y=Germinants,group = DaysFactor),position = position_identity()) + 
+    ggtitle('Seed Aging') + expand_limits(y=0)
+
+
+```
+
+> There does appear to be a response to the number of days seeds were left in bags, with more days in bags leading to less germination.
+
+## 3 Assess whether the linear model assumptions are satisfied by the data.
+Treat **Days** as a factor. Use diagnostic plots.
+
+> **Note** Here again, refer to Lab 3 for appropriate diagnostic plots. 
+> Again, the same code should work as long as you are careful to change all variable names
+
+```{r}
+# germination model
+germ_model <- lmer(Germinants ~ DaysFactor + (1|Bag), data = germinant_data)
+
+# diagnostic plots
+par(mfrow=c(1,2))
+plot(factor_model,which=c(2,5))
+```
+
+> The data fits the Normal Q-Q plot reasonably well, but the residuals at higher and lower quantiles begin to deviate from the line slightly.
+> The data appears to have a good spread in the Residuals vs. Factors plot. The slope of the line is relatively flat, and the residuals are evenly spread throughout.
+
+## 4 Test (provide p-values as evidence) if any of extended germination times change germination rate relative to zero days
+
+> **Note** Refer to Lab3 for correct usage of `emmeans()` with `lmer()` models.
+
+```{r}
+# examine levels of Days to find control
+levels(germinant_data$DaysFactor)
+
+# comparing treatments to the control (Zero days)
+library(emmeans)
+germ_emmeans <- emmeans(germ_model, trt.vs.ctrl ~ DaysFactor, ref = 1)
+summary(germ_emmeans,level = 0.95, infer= c(T,T))$contrast
+```
+
+> The 95% confidence intervals do not cross zero for all treatments EXCEPT 30 days. The p-values are especially small for the 90-, 180-, and 360-day treatments.
+
+## 5 Use an ANOVA to assess the evidence for any effect of time germination rate
+Is there strong evidence for a difference in germination rate by seed age?
+
+> **Note**. The ANOVA table produced by the `lmer()` function looks a bit different from that of the `lm()` function.
+> But all the same information is there, and it should be clear how to interpret
+> You should add the argument `ddf = 'Kenward-Roger'` whenever you do `anova()` with a `lmer()` model
+
+```{r}
+# conducting ANOVA
+anova(germ_model, ddf = 'Kenward-Roger')
+
+# ANOVA using the wrong model (not declaring EU's)
+germ_model_wrong <- lm(Germinants ~ DaysFactor + Bag, data = germinant_data)
+anova(germ_model_wrong)
+```
+
+> The F-value (37.678) is large and the p-value (1.332e-10) is small, so there is evidence that some of the treatments differ.
+
+## 6 Explain the following features of the ANOVA table
+
+1. The Df of the treatment and Experimental Units
+2. The ANOVA table doesn't report the MSE, but you can calculate it. Is it the correct number?
+     - Hint: try fitting the model incorrectly by forgetting to declare the experimental units. Look at an ANOVA of this model. 
+     Can you figure out what the MSE is that's reported by the "correct" ANOVA table? Why is this the wrong MSE? 
+     Note: the F-value and p-value of the ANOVA table from the correctly specific model is correct, but the MST and MSE have a different meaning. This is unfortunate, but we'll have to live with it!
+
+
+> 1. The degrees of freedom (5) is because the experimental units are 6 (6 day-length treatments) and df = EU - 1.
+> 2. The MSE = SSE/DfE = s^2 = SSE (see r code below) <-- DO NOT UNDERSTAND...
+
+```{r}
+# MSE using germ_model
+germ_model_MSE = 4439.8 / 5
+germ_model_MSE
+
+# MSE using germ_model_wrong
+germ_wrong_MSE = 25023.1 / 5
+germ_wrong_MSE
+
+```
+
+
+
+
+# Question 2
+
+A researcher conducted a study comparing the effect of different ground covers on nitrous oxide fluxes from apple orchard soils. She randomly assigned the inter-row spaces of an orchard block to one of four treatments: 1) no cover (Bare); 2) fescue (Grass); 3) white clover (Legume); and, 4) fescue-clover mix (Mix). Each treatment level was replicated in 6 plots. After rain events, emissions were collected from each plot, analyzed, and the emitted nitrous oxide was calculated in g N~2~O ha^-1^ d^-1^. Average emissions for each plot are reported below.
+
+| Rep |  Bare | Grass | Legume |  Mix  |
+|:---:|:-----:|:-----:|:------:|:-----:|
+|  1  | 44.79 | 21.59 |  20.08 | 21.48 |
+|  2  | 53.71 | 21.58 |  16.76 | 24.46 |
+|  3  | 68.69 | 25.73 |  15.15 | 25.47 |
+|  4  | 70.46 | 32.08 |  17.72 | 27.02 |
+|  5  | 88.11 | 27.60 |  15.13 | 18.52 |
+|  6  | 95.53 | 22.11 |  19.98 | 21.54 |
+
+```{r echo=FALSE}
+NO_data = read.csv('~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/data/NO_data.csv')
+str(NO_data)
+```
+
+## 3 Describe the design of this experiment in detail.
+
+**Design**: Completely randomized design
+
+| Structure | Variable   | Type        | # levels | Experimental Unit |
+|-----------|------------|-------------|----------|-------------------|
+| Treatment | Cover      | Factor      | 4        | Plot              |
+| Design    | Plot       | Factor      | 6        |                   |
+| Design    | Rep        | Factor      | 6        |                   |
+| Response  | Flux       | Numeric     | 144      |                   |
+
+## 4 Test the necessary assumptions of ANOVA. Report on the results.
+
+```{r}
+par(mfrow=c(1,2))
+```
+
+> ENTER YOUR RESPONSE HERE
+
+## 5 Perform an appropriate transformation of the data. Re-check the assumptions of ANOVA, and report the results.
+
+```{r}
+par(mfrow=c(1,2))
+```
+
+> ENTER YOUR RESPONSE HERE
+
+## 6 Provide estimates of effects of the various ground covers relative to Bare ground on both the original and transformed data ($\alpha = 0.05$). 
+Describe and compare the results of both models. Be sure to provide units for the effect sizes on both scales.
+
+```{r}
+```
+
+> ENTER YOUR RESPONSE HERE
+
+## 7 Provide estimates and confidence intervals for the means of the 4 treatments by de-transforming.
+**Are the means greater or less than the means estimated on the un-transformed scale?**
+
+```{r}
+```
+
+> ENTER YOUR RESPONSE HERE

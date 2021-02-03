@@ -1,0 +1,14 @@
+"0","```r
+clover_means_mod <- lm(NLevel ~ Strain, data = clover_means)
+clover_means_mod
+```"
+"1","
+Call:
+lm(formula = NLevel ~ Strain, data = clover_means)
+
+Coefficients:
+ (Intercept)  Strain3DOk13   Strain3DOk4   Strain3DOk5   Strain3DOk7  
+      28.865       -15.770       -14.335        -4.425        -8.600  
+  StrainComp  
+     -10.205  
+"

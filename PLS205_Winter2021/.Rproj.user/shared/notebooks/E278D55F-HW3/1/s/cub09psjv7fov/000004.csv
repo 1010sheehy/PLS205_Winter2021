@@ -1,0 +1,4 @@
+"0","```r
+plot(clover_means_mod,which = c(2,3))
+
+```"

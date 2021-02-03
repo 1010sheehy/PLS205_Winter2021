@@ -1,0 +1,4 @@
+"0","differences_vs_control = emmeans(clover.mod,trt.vs.ctrl~Culture,ref = 6)  # ref = 6, because the control is the 6th Culture"
+"2","Error in emmeans(clover.mod, trt.vs.ctrl ~ Culture, ref = 6) : 
+  No variable named Culture in the reference grid
+"

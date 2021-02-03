@@ -1,0 +1,2 @@
+"0","library(ggplot2)"
+"0","ggplot(clover.dat,aes(x=Strain,y=NLevel)) + geom_boxplot() + geom_jitter()"

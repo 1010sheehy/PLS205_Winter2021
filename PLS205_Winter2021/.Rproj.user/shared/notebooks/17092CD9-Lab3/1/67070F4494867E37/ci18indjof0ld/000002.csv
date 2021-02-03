@@ -1,0 +1,2 @@
+"0","op = par(mfrow=c(1,2))"
+"0","plot(clover.mod,which = c(2,3))"

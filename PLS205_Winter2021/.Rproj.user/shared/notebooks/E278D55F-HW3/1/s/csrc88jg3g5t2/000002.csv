@@ -1,0 +1,9 @@
+"0","```r
+# cough model
+cough_model <- lm(Coughs ~ Drug + Person, data = cough_data)
+cough_model
+#diagnostic plots for cough_data
+par(mfrow=c(1,2))
+plot(cough_model,which = c(2,3))
+
+```"

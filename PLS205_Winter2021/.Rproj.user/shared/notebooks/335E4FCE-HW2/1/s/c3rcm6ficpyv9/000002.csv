@@ -1,0 +1,7 @@
+"0","library(ggplot2)"
+"0",""
+"0","# box and whisker plots"
+"0","ggplot(data_1,"
+"0","       aes(x = Variety,"
+"0","           y = Root_length)) +"
+"0","  geom_boxplot() + geom_jitter(width = .2)"

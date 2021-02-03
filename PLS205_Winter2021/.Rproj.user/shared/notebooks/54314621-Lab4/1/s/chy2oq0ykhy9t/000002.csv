@@ -1,0 +1,6 @@
+"0","# convert from germination counts to fraction (0-1)"
+"0","data1$Fraction_germination = data1$Germinated_seeds/50"
+"0",""
+"0","# apply angular transformation"
+"0","data1$logit_Y = logit(data1$Fraction_germination)  # see optional parameter adjusts = to change how the function deals with values close to 0 or 1."
+"2","proportions remapped to (0.025, 0.975)"

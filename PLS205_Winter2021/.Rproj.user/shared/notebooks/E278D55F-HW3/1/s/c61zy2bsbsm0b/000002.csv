@@ -1,0 +1,21 @@
+"0","```r
+# contrast table
+cough_pairwise_diff = contrast(cough_emmeans,
+                               method = 'pairwise')
+summary(cough_pairwise_diff,level = 0.95,infer = c(T,F))
+
+# SE pulled from contrast table generated above
+SED <- 5.94
+
+# finding t_c from the Tukey distribution
+c_q = qtukey(p = 0.05,nmeans = 5,df = 20,lower.tail = F) / sqrt(2)
+c_q
+
+# minimum sig diff
+MSD = c_q * SED
+MSD
+
+# grouping
+cld(cough_emmeans,level = 0.95,Letters = letters)
+
+```"

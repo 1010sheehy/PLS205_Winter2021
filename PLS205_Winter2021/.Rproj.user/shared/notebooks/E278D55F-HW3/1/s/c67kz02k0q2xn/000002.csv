@@ -1,0 +1,15 @@
+"0","```r
+summary(clover_means_vs_control,level = 0.95,infer = c(T,T))
+
+```"
+"1"," contrast      estimate   SE df lower.CL upper.CL t.ratio p.value
+ 3DOk1 - Comp     10.21 2.19 24     4.25   16.155  4.653  0.0005 
+ 3DOk13 - Comp    -5.57 2.19 24   -11.52    0.385 -2.537  0.0726 
+ 3DOk4 - Comp     -4.13 2.19 24   -10.08    1.820 -1.883  0.2488 
+ 3DOk5 - Comp      5.78 2.19 24    -0.17   11.730  2.635  0.0591 
+ 3DOk7 - Comp      1.60 2.19 24    -4.35    7.555  0.732  0.8740 
+
+Confidence level used: 0.95 
+Conf-level adjustment: dunnettx method for 5 estimates 
+P value adjustment: dunnettx method for 5 tests 
+"

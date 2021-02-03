@@ -1,0 +1,25 @@
+"0","```r
+library(ggplot2)
+
+# box and whisker plots
+ggplot(data_1,
+       aes(x = Variety,
+           y = Root_length)) +
+  geom_boxplot() + geom_jitter(width = .2)
+
+data_1_lm1_factor <- lm(data_1$Root_length ~ as.factor(data_1$Variety), data = data_1)
+data_1_lm1_factor
+```"
+"1","
+Call:
+lm(formula = data_1$Root_length ~ as.factor(data_1$Variety), 
+    data = data_1)
+
+Coefficients:
+               (Intercept)  as.factor(data_1$Variety)B  
+                    19.119                      -3.469  
+"
+"0","```r
+# model fit
+par(mfrow = c(1, 2))
+```"

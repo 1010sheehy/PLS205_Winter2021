@@ -1,0 +1,10 @@
+"0","```r
+# Comparing 4 new drugs to the old standard
+cough_emmeans <- emmeans(cough_model, specs = 'Drug')
+summary(cough_emmeans, level = 0.95, infer = c(T,F))
+
+cough_vs_oldstd = contrast(cough_emmeans,
+                                   method = 'trt.vs.ctrl',
+                                   ref = \"E_Old_Standard\")
+summary(cough_vs_oldstd,level = 0.95,infer = c(T,T))
+```"

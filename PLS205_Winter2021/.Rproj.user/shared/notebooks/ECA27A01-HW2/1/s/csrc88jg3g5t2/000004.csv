@@ -1,0 +1,4 @@
+"0","```r
+plot(data_1_lm1_factor, which = c(2, 5))
+
+```"

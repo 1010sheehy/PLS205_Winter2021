@@ -1,0 +1,372 @@
+---
+title: "Model assumptions and Data transformations"
+author: Daniel Runcie. Modified from labs designed by Iago Hale, Dario Cantu and Jorge
+  Dubcovsky
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+---
+```{r echo = F,message=FALSE, warning=FALSE}
+# Necessary pacakges
+library(ggplot2)
+library(car)
+library(emmeans)
+library(multcomp)
+```
+
+# Analysis of data from multiple treatments
+This lab will use the dataset presented in lecture:
+
+An experiment was run to evaluate effects of increased nitrogen fertilization on tuber yield of Alpine Russet potatoes
+
+- 5 nitrogen regimes: 0, 90, 150, 210, 270 lbs / acre at emergence
+- 10 reps / treatment combination
+- Response: total yield
+  
+  
+## Load data and inspect
+```{r}
+alpine_potato = read.csv('~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/data/Alpine_Russet_yield.csv')
+str(alpine_potato)
+```
+
+## Design table
+
+**Design**: Completely Randomized Design (CRD)
+
+| Structure | Variable | Type        | # levels | Experimental Unit |
+|-----------|----------|-------------|----------|-------------------|
+| Treatment | Nitrogen | Categorical | 5        | Plot              |
+| Design    | Plot     | Categorical | 50       |                   |
+| Response  | Yield    | Numeric     | 50       |                   |
+
+We have two choices for the **Type** column for Nitrogen - Numeric or Categorical. R will choose
+Numeric by default, but the correct choice depends on your analysis goals.
+
+We will start with analyzing the data with Nitrogen as a Categorical variable. To do this, we
+will create a new variable called **NitrogenFactor**. It will contain the same information,
+but will lead to a different analysis.
+```{r}
+alpine_potato$NitrogenFactor = as.factor(alpine_potato$Nitrogen)
+str(alpine_potato)
+```
+
+
+### Plot the data
+Since we don't have subsamples, plotting the data is similar to plotting for Lab 2. 
+We don't have to worry about estimating the experimental units like we did in Lab 3.
+```{r}
+library(ggplot2)
+ggplot(alpine_potato,aes(x=Nitrogen)) + 
+    geom_boxplot(aes(y=Yield,group = Nitrogen),color = 'blue',position = position_identity()) + 
+  # note: when x is a continuous variable, we must use 'group' to get boxes
+    ggtitle('Alpine Russet') + expand_limits(y=0) 
+```
+
+
+## Analysis as Factors
+By now, you should be comfortable analyzing this the data from this experiment. You should be able to:
+
+1. Write a model for the data, treating `Nitrogen` as a Categorical variable (ie a **Factor**) 
+2. Run diagnostic tests
+3. Form confidence intervals for comparisons among all pairs of treatments, or each treatment vs the control
+
+Before continuing, ensure you can answer these questions:
+
+> Are linear model assumptions satisfied for these data?
+> Can you identify any pairs of treatments that differ. Which test will you use?
+
+The code below will perform these analyses:
+
+### Fit Factor model
+```{r}
+factor_model <- lm(Yield ~ NitrogenFactor, alpine_potato)
+```
+
+### Run diagnostics
+```{r}
+par(mfrow=c(1,2))
+plot(factor_model,which=c(2,5))
+```
+
+### Form confidence intervals on differences
+```{r}
+library(emmeans)
+factor_means <- emmeans(factor_model,'NitrogenFactor')
+factor_differences <- contrast(factor_means,'pairwise')
+summary(factor_differences,level = 0.9, infer=T)
+```
+
+> Questions:
+> 
+> Can you say if any of the +N treatments increased yield relative to N=0? Which? Is this the correct test for this question?
+>  Dunnett vs. Tukey (we just did tukey above)
+> Tukey - there are a lot more comparisons, so the confidence intervals are going to be larger and we have to adjust our p-values more (vs. the Dunnett)
+> Dunnett - focuses on just a certain subset of the treatments
+
+
+> Can you distinguish any of the +N treatments? Which?
+
+For the first question, this could be the correct test if you also were interested in the 2nd. 
+But if your interest was actually only in comparisons to the control, you would have more power if you use the 'trt.vs.ctrl' (Dunnett) test.
+
+
+### Run an ANOVA
+In class, we discussed the difference between the Tukey method and ANOVA.
+
+Tukey allows you to test all pairs of treatments to identify which are different. Here, this involves 10 questions.
+
+ANOVA allows you to ask the single question: Are any treatments different?
+
+You can run an ANOVA like this:
+```{r}
+anova(factor_model)
+```
+
+From this output, check the following:
+
+> Why is Df for Nitrogen equal to 4?
+> # treaments - 1 = 5 - 1 = 4
+> Is MST = SST/DfT? Is MSE = SSE/DfE? Is F = MST/MSE?
+> 
+> Is there evidence that any of the treatments are different?
+> Yes
+> Can you identify which treatments differ?
+> No, only that some of them are different
+
+From the Tukey output, we see that there is strong evidence that at least a few pairs of treatments
+differ. The p-values are truncated in the output, but we can extract the smallest p-value like this:
+```{r}
+all_contrasts_data <- as.data.frame(factor_differences)
+min(all_contrasts_data$p.value)
+```
+> Notice that this is very similar to the p-value of the ANOVA. Why is this?
+> The tukey method and the anova are both answering similar Q's, but they are slightly different.
+
+
+### Factors vs Numeric for Nitrogen
+Say we forgot to check that the column in our table for treatment ("Nitrogen") was treated as a factor instead of a number. How would the analysis go wrong, and how could we check?
+
+> Fit this model and look at the ANOVA. How does it differ from the anova for `factor_model` above?
+> How can we use the Design Table to check that R is interpreting our data correctly?
+
+```{r}
+numeric_model = lm(Yield~Nitrogen, alpine_potato)
+anova(numeric_model)
+```
+
+
+-------------------------------------------------------------------------------------
+
+## Data transforms
+
+We covered the **log**, **logit**, **inverse**, **sqrt** and **power** transforms in lecture. 
+Follow the R code from lecture 10 to see each of these in action.
+In lab, you'll go through an analysis of the logit transformation in detail. Some notes about each transform:
+
+### log transform:
+
+1. You must choose a base ($e$, 2, $10$, etc). Functions are `log`, `log2`, `log10`, `log(x,base=2)`, etc.
+     - This affects the interpretation of effect sizes, but not the tests
+2. Zeros and negative values are not allowed in your data:
+```{r}
+log10(0)
+log2(3)
+log(-3)
+```
+    - If you have zeros, an option is to add a constant to every value. If your values are all reasonably large, adding 1 is OK. If you have values smaller than 1, then `min(y[y>0])/2` is better
+3. If you choose to de-transform effects, these are multiplicative differences ($\mu_A / \mu$B$). De-transformed means and confidence intervals are **geometric means**
+
+
+### logit Transform
+
+1. The logit transform converts probabilities into log_e (odds). 
+2. Treatment effects on the logit scale are interpreted as changes in log-ratios of odds. 
+3. Data must be converted to the range (0,1). If you data are percentages (20%, 100%), divide by 100. If you data are counts, divide by the total (1/50, 15/50, etc).
+4. Ideally, the denominator in your data should be the same (or similar) for each datapoint.
+5. If the data are between ~0.3 and 0.7, this transform is usually not needed.
+6. Data exactly equal to 0 or 1 will fail the logit transform. The `logit` function squeezes these values into the default range:
+
+```{r}
+library(car)
+p = 0.2
+logit(p)
+log(p/(1-p))  # these are the same
+
+p = 0
+logit(p)
+log(p/(1-p))
+log(0.025/(1-0.025))  # this is what logit(0) returns
+```
+
+### Sqrt 
+
+1. Negative values are not allowed:
+```{r}
+sqrt(0)
+sqrt(-1)
+```
+2. Detransformed means have no clear meaning besides squared means of square-root values
+
+### Power Transformation
+
+1. This selects a value $\lambda$ that makes the among-group variances the most homogeneous.
+2. The transform itself is $$\frac{y^\lambda-1}{\lambda}$$
+3. The function `powerTransform` of the `car` package can be used to select $\lambda$, and the function `bcnPower` can be used to apply it to your data.
+4. See lecture handout for application.
+
+### Example 1: 
+
+The data are the number of lettuce seads germinating in samples of 50 across 24 treatments with three replicates per treatment.
+
+Load the data, inspect and produce a boxplot for each treatment:
+
+```{r echo = F}
+library(ggplot2)
+data1 = read.csv('~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/data/Perc_ex.csv')
+str(data1)
+```
+```{r}
+data1$Treatment = factor(data1$Treatment)
+ggplot(data1,aes(x=Treatment,y=Germinated_seeds)) + geom_boxplot()
+```
+
+The treatments have been ordered by mean for clarity. 
+Note how the spread in each boxplot is greatest for the treatments with mean germination close to 50%.
+
+We can see that again by calculating the variance of each treatment and plotting that directly:
+
+```{r}
+means = aggregate(Germinated_seeds ~ Treatment,data1,FUN=mean)$Germinated_seeds
+vars = aggregate(Germinated_seeds ~ Treatment,data1,FUN=var)$Germinated_seeds
+ggplot(data.frame(means,vars),aes(x=means,y=vars)) + geom_point() + xlab(expression(bar(y)[i])) + ylab(expression(s^2))
+```
+
+Finally, we can see it clearly in the residuals vs fitted values plot that R makes automatically from a linear model (`lm`) fit:
+
+```{r,fig.width=10}
+par(mfrow=c(1,2)) # set up plotting device for 2 side-by-side plots
+untransformed_model = lm(Germinated_seeds~Treatment,data1)
+plot(untransformed_model,which=c(2,3))  # several other plots are available. See ?plot.lm
+```
+
+> In the Scale-Location plot, note the hump of higher residuals for intermediate fitted values (treatment means). 
+
+> The QQ-plot doesn't look too bad, but there are a few too many large and small residuals than expected.
+
+
+Our knowledge of the data, plus these plots suggest that the **logit** transformation will be appropriate. The transformation function looks like this:
+
+```{r}
+library(car)
+p = seq(0,1,length=100)
+plot(p,logit(p),type='l', xlab = 'Original Scale',lwd=2)
+```
+
+
+You can run the transform like this:
+
+```{r}
+# convert from germination counts to fraction (0-1)
+data1$Fraction_germination = data1$Germinated_seeds/50
+
+# apply angular transformation
+data1$logit_Y = logit(data1$Fraction_germination)  # see optional parameter adjusts = to change how the function deals with values close to 0 or 1.
+```
+
+Now look at the diagnostic plots. Do you see the difference?
+
+```{r, fig.width=10}
+par(mfrow=c(1,2)) # set up plotting device for 2 side-by-side plots
+transformed_model = lm(logit_Y~Treatment,data1)
+plot(transformed_model,which=c(2,3))  # several other plots are available. See ?plot.lm
+```
+
+> The Normal Q-Q plot is a bit worse (there are a couple outliers: ex. pt 5), but is really not bad.
+
+> The Scale-Location plot is much improved
+
+
+Let's compare the results of analyses on un-transformed and transformed data:
+
+
+Use the Tukey procedure with `emmeans` to identify which treatments can be distinguished
+
+First: the raw fraction data:
+```{r}
+untransformed_means = emmeans(untransformed_model,specs = 'Treatment')
+cld(untransformed_means,alpha = 0.1)
+```
+
+> We can distinguish the intermediate treatments from each other, but not those with very high or low germination fractions
+
+Now: the transformed data:
+```{r}
+transformed_means = emmeans(transformed_model,specs = 'Treatment')
+cld(transformed_means,alpha = 0.1)
+```
+
+> There are now more distinguishable groups (9 instead of 6), and we can make distinctions among more of the high germination-fraction groups
+
+## De-transformation
+
+De-transformation functions can be applied both to treatment means and their confidence intervals.
+
+The de-transformation functions for each transformation are:
+
+### log
+```{r}
+y = 10
+# natural log:
+log_y = log(y)
+detransformated_log_y = exp(log_y)
+detransformated_log_y
+# log-base2:
+log2_y = log2(y)
+detransformated_log2_y = 2^log2_y
+detransformated_log2_y
+```
+
+### logit
+```{r}
+y = 0.3
+logit_y = logit(y)
+detransformed_logit_y = exp(logit_y)/(1+exp(logit_y))
+detransformed_logit_y
+```
+
+### sqrt
+```{r}
+y = 10
+sqrt_y = sqrt(y)
+detransformed_sqrt_y = sqrt_y^2
+detransformed_sqrt_y
+```
+
+### power
+The `bcnPowerInverse` function de-transforms data transformed with `bcnPower`. See `?bcnPowerInverse` for details
+
+### Example
+We can de-transform the means and confidence invervals like this:
+```{r}
+detransformed_means_table = as.data.frame(transformed_means)
+detransformed_means_table$emmean = exp(detransformed_means_table$emmean)/(1+exp(detransformed_means_table$emmean))
+detransformed_means_table$lower.CL = exp(detransformed_means_table$lower.CL)/(1+exp(detransformed_means_table$lower.CL))
+detransformed_means_table$upper.CL = exp(detransformed_means_table$upper.CL)/(1+exp(detransformed_means_table$upper.CL))
+detransformed_means_table
+```
+
+> Compare these means to the original means on the un-transformed data. How do they compare? Note these are numbers of "Fraction_germation", and would need to be multiplied by 50 to get #germinated seeds.
+
+### Actually, emmeans can do the de-transformation for you!
+If you do the transformation of the response directly in the model itself,
+Then when you summarize the emmeans table, you can specify `type = 'response'` to have `emmeans` do the de-transformation.
+```{r}
+direct_transformed_model = lm(logit(Fraction_germination)~Treatment,data1)
+direct_transformed_means = emmeans(direct_transformed_model,specs = 'Treatment')
+summary(direct_transformed_means,type='response')
+```
+
+
+

@@ -1,0 +1,6 @@
+"0","all_contrasts_data <- as.data.frame(factor_differences)"
+"0","min(all_contrasts_data$p.value)"
+"1","[1]"
+"1"," 5.627236e-08"
+"1","
+"

@@ -1,0 +1,19 @@
+"0","```r
+steroid_data <- subset(cough_data,Type == 'Steroid')
+Dexamethasone_data <- subset(cough_data,Type == 'Dexamethasone')
+
+# Steroid
+steroid_model <- lm(Coughs ~ Drug + Person, data = steroid_data)
+
+steroid_differences = emmeans(steroid_model, pairwise~Drug)
+
+# Dexamethasone
+dex_model <- lm(Coughs ~ Drug + Person, data = Dexamethasone_data)
+
+dex_differences = emmeans(dex_model, pairwise~Drug)
+
+# summaries
+summary(steroid_differences,level = 0.95,infer = c(T,T))$contrast
+summary(dex_differences,level = 0.95,infer = c(T,T))$contrast
+
+```"

@@ -1,0 +1,10 @@
+"0","```r
+#loading packages
+library(ggplot2)
+
+#inspecting the clover_means data
+ggplot(clover_means,aes(x=Strain,y=NLevel)) + geom_boxplot()
+
+#diagnostic plots for clover_means data
+par(mfrow=c(1,2))
+```"

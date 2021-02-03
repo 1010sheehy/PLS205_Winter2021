@@ -1,0 +1,26 @@
+{
+    "id": "EDC6656E",
+    "path": "~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/assignments/week4/HW4.rmd",
+    "project_path": "assignments/week4/HW4.rmd",
+    "type": "r_markdown",
+    "hash": "3362621648",
+    "contents": "",
+    "dirty": false,
+    "created": 1612220889811.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "chunk_output_type": "inline",
+        "cursorPosition": "184,56",
+        "scrollLine": "53",
+        "docOutlineVisible": "1"
+    },
+    "folds": "53|59|159|0|\n66|6|78|0|\n134|54|159|0|\n",
+    "lastKnownWriteTime": 1612318357,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1612318357492,
+    "read_only": false,
+    "read_only_alternatives": []
+}

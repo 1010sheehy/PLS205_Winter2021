@@ -1,0 +1,21 @@
+"0","```r
+clover <- read.csv('~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/data/Clover_data.csv')
+summary(clover)
+```"
+"1","     Sample        Strain               Plot          NLevel     
+ Min.   :1.00   Length:120         Min.   : 1.0   Min.   : 7.30  
+ 1st Qu.:1.75   Class :character   1st Qu.: 8.0   1st Qu.:15.68  
+ Median :2.50   Mode  :character   Median :15.5   Median :19.45  
+ Mean   :2.50                      Mean   :15.5   Mean   :19.98  
+ 3rd Qu.:3.25                      3rd Qu.:23.0   3rd Qu.:24.45  
+ Max.   :4.00                      Max.   :30.0   Max.   :34.60  
+"
+"0","```r
+clover_means <- aggregate(NLevel ~ Plot + Strain,clover,FUN = mean)
+str(clover_means)
+```"
+"1","'data.frame':	30 obs. of  3 variables:
+ $ Plot  : int  6 8 11 17 25 1 10 21 22 26 ...
+ $ Strain: chr  \"3DOk1\" \"3DOk1\" \"3DOk1\" \"3DOk1\" ...
+ $ NLevel: num  33 19.3 32.9 27 32.1 ...
+"

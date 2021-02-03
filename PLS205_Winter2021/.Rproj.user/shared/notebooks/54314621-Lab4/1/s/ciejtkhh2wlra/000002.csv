@@ -1,0 +1,5 @@
+"0","detransformed_means_table = as.data.frame(transformed_means)"
+"0","detransformed_means_table$emmean = exp(detransformed_means_table$emmean)/(1+exp(detransformed_means_table$emmean))"
+"0","detransformed_means_table$lower.CL = exp(detransformed_means_table$lower.CL)/(1+exp(detransformed_means_table$lower.CL))"
+"0","detransformed_means_table$upper.CL = exp(detransformed_means_table$upper.CL)/(1+exp(detransformed_means_table$upper.CL))"
+"0","detransformed_means_table"
