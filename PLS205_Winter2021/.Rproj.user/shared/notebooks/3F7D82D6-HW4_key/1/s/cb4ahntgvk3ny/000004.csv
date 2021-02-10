@@ -1,0 +1,1 @@
+"0","scatter.smooth(eu_data$fitted,sqrt(abs(eu_data$deviation)),span = 1,main = 'Scale-Location',ylab = expression(sqrt(abs(' deviations '))),xlab = 'Fitted values')"

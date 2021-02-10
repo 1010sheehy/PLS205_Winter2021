@@ -1,0 +1,3 @@
+"0","trend2_means = emmeans(trend2,spec = 'Nitrogen',at=list(Nitrogen = predicted_data$Nitrogen))"
+"0","trend2_means_summary = as.data.frame(summary(trend2_means,infer = c(T,F),level = 0.95))"
+"0","trend2_means_summary"

@@ -28,7 +28,7 @@ Signif. codes:  "
 "1","0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1"
 "1","
 "
-"0","# incorrect ANOVA"
+"0","# ANOVA using the wrong model (not declaring EU's)"
 "0","germ_model_wrong <- lm(Germinants ~ DaysFactor + Bag, data = germinant_data)"
 "0","anova(germ_model_wrong)"
 "1","Analysis of Variance Table

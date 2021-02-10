@@ -1,0 +1,6 @@
+"0","# germination model"
+"0","germ_model <- lmer(Germinants ~ DaysFactor + (1|Bag), data = germinant_data)"
+"0",""
+"0","# diagnostic plots"
+"0","par(mfrow=c(1,2))"
+"0","plot(factor_model,which=c(2,5))"

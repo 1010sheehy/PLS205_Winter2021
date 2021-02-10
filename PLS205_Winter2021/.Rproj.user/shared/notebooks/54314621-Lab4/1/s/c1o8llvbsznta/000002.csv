@@ -1,3 +1,0 @@
-"0","par(mfrow=c(1,2)) # set up plotting device for 2 side-by-side plots"
-"0","transformed_model = lm(logit_Y~Treatment,data1)"
-"0","plot(transformed_model,which=c(2,3))  # several other plots are available. See ?plot.lm"

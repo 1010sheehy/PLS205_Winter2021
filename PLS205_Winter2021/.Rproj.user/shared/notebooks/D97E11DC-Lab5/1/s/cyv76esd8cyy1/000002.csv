@@ -1,0 +1,6 @@
+"0","is_nested = function(outer_term,inner_term,data) {"
+"0","  all(colSums(table(data[[outer_term]],data[[inner_term]]) > 0L) == 1L)"
+"0","}"
+"0","is_aliased = function(term1, term2, data) {"
+"0","  is_nested(term1,term2,data) & is_nested(term2,term1,data)"
+"0","}"

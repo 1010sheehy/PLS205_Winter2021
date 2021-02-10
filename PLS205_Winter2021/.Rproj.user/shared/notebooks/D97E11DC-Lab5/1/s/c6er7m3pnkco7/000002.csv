@@ -1,0 +1,2 @@
+"0","# Create a new data.frame with the set of Nitrogen values we want to plot the trends"
+"0","predicted_data <- data.frame(Nitrogen = seq(0,300,length=100)) "

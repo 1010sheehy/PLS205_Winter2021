@@ -1,0 +1,3 @@
+"0","expression_model = lmer(sp1_expression ~ Temperature + (1|Chamber) + (1|Pot) + (1|Leaf), data = expression_data)"
+"2","boundary (singular) fit: see ?isSingular
+"

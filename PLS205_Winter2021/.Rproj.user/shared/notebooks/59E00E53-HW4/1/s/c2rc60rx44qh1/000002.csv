@@ -1,0 +1,13 @@
+"0","# set up variables as factors"
+"0",""
+"0","plot_asfactor <- as.factor(NO_data$Plot)"
+"0","rep_asfactor <- as.factor(NO_data$Rep)"
+"0","cover_asfactor <- as.factor(NO_data$Cover)"
+"0",""
+"0","# inspect raw data"
+"0","ggplot(NO_data, aes(x=cover_asfactor)) + "
+"0","    geom_boxplot(aes(y=Flux, group = cover_asfactor),position = position_identity()) + "
+"0","    ggtitle('N2O Flux by Cover Crop') + expand_limits(y=0)"
+"2","Error in ggplot(NO_data, aes(x = cover_asfactor)) : 
+  could not find function ""ggplot""
+"

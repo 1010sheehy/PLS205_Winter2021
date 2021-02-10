@@ -1,0 +1,5 @@
+"0","transformed_estimates = as.data.frame(Flux_means_log2)"
+"0","transformed_estimates$De_trans_estimate = 2^(transformed_estimates$emmean)"
+"0","transformed_estimates$De_trans_lower.CL = 2^(transformed_estimates$lower.CL)"
+"0","transformed_estimates$De_trans_upper.CL = 2^(transformed_estimates$upper.CL)"
+"0","transformed_estimates[,c('De_trans_estimate','De_trans_lower.CL','De_trans_upper.CL')]"
