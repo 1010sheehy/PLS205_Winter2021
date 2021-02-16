@@ -1,3 +1,0 @@
-"0","lm_log2 = lm(log2(NO_data$Flux) ~ Cover,NO_data)"
-"0","par(mfrow=c(1,2))"
-"0","plot(lm_log2,which=c(2,3))"

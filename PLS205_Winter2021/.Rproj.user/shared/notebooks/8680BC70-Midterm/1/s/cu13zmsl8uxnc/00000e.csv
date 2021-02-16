@@ -1,0 +1,2 @@
+"0","# checking the model assumptions"
+"0","pls205_diagnostics(eggs_model, EU = 'Pot_f')"

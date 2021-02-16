@@ -1,1 +1,0 @@
-{"frames":[{"func":"plot(clover_model, which = 2:3)","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in plot(clover_model, which = 2:3) : \n  object 'clover_model' not found\n"}

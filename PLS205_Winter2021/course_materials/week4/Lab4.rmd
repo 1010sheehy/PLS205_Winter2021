@@ -122,6 +122,9 @@ ANOVA allows you to ask the single question: Are any treatments different?
 You can run an ANOVA like this:
 ```{r}
 anova(factor_model)
+
+F_value <- 23010.6 / 1659.2
+F_value
 ```
 
 From this output, check the following:

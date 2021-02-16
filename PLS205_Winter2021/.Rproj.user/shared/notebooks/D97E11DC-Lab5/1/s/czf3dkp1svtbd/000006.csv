@@ -1,6 +1,0 @@
-"0","trend1 = lmer(Yield ~ I(Nitrogen) + (1|NitrogenF), data = alpine_potato)"
-"0","trend1_means = emmeans(trend1,spec = 'Nitrogen',at=list(Nitrogen = predicted_data$Nitrogen))"
-"0","trend1_means_summary = as.data.frame(summary(trend1_means,infer = c(T,F),level = 0.95))"
-"0","base_plot + ggtitle(""Degree-1"") + "
-"0","    geom_ribbon(data = trend1_means_summary,aes(ymin = lower.CL,ymax = upper.CL),alpha = 0.2) + "
-"0","    geom_line(data = trend1_means_summary,aes(y = emmean),size=1.5)"

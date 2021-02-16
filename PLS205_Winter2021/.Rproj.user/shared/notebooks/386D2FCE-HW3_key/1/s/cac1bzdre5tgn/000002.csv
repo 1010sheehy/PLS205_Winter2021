@@ -1,5 +1,0 @@
-"0","par(mfrow=c(1,2))"
-"0","plot(clover_model,which=2:3)"
-"2","Error in plot(clover_model, which = 2:3) : 
-  object 'clover_model' not found
-"

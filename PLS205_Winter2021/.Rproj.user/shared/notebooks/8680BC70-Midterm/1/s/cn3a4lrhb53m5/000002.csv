@@ -1,0 +1,7 @@
+"0","# converting Pot and Leaf from numeric to factor"
+"0","eggs_data$Pot_f <- as.factor(eggs_data$Pot)"
+"0","eggs_data$Leaf_f <- as.factor(eggs_data$Leaf)"
+"0",""
+"0","# fitting the model"
+"0","eggs_model <- lmer(eggs ~ (1|Pot_f) + Variety, data = eggs_data)"
+"0",""

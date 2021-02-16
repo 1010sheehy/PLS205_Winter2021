@@ -1,0 +1,1 @@
+"0","clover_model <- lm(NLevel ~ Strain, clover_means)"

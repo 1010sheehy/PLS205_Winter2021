@@ -1,0 +1,2 @@
+"0","library(ggplot2)"
+"0","ggplot(barley_data_tall,aes(x=Variety,y = Malt)) + geom_boxplot() + geom_jitter(width = .2)"

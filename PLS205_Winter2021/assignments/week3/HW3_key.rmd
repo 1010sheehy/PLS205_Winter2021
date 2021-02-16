@@ -41,7 +41,7 @@ In this question, I want you to repeat the analyses presented in Lab3 after firs
 The following code loads the Sample-level data from lab and averages the Samples per Plot:
 
 ```{r}
-clover <- read.csv('Clover_data.csv')
+clover <- read.csv('~/Desktop/R_Projects/PLS205_Winter2021/PLS205_Winter2021/data/Clover_data.csv')
 clover_means <- aggregate(NLevel ~ Plot + Strain,clover,FUN = mean)
 str(clover_means)
 ```

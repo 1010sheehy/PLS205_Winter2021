@@ -4,3 +4,6 @@
 "0","# diagnostic plots"
 "0","par(mfrow=c(1,2))"
 "0","plot(factor_model,which=c(2,5))"
+"2","Error in plot(factor_model, which = c(2, 5)) : 
+  object 'factor_model' not found
+"

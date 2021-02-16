@@ -1,0 +1,1 @@
+{"frames":[{"func":"plot(factor_model, which = c(2, 5))","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in plot(factor_model, which = c(2, 5)) : \n  object 'factor_model' not found\n"}

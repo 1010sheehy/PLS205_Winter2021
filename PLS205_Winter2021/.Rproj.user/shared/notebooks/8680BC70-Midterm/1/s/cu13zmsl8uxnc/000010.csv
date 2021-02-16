@@ -1,0 +1,7 @@
+"0",""
+"0","# trying transformations"
+"0","# log because of the increasing slope in the scale-location plot"
+"0","eggs_data$eggs1 <- eggs_data$eggs + 1"
+"0","eggs_log <- lmer(log(eggs1) ~ Variety + (1|Pot_f), data = eggs_data)"
+"0",""
+"0","pls205_diagnostics(eggs_log, EU = 'Pot_f')"

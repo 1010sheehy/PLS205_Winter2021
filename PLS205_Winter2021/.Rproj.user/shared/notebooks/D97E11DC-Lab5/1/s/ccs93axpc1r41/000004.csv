@@ -1,4 +1,0 @@
-"0","devtools::install_github('deruncie/PLS205_package')"
-"2","Skipping install of 'PLS205' from a github remote, the SHA1 (b5a20ca1) has not changed since last install.
-  Use `force = TRUE` to force installation
-"

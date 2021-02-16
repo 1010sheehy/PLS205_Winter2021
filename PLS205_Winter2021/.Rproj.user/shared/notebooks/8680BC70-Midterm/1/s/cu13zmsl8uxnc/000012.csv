@@ -1,0 +1,5 @@
+"0",""
+"0","# sqrt because we are working with count data"
+"0","eggs_sqrt <- lmer(sqrt(eggs) ~ Variety + (1|Pot_f), data = eggs_data)"
+"0",""
+"0","pls205_diagnostics(eggs_sqrt, EU = 'Pot_f')"

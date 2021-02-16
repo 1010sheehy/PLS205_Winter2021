@@ -1,4 +1,0 @@
-"0","barley_data_tall = read.csv('Barley_data_tall.csv')  "
-"2","cannot open file 'Barley_data_tall.csv': No such file or directory"
-"2","Error in file(file, ""rt"") : cannot open the connection
-"

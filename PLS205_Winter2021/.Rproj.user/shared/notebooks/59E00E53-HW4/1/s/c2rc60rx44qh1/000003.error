@@ -1,1 +1,1 @@
-{"frames":[],"message":"Error in ggplot(NO_data, aes(x = cover_asfactor)) : \n  could not find function \"ggplot\"\n"}
+{"frames":[{"func":"as.factor(NO_data$Plot)","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0},{"func":"is.factor(x)","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in is.factor(x) : object 'NO_data' not found\n"}

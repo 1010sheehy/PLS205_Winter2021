@@ -1,0 +1,373 @@
+---
+title: "Lab 6. Factorial Experiments"
+author: Daniel Runcie. Modified from labs designed by Iago Hale, Dario Cantu and Jorge
+  Dubcovsky
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+---
+
+```{r}
+# if you get an error with pls205_diagnostics, re-install the package here
+# devtools::install_github('deruncie/PLS205_package')
+```
+
+Necessary packages:
+```{r}
+library(ggplot2)
+library(emmeans)
+library(multcomp)
+library(PLS205)
+library(lme4)
+library(lmerTest)
+```
+
+
+This lab will explore techniques for analyzing factorial experiments - experiments with at least two
+classes of treatments that are tested in all combinations. 
+
+We will work from the dataset described in lecture:
+
+An experiment was run to evaluate the yields of two variety of potatoes (Alpine Russet and Russet Burbank). 
+Since it's known that fertilization greatly impacts yield, the experiment was set up as a factorial to compare the varieties 
+with different amounts of Nitrogen fertilization.
+
+- 2 varieties: Alpine Russet (Alpine) and Russet Burbank (Burbank)
+- 5 nitrogen regimes: 0, 90, 150, 210, 270 lbs / acre at emergence
+- 10 reps / treatment combination
+- Response: total yield
+
+## Factorial analysis
+In Factorial experiments, we are interested in how one (or more) Variables alter the effects of other Variables on the system.
+Generally, we have one primary treatment variable of interest, which we call a **focal variable**, 
+and the other treatment variables are called **mediator variables**.
+Sometimes 2 (or more) treatment variables are equally of interest, but it's still helpful to think of them one-at-a-time to construct the factorial analysis.
+We can always repeat the analysis using another variable as the **focal variable**.
+
+Based on the description of the experiment above, it appears the researcher's primary goal is to describe the effect
+of Variety on yield, so we'll start by considering **Variety** as the focal variable and **Nitrogen** as the mediator.
+Later we'll come back and analyze using **Nitrogen** as focal.
+
+In factorial analyses, we are interested in two types of effects:
+
+- **specific effects** (also called `simple effects`): the separate effect of the focal variable at each level of the mediator variable.
+- **interaction effects**: changes in the specific effects between different levels of the mediator variable.
+
+While these two types of effects sound very similar, their difference is important. It could be that Variety has the same effect on yield regardless of the amount of Nitrogen fertilization. In this case, all specific effects would be the same but all interaction effects would be zero (because the specific effects do not change). We would say that Variety does not interact with Nitrogen, and there is no need to test them further in the same experiment.
+  
+## Load data and inspect
+```{r}
+potato_data = read.csv('Potato_yield.csv',stringsAsFactors = TRUE)
+str(potato_data)
+```
+
+### Design Table
+For this lab, we'll treat Nitrogen as a factor. We will not attempt to model trends of Nitrogen for either Variety.
+
+**Design**: Completely Randomized Design
+
+| Structure | Variable          | Type        | # levels | EU   |
+|-----------|-------------------|-------------|----------|------|
+| Treatment | NitrogenF         | Categorical | 5        | Plot |
+|           | Variety           | Categorical | 2        | Plot |
+|           | Variety:NitrogenF | Categorical | 10       | Plot |
+| Design    | Plot              | Categorical | 100      |      |
+| Response  | Yield             | Numeric     | 100      |      |
+
+
+### Checking data
+
+Note that we need to change the **Nitrogen** variable in our data.frame to a categorical variable (ie Factor).
+I'll create a new variable called **NitrogenF** rather than over-writing the `Nitrogen` variable. After
+this change, I went back to the Design table above and corrected the Variable name.
+```{r}
+potato_data$NitrogenF = as.factor(potato_data$Nitrogen)
+str(potato_data)
+```
+
+Our design table listed a new variable **Variety:NitrogenF**. 
+The `A:B` syntax tells R to create a new Variable with all combinations of the levels of `Variety` and `NitrogenF`.
+These combinations let us model how the effect of Variety may change at different levels of Nitrogen.
+This is the most important term in the analysis of factorials.
+
+The number of levels of a combination term in a factorial experiment is the product of the number of levels of each individual Variable,
+based on the rectangular nature of the treatment design:
+
+![](Factorial_design.png)
+
+In our design table, we wrote that there should be 10 levels of this variable. How can we check this in our data?
+
+To check, we can create a new variable, called **Variety_NitrogenF** (the ':' character doesn't work well for variable names) like this:
+```{r}
+potato_data$Variety_NitrogenF = interaction(potato_data$Variety,potato_data$NitrogenF,drop=TRUE)
+# the argument drop=TRUE means that if our experiment is not a full factorial and some combinations of 
+# treatments are missing, we won't create a level for those missing combinations.
+# This makes it easier to count the actual number of levels
+str(potato_data)
+```
+Note that the new variable **Variety_NitrogenF** has 10 levels.
+
+We can also check using this code:
+```{r}
+# this counts the number of unique levels of the variable Var_N in the data
+length(unique(potato_data$Variety_NitrogenF))
+```
+
+
+
+--------------------------------------------------------------------------------------------
+
+## Analysis of a factorial
+
+There are two main types of questions that we might be interested in from a factorial experiment:
+
+- What is the effect of Variety at each level of Nitrogen?
+- How much does the level of Nitrogen **change** the differences between the Varieties?
+
+The first question is a question about **specific effects**. The second is a question about **interactions**.
+
+Our strategy for addressing either question will be very similar, and follow the same rules as in our other analyses so far.
+We will use the following steps in our analysis:
+
+1. Fit a linear model to the data
+2. Assess the linear model assumptions using plots
+3. Perform hypothesis tests or extract estimates of treatment effects
+
+However, there is one slight complication in R. To perform a hypothesis test for the first question about **specific effects**, we'll have to modify our linear model slightly. This modification will not affect the diagnostic plots or the emmeans calls, so you won't have to re-do those. But it is important for getting the correct F-test in an ANOVA .
+
+
+### Linear model for factorial experiments
+
+As specified in our **Design Table**, we have three explanatory variables in our model. We specify
+the model like this:
+
+```{r}
+potato_factorial <- lm(Yield ~ NitrogenF + Variety + Variety:NitrogenF, data = potato_data)
+```
+
+> The symbol ':' tells R to form all combinations of the variables **NitrogenF** and **Variety**,
+> just like we did manually above using the `interaction()` function. We could directly put in our
+> variable **Variety_NitrogenF** into the model instead, and we'd get exactly the same model. However, tools like
+> `emmeans` can parse a model written as above to pull out specific effects, so we will generally
+> form the factor combinations directly in the model statement.
+
+We interpret this model statement as saying we want:
+
+- an effect due to **differences** among the levels of NitrogenF
+- an additional effect due to **differences** between the Varieties
+- an **additional effect** due to specific combinations of NitrogenF and Varieties.
+
+### Checking model assumptions
+
+The normal plots are useful to check model assumptions
+```{r}
+pls205_diagnostics(potato_factorial)
+```
+
+> These plots look very good - no evidence of departures from normality, and little evidence of different variances among groups (ie Variety:Nitrogen combinations) with larger vs smaller average yields. We can see the different groups as 10 vertical bars of dots on the S/L plot. 
+Although the red line is a bit sloped up, the point scatter looks pretty even so I think we're fine.
+
+
+### Specific effects
+
+The main output of an analysis of a factorial experiment should be the estimates and confidence intervals of the specific effects
+of the focal variable at **each level** of the moderator variable. We can extract these using `emmeans`:
+
+In the first step, we calculate the treatment means for each Variety separately for each level of Nitrogen:
+```{r}
+means_by_nitrogen = emmeans(potato_factorial,specs = 'Variety',by = 'NitrogenF')
+means_by_nitrogen
+```
+Using the `by=NitrogenF` syntax, emmeans will group the Variety means separately for each level of Nitrogen. 
+We can then ask for contrasts to calculate the **Variety effects**. We'll use `trt.vs.ctrl` contrasts to compare against the reference: Alpine Russet
+```{r}
+variety_effects = contrast(means_by_nitrogen,method = 'trt.vs.ctrl',ref = 'Alpine')
+summary(variety_effects,infer = c(T,T))
+```
+This table is a bit verbose. We can get a denser display using the `rbind()` function to collect the different facets together:
+```{r}
+variety_effects = rbind(variety_effects)
+summary(variety_effects,infer = c(T,T))
+```
+**Note**: When we did this, the confidence intervals changed! The reason is that when we used the `by='NitrogenF'` argument above, emmeans ran a separate analysis for each level of NitrogenF, but did not correct for multiple tests. It applied the same $\alpha$ to the contrasts within each level of Nitrogen. But if we want to ask the question: "Is Burbank different from Alpine at **any level** of Nitrogen", we need to correct for the 5 tests we do to answer this question (1 for each level of Nitrogen). This happens automatically if we use `rbind()` to group the 5 tests together, using the Bonferroni method as listed in the summary output. We could have gotten the same answer without using rbind by adjusting our $\alpha$ above with `level = 1-0.05/5`.
+
+
+> Would you conclude that Burbank has a different average yield (at any level of Nitrogen) relative to Alpine? What p-value would you use to make this statement?
+
+We can get a nice visualization using the `plot` function. 
+```{r}
+plot(variety_effects,horiz=F)
+```
+
+> Do you see any evidence of an interaction between Nitrogen and Variety? Which levels of NitrogenF seem to give the biggest (smallest) Variety effects?
+
+### Interaction effects
+The specific effects above report the Variety effect at each level of Nitrogen. From this it's pretty clear that Variety has an effect (Burbank appears always higher-yielding than Alpine). But does the magnitude of this effect depend on how much Nitrogen fertilizer you use? This is a question about interactions.
+Specifically, we're interested in whether these 5 specific effects could be the same, or if any differ from each other.
+
+One way of asking this question is by comparing all 5 specific effects in a pairwise fashion. 
+We can calculate the difference between the Variety effects at 0lbs and 90lbs, or between 90lbs and 210lbs using the `contrast()` function, but passing it the **variety effects** (previously we've only passed it an object of treatment means, here we're applying it to treatment **effects** instead, but it works the same!).
+
+```{r}
+interaction_effects = contrast(variety_effects,method = 'pairwise')
+summary(interaction_effects,infer = c(F,T))
+```
+We can scan through this list to see if any of them are significantly different at our $\alpha$ (say 0.05). Or we can instead use the `cld()` function:
+```{r}
+cld(variety_effects,alpha = 0.05)
+```
+This analysis suggests that there is an interaction; the Variety effect was larger at 270lbs than at any other level of NitrogenF.
+
+We can also answer this question directly using an ANOVA:
+
+### ANOVA to test interactions
+An ANOVA is a useful way to test if any treatment effects or interaction effects are significant. The idea is very similar to our earlier use of ANOVA.
+We start with the null hypothesis that all variety effects are the same, and then evaluate this null hypothesis with by calculating an F-statistic that compares the amount of variation in estimated variety effects to a reference based on the MSE.
+```{r}
+anova(potato_factorial)
+```
+The ANOVA table now has 3 rows for treatment Sources, and 1 for residuals (our model was fit with `lm` so the anova table looks a bit different than for `lmer` models). Since we're using this ANOVA specifically to test the null hypothesis of "no interactions", we only look at the row for `NitrogenF:Variety` (Note: The variable name here changed from 'Variety:NitrogenF'. I'm not sure why R won't keep consistent, but it doesn't affect the results). 
+The F-value here reports the importance of the Variety:Nitrogen interactions, i.e. how much the specific effects of Variety **change** among different levels of Nitrogen. This F-statistic is compared to an F-distribution with 4 and 90 degrees of freedom to calculate the p-value.
+
+> Do the DF's match up with what you expect? Why is the DfI = 4? How is DfE calculated?
+> How important is the interaction between Nitrogen and Variety?
+> Does this match up with your observation from the plot of specific effects?
+
+### ANOVA to test specific effects
+While the ANOVA to test for interactions is very straightforward, sometimes our research question is not about interactions per se. Instead, we're really just interested in the question of whether Russet Burbank and Alpine Russet yield differently, and it could be that we see a difference *at any level of Nitrogen*. 
+We addressed this above by looking at the 5 (Bonferroni-corrected) p-values for the 5 specific effects; if a single one of these was significant, we'd conclude that there was a difference among the varieties (at least at 1 level of Nitrogen). We can also address this question using an F-test with an ANOVA. 
+But the null hypothesis is slightly different than above. Instead of asking whether all 5 specific effects could be the same (the question above for the interactions), we ask whether all 5 specific effects could be **equal to zero**. 
+This is different because when we asked if they were the same, we're really asking if all 5 are equal to their **average effect**. Since we don't know the average effect, we first had to estimate that (using the average of the 5 means), so we lost 1 DfI for calculating this average, and were left with 4 independent deviations from this average.
+But if we're asking if any of the specific effects differs from zero, we don't need to first estimate their average, so we do have 5 independent tests, and DfT = 5.
+
+Unfortunately, we have to modify our model statement slightly to get this ANOVA to run correctly in R. Here is the original model, and the modified one:
+```{r}
+potato_factorial <- lm(Yield ~ NitrogenF + Variety + Variety:NitrogenF, data = potato_data)
+potato_specific_effects <- lm(Yield ~ NitrogenF + Variety:NitrogenF, data = potato_data)
+```
+
+Specifically, we dropped any term involving `Variety`, except the `Variety:moderator` combination. Using this model we can get the correct ANOVA:
+```{r}
+anova(potato_specific_effects)
+```
+We once again look at the `NitrogenF:Variety` row, but here it's testing a different null hypothesis.
+
+> Compare this ANOVA table to the one we used to test the interactions above. What is different? What is the same?
+> In the NitrogenF:Variety row, why are Df and Mean Sq different from above?
+> Did anything change in the Residuals row?
+
+**Note**: While the two model specifications look different, and give different ANOVA tables, they will function equivalently for analyses with emmeans. This is because emmeans really just cares about MSE (ie s^2) and DfE, because these are the terms that determine SEs and CIs. So you can set up your model either way depending on if your intent is to study specific effects or interactions.
+
+### Main effects
+Very often, people will report and discuss "main effects" of a factorial.
+Main effects are the **averages of the specific effects** of the focal variable, averaged over the levels of the mediator variable.
+Here again are the specific effect estimates for Variety:
+```{r}
+summary(variety_effects)
+```
+The "main effect" of Variety would be the average of the 5 values in the `estimate` column. 
+We can ask emmean to report these by dropping the `by=NitrogenF` term:
+```{r}
+marginal_means = emmeans(potato_factorial,specs = 'Variety')
+marginal_means
+contrast(marginal_means,method = 'trt.vs.ctrl',ref = 'Alpine')
+```
+Here we see why emmeans is called `expected marginal means`. It's designed to calculate the marginal means from the table of treatment combinations:
+
+|         | 0   | 90  | 150 | 210 | 270 | Margin |
+|---------|-----|-----|-----|-----|-----|--------|
+| Alpine  | 345 | 416 | 475 | 436 | 402 | 415    |
+| Burbank | 455 | 499 | 561 | 490 | 599 | 521    |
+
+But how should we interpret this marginal value? By default, we're weighting the 5 levels of Nitrogen that we tested equally in this average. 
+But is this really relevant? Say growers really only use Nitrogen levels in the 0-150 range. The performance of Burbank with 270lbs may be basically irrelevant.
+We could re-weight the columns of this matrix to account for this, say:
+
+|         | 0   | 90  | 150 | 210 | 270 | Margin |
+|---------|-----|-----|-----|-----|-----|--------|
+| weights | 1   | 1   | 1   | 0.3 | 0.1 |        |
+| Alpine  | 345 | 416 | 475 | 436 | 402 | 428    |
+| Burbank | 455 | 499 | 561 | 490 | 599 | 521    |
+
+```{r}
+marginal_means = emmeans(potato_factorial,specs = 'Variety',weights = c(1,1,1,.3,.1))
+marginal_means
+contrast(marginal_means,method = 'trt.vs.ctrl',ref = 'Alpine')
+```
+But now the margin means are different, and so the main effect has changed. There's nothing absolute about this (or any) weighting scheme, so it's hard to see how to interpret this average unless growers were actually going to use an equal amount of field area for these 5 specific levels of Nitrogen.
+
+That is the main reason why I discourage reporting (or testing) main effects. But if you do choose to study them, follow these rules:
+
+1. Start with the ANOVA table used to study interactions:
+
+```{r}
+anova(potato_factorial)
+```
+2. Test the hypothesis about interactions (look at the NitrogenF:Variety row). If this is significant, STOP. Main effects are completely uninterpretable if the interactions are large. If the interaction Mean Sq is small, though, you can now look at the row for the main effect of your focal variable to test if the main effect is interesting. If this is significant, go ahead an use emmeans to extract the main effects as reported above. However, be careful to interpret them as the average effect of Variety **averaged over these specific values of nitrogen**. And never consider the main effect test first, only look at it if the interaction effect is small / non-significant.
+
+------------------------------------------------------------------------------------
+
+## Exercise
+Repeat the analysis of specific effects and main effects using `NitrogenF` as the focal variable and `Variety` as the mediator.
+
+> Does the conclusion about interaction effects change?
+> Since there are 5 levels of Nitrogen, more care needs to be made when calculating specific effects for a single Variety (pairwise or trt.vs.ctrl? Which makes the most sense?)
+
+```{r}
+n_effects = emmeans(potato_factorial,specs = 'NitrogenF',by='Variety')
+spec_effects = contrast(n_effects,method = 'trt.vs.ctrl')
+# spec_effects
+summary(rbind(spec_effects),infer = T)
+summary(contrast(n_effects,method = 'trt.vs.ctrl',alpha = 0.05/2),infer = c(T,T))
+```
+
+
+------------------------------------------------------------------------------------
+
+## Visualizing interactions before analysis
+
+Even before running formal statistical tests, it can be useful to visualize your data, and inspect for 
+evidence of interactions. 
+
+The `ggplot` function excels at plots for visualizing interactions between two variables.
+
+This code makes a jitter-plot of the data:
+```{r}
+ggplot(potato_data) + geom_jitter(aes(x=NitrogenF,y=Yield,color=Variety),width=.1)
+```
+
+This code adds lines between the treatment means. This is the classic interaction plot where non-parallel lines
+are evidence of an interaction
+```{r}
+ggplot(potato_data,aes(x=NitrogenF,y=Yield,color=Variety)) + geom_jitter(width=.05) + 
+  stat_summary(aes(group = Variety),fun.y = mean,geom = 'line')  # we summarize the groups by the mean, and connect with a line
+```
+
+We can also flip the graph over to ask if the effect of NitrogenF changes by Variety
+
+```{r}
+ggplot(potato_data,aes(x=Variety,y=Yield,color=NitrogenF)) + geom_jitter(width=.05) + 
+  stat_summary(aes(group = NitrogenF),fun.y = mean,geom = 'line')
+```
+
+> Here, the lines look mostly parallel except for the 270lbs Nitrogen line
+
+
+These plots are good for quick visual inspections of the data. But ultimately you will want to do the full analyses above to get confidence intervals and select which contrasts to report.
+
+
+--------------------------------------------------------------------------------------------
+
+## Short-cuts for model specification
+R has lots of short-cuts to help write complex models more clearly. For factorials,
+these three models are equivalent:
+```{r}
+potato_factorial <- lm(Yield ~ NitrogenF + Variety + NitrogenF:Variety,potato_data)
+potato_factorial <- lm(Yield ~ NitrogenF*Variety,potato_data)
+potato_factorial <- lm(Yield ~ (NitrogenF+Variety)^2,potato_data)
+```
+
+- The '*' character tells R you want both factors individually, plus their combinations.
+- The ^2 symbol tells R you want all the factors inside the parantheses, plus their two-way combinations.
+With more factors, you could have 3-way, 4-way, etc combinations too.!
