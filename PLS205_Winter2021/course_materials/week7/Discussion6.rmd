@@ -1,0 +1,95 @@
+---
+title: "Discussion 6. Factorial Experiments"
+author: Mitchell Feldmann
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+---
+
+Necessary packages:
+```{r}
+library(ggplot2)
+library(cowplot)
+library(emmeans)
+```
+
+This worksheet will explore techniques for analyzing factorial experiments - experiments with at least two classes of treatments that are tested in all combinations. You will work alone or in teams to answer the questions in this work sheet.
+
+##0. Experiment:
+
+You are comparing the progeny value of *three* potential male parents and *three* potential female paretns in a tame fox breeding program. For each combination of parents, *6 progeny* individuals are observed. Our estimation of of "tameness" comes as the *number of aggressive events* over the first 5 months after birth. Foxes that are  less aggressive are considered to be more tame. The Sires are coded as "AA","TT", and "AT" and the Dames are coded as "CC","GG", ang "CG".
+
+#Explore the data and determine the design
+In this first section, you will load in the data, describe the experimental design, and plot the data.
+
+##1. Load data
+```{r echo=FALSE}
+foxes = read.csv('tame_fox.csv')
+foxes$family = interaction(foxes$Dame,foxes$Sire)
+str(foxes)
+foxes
+```
+
+##2. Design Table
+**Design**: Completely Randomized Design
+
+| Structure | Variable      | Type        | # levels | Experimental Unit |
+|-----------|---------------|-------------|----------|-------------------|
+| Treatment | Dame:Sire     | Categorical | 9        | Individual        |
+| Treatment | Sire          | Categorical | 3        | Individual        |
+| Treatment | Dame          | Categorical | 3        | Individual        |
+| Design    | Individual_f  | Factor      | 54       |                   |
+| Response  | Ag. Events    | Numeric     | 54       |                   |
+
+##3. Is this a factorial experiment? What is it's treatment structure? How many treatments are there in total?
+
+> Yes, this was a factorial experiment. It was a 3x3 fully factorial experiment. There are three treatments: Dame, Sire, and Dame:Sire.
+
+##4. List all potential main effects and interactions, the number of levels, and the number of degrees of freedom. How many levels of each variable are constrained to 0? Why? How many df are in the residuals?
+
+> Main Effects: Sire, Dame
+> Interactions: Sire:Dame
+> Number of Levels: 
+> Degrees of Freedom: Dame 2, Sire 2, Dame:Sire 4 (2x2) ## Confused here --> see last week's lecture and lab) ##
+> Constrained: ?
+> Df in residuals: n - K, 54 - 2(Dame) - 2(Sire) - 4(Dame:Sire) - 1 = 45
+
+> ^^^ Can we use the levels of the Dame:Sire treatment as a shortcut?
+
+##5. Do you predict that there will be a significant interaction? Plot your data.
+```{r}
+individual_f <- as.factor(foxes$family)
+
+ggplot(foxes, aes(x=Sire, y=Events, group=Dame)) +
+  geom_line(aes(color=Dame))+
+  geom_point(aes(color=Dame))
+```
+
+> Response.
+
+#Analyzing the dataset.
+For the rest of the discussion form, you will design your own plan of analysis for this particular dataset using the skills we have been developing in this class.
+
+You will need to *(1)* create an appropriate linear model and *(2)* check that the assumptions of your linear model are met.
+
+You will then want to *(3)* test a specific null hypothesis using ANOVA. Be specific. Write this null hypothesis down, how many tests do you need to correct for?
+
+If you determine that the interaction is significant, *(4)* extract the simple effects of either Sire or Dame. Use the simple effects to suggest a best family for producing tame foxes for this breeding program? This is also referred to as specific combining ability in breeding literature. 
+
+Or, if the interaction is not significant, *(5)* extract main effects of both Sire and Dame to suggest either a single superior mother or a single superior father. This is also referred to as general combining ability in breeding literature.
+
+It can be very helpful to visualize the interactions. *(6)* See the visualizing interactions section in Lab 5 and try to replicate 1 or more of those plots for this dataset.
+
+```{r}
+
+foxes_model <- lm(Events ~ Sire*Dame, data = foxes)
+summary(foxes_model)
+
+
+means_by_nitrogen = emmeans(potato_factorial,specs = 'Variety',by = 'NitrogenF')
+variety_effects = contrast(means_by_nitrogen,method = 'trt.vs.ctrl',ref = 'Alpine')
+foxes_means_by_sire <- emmeans(foxes_model, # continue building means model, then contrast using examples from lab 6 ^above^
+anova(foxes_model)
+
+```

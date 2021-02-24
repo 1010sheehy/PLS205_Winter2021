@@ -1,0 +1,450 @@
+--- 
+title: "Lab 7. The relationship between factorials and blocked designs" 
+author: Daniel Runcie. Modified from labs designed by Iago Hale, Dario Cantu and Jorge Dubcovsky 
+output: 
+  html_notebook: 
+    toc: true 
+    toc_float: true 
+--- 
+
+Re-install PLS205 package: 
+Run the following command directly in your RStudio console:
+`devtools::install_github('deruncie/PLS205_package')`
+
+
+```{r} 
+# Necessary packages 
+library(ggplot2) 
+library(emmeans)
+library(PLS205)
+library(multcomp)
+```
+
+## The relationship between factorials and blocked designs
+
+Blocked designs and factorials are very similar in structure. In both cases, you have multiple
+factors that are **crossed**, meaning levels of one factor are tested in combination with different
+levels of another factor. The main difference between a RCBD and a factorial is in the experiment's
+goals. 
+
+- In a factorial, the intent is to measure the specific effects of a focal treatment at each 
+level of the moderator treatments, and usually to study how these specific effects change among levels 
+of the moderator, called interactions.
+- In a RCBD, the moderator treatments are called "blocks", and they are not of interest, nor are the specific effects
+of the focal treatment within each block. Instead, we care about the "main effect", the average effect
+of the focal treatment averaged across blocks. 
+
+**Note**: often people will analyze "main effects" in a factorial experiment. When this is done, the 
+best way to think about the design is as an RCBD. The main effect is the **average** of the specific effects 
+over the levels of the moderator. This is the same as averaging treatment effects over blocks, 
+and should be analyzed in the same way.
+
+**Note 2**: A principle difference between RCBDs and Factorials is that in an RCBD, specific combinations
+of the two treatments are generally not replicated, so we cannot statistical **compare** the specific 
+effects from one block to the next.
+
+
+## RCBD analysis
+In a study comparing the relative growth of five varieties of turfgrass (VARIETY) in
+three experimental soil mixtures (SOIL). Six pots were prepared with each VARIETY-SOIL combination. 
+One pot from each of the 15 VARIETY-SOIL combinations was placed in each of six growth chambers
+(BLOCKS) and the dry matter yields were measured by clipping the plants at the end of four weeks. 
+The six growth chambers were needed to accommodate all 90 pots, but differences among
+growth chambers were not of interest.
+
+### Factorial or RCBD?
+This experiment has 2 treatment variables (Variety and Soil) and 1 main design variable (Chamber).
+From the description above, Chamber is clearly a blocking factor because we are not interested in the differences
+among chambers. However, Variety and Soil are both treatment variables of experimental interest.
+From the description, we have a 5x3 factorial for Variety and Soil. So we'd call this experiment a 5x3 factorial in a RCBD.
+
+For the 5x3 factorial part (the treatment structure), we need to follow the strategies for analyzing factorials. 
+This means that we need to choose a focal treatment and a moderator treatment. Based on the description above, I think the focal treatment should be Variety with soil as a moderator, but you could choose the other if you'd prefer.
+For the RCBD design part, we use `Chamber` to control variation, reduce our MSE, and get more precise estimates.
+
+### Load the data and inspect 
+```{r} 
+RCBD_data <- read.csv('RCBD_data.csv') 
+str(RCBD_data) 
+```
+
+Set all class variables to factors. **This is critical!**
+```{r} 
+RCBD_data$Soil = factor(RCBD_data$Soil) 
+RCBD_data$Variety = factor(RCBD_data$Variety) 
+RCBD_data$Chamber = factor(RCBD_data$Chamber) 
+```
+
+### Model table 
+The full model table looks like this:
+
+| Structure | Variable           | Type        | # levels | Experimental Unit |
+|-----------|--------------------|-------------|----------|-------------------|
+| Treatment | Variety              | Categorical | 5        | Pot               |
+|           | Soil                 | Categorical | 3        | Pot               |
+|           | Soil:Variety         | Categorical | 15       | Pot               |
+| Design    | Chamber              | Categorical | 6        |                   |
+|           | Chamber:Variety      | Categorical | 30       |                   |
+|           | Chamber:Soil         | Categorical | 18       |                   |
+|           | Chamber:Soil:Variety | Categorical | 90       |                   |
+|           | Pot                  | Categorical | 90       |                   |
+| Response  | Yield                | Categorical | 90       |                   |
+
+Notes:
+
+- We list Chamber and all combinations of Chamber and other Treatment variables in the Design structure.
+- We only list Experimental units for the treatment variables. 
+
+### Checking variable relationships
+In either an RCBD or a Factorial (or a combination like we have here), the nesting, aliasing and crossing
+relationships among variables are important to keep track of. For example, by inspecting the table above,
+we can see that the Chamber:Soil:Variety combination is aliased with Pot. 
+
+We can check this with the `is_aliased` function from the `PLS205` library.
+```{r}
+is_aliased(Pot~Chamber:Soil:Variety,RCBD_data)
+```
+
+> Note: I changed the syntax for the `is_aliased`, `is_nested` and `is_crossed` functions. 
+> They now take a formula syntax like above where the two terms (now allowing combinations) are separated by a `~` and do not need to be quoted.
+
+> Check several other pairs of terms with each of these functions to understand the design.
+
+Nesting relationships can be tested like this:
+```{r}
+is_nested(Pot~Soil,RCBD_data)
+is_nested(Soil~Pot,RCBD_data)
+```
+
+The `is_crossed` function is new. It asks whether each level of the term on the left is associated with >1 level of the term on the right, and vice versa. 
+```{r}
+is_crossed(Variety~Soil,RCBD_data)
+is_crossed(Variety:Soil~Chamber,RCBD_data)
+```
+
+If you enclose the function in parentheses, it will give you a table showing how many times (observations, not necessarily EU)
+each level of term1 is associated with each level of term 2:
+```{r}
+(is_crossed(Variety~Chamber,RCBD_data))
+```
+
+### Data exploration
+Before we actually analyze these data, lets take a look at them graphically.
+
+#### Treatment interaction plot
+Since the goal of this experiment is to study the Variety effects (focal variable) with respect to Soils (moderator), and identify any interactions, let's start with an interactions plot.
+In this plot, we'll use the `geom_smooth` function to average the replicates of each Soil separately for each Variety, 
+and then add confidence intervals around this mean.
+
+```{r}
+ggplot(RCBD_data,aes(x=Soil,y=Yield)) + 
+  geom_smooth(aes(group = Variety,color = Variety),method = 'lm',formula = 'y~factor(x)')
+```
+
+> From this it appears that there are differences among Varieties and among Soils, but we don't see much evidence of an interaction (the lines are pretty parallel). For each of the 3 soils, Variety 2 appears the best and Variety 5 the worst.
+> However, the confidence intervals around each of the 5x3 = 15 means are large.
+
+To see why they are large, let's look at the raw data instead of the means.
+We can use the `facet_wrap` function in ggplot to make separate plots for each Variety
+
+#### Raw data by Soil
+```{r}
+ggplot(RCBD_data,aes(x=Variety,y=Yield)) + 
+  geom_jitter(width = 0.1) + 
+  facet_wrap(~Soil,labeller = label_both) # This line separates the plots into separate plots for each Variety
+```
+
+> We see that the variation within each Soil:Variety combination is large.
+
+To explore further, let's make the same plot, but color each point by which Chamber they came from:
+
+#### Raw data by Variety colored by Chamber
+```{r}
+ggplot(RCBD_data,aes(x=Variety,y=Yield)) + 
+  geom_jitter(aes(color = Chamber),width = 0.1) + 
+  facet_wrap(~Soil,labeller = label_both) # This line separates the plots into separate plots for each Variety
+```
+
+> The is a lot of noise, but if you look closely, you can see that Chambers 1 and 6 seem to have the lowest yields and chambers 2 and 3 are generally the highest. 
+
+#### Chamber variation
+Let's just plot the data by Chamber:
+```{r}
+ggplot(RCBD_data,aes(x=Chamber,y=Yield)) + geom_boxplot()
+```
+> This consistent variation among Chambers is not unexpected (Chambers are often different in various ways), but this is introducing a lot of variation into our replicates (see dot plot above), increasing our MSE and the size of the confidence intervals.
+> The the goal of using Chambers as blocks is to account for this variation in the model.
+> Since each treatment was represented once in this block, we should be able to correct for this block effect statisticallty.
+
+#### Separate interaction plots in each Chamber
+The way to think about an RCBD analysis is as a separate analysis within each block, with the answers combined across blocks.
+Let's make our interaction plots within each block using `ggplot`:
+
+```{r}
+ggplot(RCBD_data,aes(x=Soil,y=Yield)) + 
+  geom_line(aes(group = Variety,color = Variety)) + 
+  facet_wrap(~Chamber,labeller = label_both) # This line separates the plots into separate plots for each Chamber
+```
+
+> Note: we don't have error bars here because these Variety:Soil combinations are not replicated within blocks, so we can't create confidence intervals.
+> However, do you see any consistency among the blocks?
+
+> From these plots, it looks like there really isn't a lot of noise in the data: the differences among varieties are really pretty consistent from one condition (Soil-type or Chamber) to the next. Variety 2 has the highest yield in all 18 "conditions", and Variety 5 is the lowest-yielding in the majority.
+> So it seems our the confidence in our rankings of the Varieties should be pretty high. The wide confidence intervals above seem way too conservative.
+
+### Statistical analysis of the Factorial in an RCBD
+Here's the model table we created at the start:
+
+| Structure | Variable           | Type        | # levels | Experimental Unit |
+|-----------|--------------------|-------------|----------|-------------------|
+| Treatment | Variety              | Categorical | 5        | Pot               |
+|           | Soil                 | Categorical | 3        | Pot               |
+|           | Soil:Variety         | Categorical | 15       | Pot               |
+| Design    | Chamber              | Categorical | 6        |                   |
+|           | Chamber:Variety      | Categorical | 30       |                   |
+|           | Chamber:Soil         | Categorical | 18       |                   |
+|           | Chamber:Soil:Variety | Categorical | 90       |                   |
+|           | Pot                  | Categorical | 90       |                   |
+| Response  | Yield                | Categorical | 90       |                   |
+
+
+Given this, we the full linear model is:
+
+```{r}
+full_model <- lm(Yield ~ Variety + Soil + Variety:Soil + Chamber + Chamber:Soil + Chamber:Variety,RCBD_data)
+```
+
+To get here, we included all terms in the table with fewer levels than the number of observations (Pot and Chamber:Soil:Variety).
+
+#### Model diagnostics
+We will start with the standard diagnostics for any model: QQ-plots and Scale-location plots:
+```{r}
+pls205_diagnostics(full_model)
+```
+
+> These plots look fine to me. Very close to normal distributions, and little trend in errors across fitted values.
+
+#### Chamber:treatment interactions
+In an experiment with blocks, we are additionally concerned about whether the differences among our treatments
+differ among blocks. If this were a 5x3x6 factorial with the Chambers as an additional treatment factor, we would
+call these differences "interactions" with Chamber. The same is true here in a RCBD. However in an RCBD:
+
+- These interactions with Chamber are not of interest
+- We can't directly estimate the interactions because we don't have replicates of each Variety:Soil combination in each Chamber. This means we can't test if the differences among Varieties effects for each Soil **change** among the different Chambers, at least not using the statistics we've used so far.
+
+Instead, our best choice is to rely on a new type of diagnostic plot:
+
+```{r}
+block_interactions_plot(full_model,block = 'Chamber')
+```
+
+The above plot organizes the treatment means per block, and organizes the blocks from the one with the lowest
+average to the one with the highest average. The idea is to look for **multiplicative interactions** between the
+treatment effects and the blocks. A common problem in biological experiments is that as the mean
+of a group gets bigger, so does the variation in the group. We saw this before in the discussion of transformations.
+If there are multiplicative interactions with blocks, we'll tend to see that differences among treatments 
+are larger for blocks with larger means.
+
+> Do you see evidence of that happening here?
+
+> I do. The variation among the treatment means is close to 10 for Chamber 2, and only ~2-3 for Chamber 1.
+
+This is a problem because our goal is to find the **average** treatment effect, averaged across Chambers.
+If the effects change across chambers, then this average doesn't make much sense.
+
+We could try to account for the problem above by applying one of our data transformations. In this case, probably the log-transformation is our best bet:
+
+```{r}
+transformed_model <- lm(log2(Yield) ~ Variety + Soil + Variety:Soil + Chamber + Chamber:Soil + Chamber:Variety,RCBD_data)
+```
+
+> I went with the log2 transformation because I find it easiest to interpret
+
+```{r}
+block_interactions_plot(transformed_model,block = 'Chamber')
+```
+> The variation among treatments among blocks seems much more consistent now.
+
+We should also check our standard diagnostic plots:
+
+```{r}
+pls205_diagnostics(transformed_model)
+```
+> The QQplot is still fine, but eh S/L plot is a bit screwy. So we're left with a choice: do we leave the data as is and deal with the fact that the treatment effects likely change across blocks? Or do we use the transformed data with similar effect sizes, but maybe slightly less accurate standard errors? I'd probably go with the transformed data here. The S/L plot is really not that bad (despite the red line). But we do have to remember to report analyzes on the transformed units (log2-fold change) rather than in the regular units of yield.
+
+> Another thing to look for in the S/L plot is a U-shape. This can also indicate a potential multiplicative interaction (larger treatment differences for larger blocks). Look for this in the HW this week!.
+
+### Analysis of the factorial
+
+The rest of the analysis of the experiment is exactly the same as for a basic factorial. Once you've 
+included the `Chamber` terms in your model, you can simply ignore them in all future analyses.
+
+### Interaction between Variety and Soil
+If our goal is to test for Variety Soil interactions, we can use the ANOVA to test if any interactions are non-zero:
+```{r}
+anova(transformed_model)
+```
+> For this, ONLY look at the `Variety:Soil` row. In this case, there is very little evidence for Variety differences changing among different soils. This is consistent with what we learned above.
+
+### Specific effects of Variety
+If we're not interested in interactions *per se*, but rather interested in comparing the different Varieties and testing whether the varieties differ in any soil, we'd use an ANOVA to test all specific effects of Variety.
+
+For this, we have to change our model by dropping the `Variety` term. We don't want to drop the `Variety:Block` term.
+
+```{r}
+specific_effects_model = lm(log2(Yield) ~ Soil + Variety:Soil + Chamber + Chamber:Soil + Chamber:Variety,RCBD_data)
+anova(specific_effects_model)
+```
+> The ANOVA finds very strong evidence that the varieties do differ in at least 1 soil.
+
+### Reporting specific effects
+Either way (after testing interactions or specific effects), we still want to report the specific effects of Variety for each soil. We do this with emmeans:
+
+```{r}
+transformed_means = emmeans(transformed_model,spec = 'Variety',by = 'Soil')
+```
+
+We can use the CLD display to compare Varieties in each soil. To be save (and account for the 3 soils, we should adust our alpha for the 3 groups of pairwise tests).
+```{r}
+cld(transformed_means,alpha = 0.05/3)
+```
+emmeans also has a nice plot function for specific effects:
+
+```{r}
+contrasts_by_Soil = contrast(transformed_means,method='pairwise')
+plot(contrasts_by_Soil,level = 1-(0.05/3))  # Bonferroni adjustment for 3 tables of contrasts (one for each Soil)
+```
+
+> Now, we see the clear differences among Varieties in each Soil. The confidence intervals for comparisons among varieties are well off from zero.
+
+
+### Was blocking worth it?
+In this design, blocking introduced complications into the analysis (all those interactions), and reduced the 
+degrees of freedom for the statistical tests. Blocking only would have been worth it if it reduced MSE sufficiently to compensate.
+
+```{r}
+anova(transformed_model)
+```
+
+```{r}
+no_block_model = lm(log2(Yield) ~ Variety + Soil + Variety:Soil,data = RCBD_data)
+anova(no_block_model)
+```
+
+> Here, the Chamber terms explain a lot of variance. The MS_Chamber value is very large, and the p-value is very small.
+> More directly, the p-value for `Variety:Soil` is much smaller when we include the Chamber terms in the model, and MSE is MUCH smaller!
+> Therefore, using Blocking probably helped a lot.
+
+
+
+## PLS205 package functions
+Here are the functions that are part of the PLS205 package. I recommend installing the package using:
+`devtools::install_github('deruncie/PLS205_package')`
+
+But if that isn't working from you, you can run this code to load the functions and then use them as in the lab:
+```{r}
+pls205_diagnostics = function(model,EU = NULL) {
+  # note: for lmer models, be sure to specify the EU that you are interested in!
+  if(is(model,'lm')) {
+    # diagnostics for lm-type model
+    eu_data = data.frame(fitted = fitted(model),EU_std_resid = rstandard(model))
+  } else if(is(model,'lmerMod')) {
+    if(is.null(EU)) {
+      # plot observations
+      eu_data = data.frame(fitted = fitted(model),EU_std_resid = resid(model))
+    } else {
+      # plot estimated values of EU
+      if(!EU %in% all.vars(formula(model))) stop(sprintf('Your EU (%s) is not in the model you provided',EU))
+      eu_data = data.frame(EU_obs = predict(model,re.form = formula(sprintf('~(1|%s)',EU))),fitted = predict(model,re.form=NA),model@frame)
+      eu_data = eu_data[!duplicated(eu_data[[EU]]),]
+      eu_data = eu_data[order(eu_data[[EU]]),]
+      ranefs = as.data.frame(ranef(model,condVar=T))
+      if(all(ranefs$condsd>0)) {
+        ranefs$condsd = ranefs$condsd/mean(ranefs$condsd)
+        eu_data$EU_std_resid = (ranefs$condval/ranefs$condsd)[match(eu_data[[EU]],ranefs$grp)]
+      } else{
+        eu_data$EU_std_resid = ranefs$condval[match(eu_data[[EU]],ranefs$grp)]
+      }
+    }
+  }
+  op = par(mfrow=c(1,2))
+  eu_data$sq_std_resids = sqrt(abs(eu_data$EU_std_resid))
+  car::qqPlot(eu_data$EU_std_resid,main = 'Plot (EU) Normal Q-Q',pch=19,ylab = 'Observed')  # new qqplot function
+  plot(eu_data$fitted,eu_data$sq_std_resids,type='n',main = 'Scale-Location',ylab = expression(sqrt(abs(' deviations '))),xlab = 'Fitted values',ylim = c(0,max(eu_data$sq_std_resids)))
+  panel.smooth(eu_data$fitted,eu_data$sq_std_resids)
+  par(op)
+  invisible(eu_data)
+}
+block_interactions_plot = function(full_model,block = 'Block') {
+  if(!block %in% all.vars(formula(full_model))) stop(sprintf('%s not a term in the model',block))
+  vars = all.vars(formula(full_model)[-2])
+  vars = vars[vars != block]
+  frame = model.frame(full_model)
+  frame$fitted = predict(full_model)
+  frame$y = frame[,1]
+  frame$group = interaction(lapply(vars,function(x) frame[[x]]),drop=T)
+  frame$block = factor(frame[[block]])
+  frame_means = aggregate(y~group+block,frame,FUN=mean)
+  block_means = tapply(frame$fitted,frame$block,mean)
+  frame_means$block = factor(frame_means$block,levels = levels(frame$block)[order(block_means)])
+  p = ggplot(frame_means,aes(x=block,y=y)) + geom_line(aes(group = group,color = group)) +
+    ylab(colnames(frame)[1]) + xlab(block) + guides(color = guide_legend(title = paste(vars,collapse=':')))
+  print(p)
+}
+is_nested = function(outer_term,inner_term,data = NULL) {
+  if(is(outer_term,'formula')) {
+    if(!is.data.frame(inner_term)) stop('must provide a data.frame')
+    formula = outer_term
+    data = inner_term
+    if(!all(all.vars(formula) %in% colnames(data))) {
+      vars = all.vars(formula)
+      vars = vars[!vars %in% colnames(data)]
+      stop(sprintf('Variable(s): %s are not columns of your data',paste(vars,collapse=', ')))
+    }
+    outer_term = formula[[2]]
+    inner_term = formula[[3]]
+    outer = interaction(lapply(all.vars(outer_term),function(x) data[[x]]),drop=T)
+    inner = interaction(lapply(all.vars(inner_term),function(x) data[[x]]),drop=T)
+    all(colSums(table(outer,inner) > 0L) == 1L)
+  } else{
+    if(is.null(data)) stop('must provide a data.frame')
+    if(!outer_term %in% colnames(data)) stop(sprintf('%s not a column of you data.table',outer_term))
+    if(!inner_term %in% colnames(data)) stop(sprintf('%s not a column of you data.table',inner_term))
+    all(colSums(table(data[[outer_term]],data[[inner_term]]) > 0L) == 1L)
+  }
+}
+is_aliased = function(term1, term2, data) {
+  if(is(term1,'formula')) {
+    if(!is.data.frame(term2)) stop('must provide a data.frame')
+    formula = term1
+    data = term2
+    term_to_char = function(x) paste(all.vars(x),collapse=':')
+    is_nested(formula,data) & is_nested(formula(sprintf('%s~%s',term_to_char(formula[[3]]),term_to_char(formula[[2]]))),data)
+  } else{
+    if(!term1 %in% colnames(data)) stop(sprintf('%s not a column of you data.table',term1))
+    if(!term2 %in% colnames(data)) stop(sprintf('%s not a column of you data.table',term2))
+    is_nested(term1,term2,data) & is_nested(term2,term1,data)
+  }
+}
+is_crossed = function(formula, data,only_full_crossed = F) {
+  if(!is.data.frame(data)) stop('must provide a data.frame')
+  if(!all(all.vars(formula) %in% colnames(data))) {
+    vars = all.vars(formula)
+    vars = vars[!vars %in% colnames(data)]
+    stop(sprintf('Variable(s): %s are not columns of your data',paste(vars,collapse=', ')))
+  }
+  term1_name = formula[[2]]
+  term2_name = formula[[3]]
+  term1 = interaction(lapply(all.vars(term1_name),function(x) data[[x]]),drop=T)
+  term2 = interaction(lapply(all.vars(term2_name),function(x) data[[x]]),drop=T)
+  t = table(term1,term2)
+  names(dimnames(t)) = c(term1_name,term2_name)
+  if(only_full_crossed) {
+    print(all(t > 0L))
+  } else{
+    print(all(rowSums(t>0L)>1) & all(colSums(t>0L) > 1))
+  }
+  invisible(t)
+}
+```
+

@@ -126,7 +126,7 @@ str(experiment2)
 
 ## Does this experiment require more work to carry out than Experiment 1? Why or why not?
 
-> This experiment probably does require more work to carry out. Because we halved the number of plots per treatment while doubling the Treatments, we have the exact same number of total Plots. There may be a small amount of additional work if mixing up additional nitrogen concentrations is significantly harder to do.
+> This experiment probably does not require more work to carry out. Because we halved the number of plots per treatment while doubling the Treatments, we have the exact same number of total Plots. There may be a small amount of additional work if mixing up additional nitrogen concentrations is significantly harder to do.
 
 ## Fill in the missing values (denoted by ??) of the following ANOVA table
 This is calculated for a trend on Nitrogen modeled with a polynomial. What was the degree of the polynomial?
