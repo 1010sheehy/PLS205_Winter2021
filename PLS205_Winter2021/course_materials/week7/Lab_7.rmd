@@ -137,8 +137,12 @@ In this plot, we'll use the `geom_smooth` function to average the replicates of 
 and then add confidence intervals around this mean.
 
 ```{r}
-ggplot(RCBD_data,aes(x=Soil,y=Yield)) + 
-  geom_smooth(aes(group = Variety,color = Variety),method = 'lm',formula = 'y~factor(x)')
+ggplot(RCBD_data,aes(x=Soil,
+                     y=Yield)) + 
+  geom_smooth(aes(group = Variety,
+                  color = Variety),
+              method = 'lm',
+              formula = 'y~factor(x)')
 ```
 
 > From this it appears that there are differences among Varieties and among Soils, but we don't see much evidence of an interaction (the lines are pretty parallel). For each of the 3 soils, Variety 2 appears the best and Variety 5 the worst.
@@ -149,7 +153,8 @@ We can use the `facet_wrap` function in ggplot to make separate plots for each V
 
 #### Raw data by Soil
 ```{r}
-ggplot(RCBD_data,aes(x=Variety,y=Yield)) + 
+ggplot(RCBD_data,aes(x=Variety,
+                     y=Yield)) + 
   geom_jitter(width = 0.1) + 
   facet_wrap(~Soil,labeller = label_both) # This line separates the plots into separate plots for each Variety
 ```

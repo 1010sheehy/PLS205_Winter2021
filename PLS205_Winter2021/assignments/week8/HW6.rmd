@@ -24,12 +24,14 @@ Run the following command directly in your RStudio console:
 
 Necessary libraries
 ```{r echo = F,message=FALSE, warning=FALSE} 
-# Necessary packages 
+# Necessary packages
+library(devtools)
 library(ggplot2) 
 library(emmeans)
 library(lme4)
 library(lmerTest)
 library(PLS205)
+library(rlang)
 ```
 
 ## Question 1
@@ -69,52 +71,80 @@ data_1$Field <- as.factor(data_1$Field)
 data_1$Section <- as.factor(data_1$Section)
 data_1$Species <- as.factor(data_1$Species)
 
-# checking aliases, crosses, nests
-# NOTE: Can't get is_aliased() to work after updating the PLS package...
-is_aliased(Field ~ Species, data = data_1)
+# checking aliases, crosses, nests, but mostly just playing with these new tools
+is_aliased(Field:Section ~ Field:Species, data_1)
+is_nested(Field ~ Field:Section, data_1)
 
-is_crossed(Beta ~ Field, data = data_1)
-
-is_nested
 # creating the model
-egg_model <- lm(Beta ~ Species + Field, data = data_1)
+beta_model <- lm(Beta ~ Species + Field, data = data_1)
 
 # linearity and normality diagnostics
-pls205_diagnostics(egg_model, EU = 'Field:Species')
+pls205_diagnostics(beta_model, EU = 'Field:Species')
+
+# transforming the data with log10()
+data_1$Betalog10 <- log10(data_1$Beta)
+beta_log10 <- lm(Betalog10 ~ Species + Field, data=data_1)
+pls205_diagnostics(beta_log10, EU = 'Field:Species')
+
+# transforming the data with log()
+data_1$Betalog <- log(data_1$Beta)
+beta_log <- lm(Betalog ~ Species + Field, data=data_1)
+pls205_diagnostics(beta_log, EU = 'Field:Species')
+
+# transforming the data with log2()
+data_1$Betalog2 <- log2(data_1$Beta)
+beta_log2 <- lm(Betalog2 ~ Species + Field, data=data_1)
+pls205_diagnostics(beta_log2, EU = 'Field:Species')
 
 ```
 
-> The EU plot seems to be reasonably linear. The points begin to trail off at the top and there is a "dip" in the middle, so a transformation may achieve a better fit. However, I believe that a transformation would only marginally improve our analyis.
-> The Scale-Location plot has a decent spread, but there are more larger in the middle values. A tranformation might improve this fit, but again, the improvement would likely be marginal.
+> The EU plot seems to be reasonably linear. The points begin to trail off at the top and there is a "dip" in the middle, so a transformation may achieve a better fit. Log base 10, log base 2, and natural log tranformations provide the same marginal improvement in fit.
+> The Scale-Location plot has a decent spread, but there is a "U" shape which indicates that there may be multiplicative interactions. All tranformations slightly flatten the line here. These transformations seem to be largely ineffective so I decided to proceed with the untransformed data.
 
 ### 1.3 Estimate the differences between all pairs of pasture covers. Include appropriate units based on your choice of transformation (or no transformation)
 
 ```{r}
-
+beta_means <- emmeans(beta_model,'Species')
+beta_differences <- contrast(beta_means,'pairwise')
+summary(beta_differences,level = 0.95, infer=T)
 ```
 
-> ENTER YOUR RESPONSE HERE most not significant, emmeans contrast methods pairwise
+> There do seem to be significant differences between Species 1 and 5, Species 1 and 4, and Species 2 and 5 (in order of increasing p-value). In the same order, their estimated differences are 0.44, 0.27, 0.34 in beta carotene/flock.
 
 ### 1.4 Is there any evidence of an interaction between Field and Species cover? ie. do differences among covers change across the fields?
 Is the interaction replicated? If not, you can't answer this question with an ANOVA, but you can tentatively assess with an interaction plot. 
 ```{r}
+# PLS205 style
+block_interactions_plot(beta_model, block = 'Field')
 ```
 
-> ENTER YOUR RESPONSE HERE
+> No, the interaction is not replicated. There is only one replicate of each Field by Species combination. If there had been more, we could have conducted an ANOVA to measure the variance in differences between treatments for each plot and compared across fields.
+> An interaction plot shows that the lines are largely parallel, but there are some exceptions. In Field 1 (F1), Species_2 appears to perform worse than expected, while in Field 3 it appears to perform slightly better than expected. This provides limited evidence that there is an interaction between field and Species_2. More importantly, the Beta values are much more closely clustered in Field 3, with a difference of approximately 0.2 Beta between the largest and smallest. Meanwhile, there is a difference of almost 1.0 Beta in Field 2, suggesting that there may also be interactions between the field and Species. In particular, Species 5, 4, and 3 have much lower Beta values than in the other fields.
 
 
 ### 1.5 Did the researcher gain information by utilizing a RCBD relative to a CRD where the sections of all fields were randomized together?
 ```{r}
+# randomized together (non-blocked) model
+beta_rando <- lm(Beta ~ Species, data=data_1)
+# pls205_diagnostics(beta_rando, 'EU = Field:Species')
+
+# anova with non-blocked data
+anova(beta_model)
+anova(beta_rando)
+
 ```
 
-> ENTER YOUR RESPONSE HERE
+> I created a new model from the data that ignored blocking and randomized all field sections together. I then ran an ANOVA on both models and compared the values that I obtained. In the blocked model, the MSE is approximately 1/5th the size of the MSE utilizing the randomized model. This means that our F value is larger when utilizing the block design and our P value is smaller. This is because in a blocked design, sources of variation are cancelled out when comparing differences in means (delta_hats). Essentially, they were able to eliminate (or account for) variation within the fields when comparing treatments.
 
 ### 1.6 Instead of randomizing all 5 plots on the 4 fields together, speculate on the efficiency had she used only one field.
 In this case, to maintain the same replication, she would divide it into 20 smaller plots, and use only 2 birds per plot (instead of 10).
 Speculate on how the MSE would compare to the original RCBD, or the CRD over the four fields. 
 **Is there any advantage to spreading the experiment over 4 fields** Is there any disadvantage?
 
-> ENTER YOUR RESPONSE HERE
+> In this case, the degrees of freedom of error (DfE) would be larger, leading to a smaller MSE. This, in turn would increase the size of the f-value.
+> If there are interactions between the fields and the treatments, then blocking would allow the researcher to account for sources of variation inherent to the field. Our analysis above DOES indicate that there may be interactions, so blocking could be quite important. If, by chance, the researcher selected Field 3 or 2, they might find either larger or smaller differences between the treatments because of Field by Species interactions.
+> However, because these interactions are not replicated, the researcher is unable to perform an ANOVA to statistically test whether there is an interaction between Field and Species. In order to do this, the researcher would have to create replicates of each Species within a Field. This could potentially be a lot of work.
+> By just using one field, the researcher risks using a Field with stronger or weaker interaction effects that might change their ultimate findings and reduce the generalizeability of their findings. However, the size of the MSE might be comparable to that of a RCBD. This means that it would also be larger than that of a CRD.
 
 ### 1.7 Add 1 $\mu g/g$ to each value in Field F4. Does this produce any effect on the SS_Pasture, MS_Pasture, or F-value? Explain why or why not in one sentence.
 In this case (with Field F4 being much more productive), did the importance of Blocking increase or decrease?
