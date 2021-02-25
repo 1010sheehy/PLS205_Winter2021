@@ -109,7 +109,7 @@ beta_differences <- contrast(beta_means,'pairwise')
 summary(beta_differences,level = 0.95, infer=T)
 ```
 
-> There do seem to be significant differences between Species 1 and 5, Species 1 and 4, and Species 2 and 5 (in order of increasing p-value). In the same order, their estimated differences are 0.44, 0.27, 0.34 in beta carotene/flock.
+> There do seem to be significant differences between Species 1 and 5, Species 1 and 4, and Species 2 and 5 (in order of increasing p-value). In the same order, their estimated differences are 0.44, 0.27, 0.34 beta $\mu g/g$.
 
 ### 1.4 Is there any evidence of an interaction between Field and Species cover? ie. do differences among covers change across the fields?
 Is the interaction replicated? If not, you can't answer this question with an ANOVA, but you can tentatively assess with an interaction plot. 
@@ -154,6 +154,10 @@ The following code makes a modifed dataset with the increase of 1 in the Beta va
 ```{r}
 data_2_modified = data_1
 data_2_modified$Beta[data_2_modified$Field == 'F4'] = data_2_modified$Beta[data_2_modified$Field == 'F4'] + 1
-```
 
-> ENTER YOUR RESPONSE HERE
+# modified model
+beta_modified <- lm(Beta ~ Species + Field, data = data_2_modified)
+anova(beta_modified)
+anova(beta_model)
+```
+> Adding 1 $\mu g/g$ to each value in Field F4 increased the SS, MS, and F-value because there is more variation between the fields (larger differences in means --> increased SS). This highlights why blocking is important in capturing potential sources of variation. Blocking was definitely more important with the modified data.
