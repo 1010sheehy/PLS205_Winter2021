@@ -162,14 +162,13 @@ biomass_1_model <- lmer(perc_biomass ~ nitrogen + weed + nitrogen:weed + (1|tray
 Use an ANOVA to answer this question. 
 Provide a statement describing the interpretation of the ANOVA results. Be very specific about how you measured the evidence and what you can conclude from this analysis.
 ```{r}
+# nitrogen model
 nitrogen_model <- lmer(perc_biomass ~ weed + nitrogen:weed + (1|tray), data = biomass_1)
-anova(nitrogen_model, ddf = 'K')
 
-# corrosion_model = lmer(Corrosion ~ Temp+Coat+Temp:Coat+(1|Trial),corrosion)
-# temp_model = lmer(Corrosion ~ Coat+Temp:Coat+(1|Trial),corrosion)
-# anova(temp_model,ddf = 'K')
+# nitrogen anova
+anova(nitrogen_model, ddf = 'K')
 ```
-> ENTER YOUR RESPONSE HERE, 
+> There is strong evidence that nitrogen has an effect on biomass (p = 0.0002253). Additionally, the F value is relatively high (F value = 23.240) meaning that variation due to nitrogen (between trays) is higher than variation within a tray. This means that nitrogen levels explains at least part of the variation in biomass that we observe. We can not conclude how different nitrogen levels affects the biomass of the different weed treatments. We also can not determine which nitrogen treatments resulted in the highest biomass. It is possible that there is an interaction between the nitrogen treatment and the weed treatment and more tests are needed to determine if this is the case.
 
 ## 2.4 Estimate the effects of changing nitrogen levels on the percent of non-weed biomass [6 points]
 Present a table/display giving estimates and confidence intervals for the nitrogen effects.

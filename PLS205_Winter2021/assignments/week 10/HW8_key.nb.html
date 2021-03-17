@@ -11,7 +11,7 @@
 
 
 
-<title>HW 7</title>
+<title>HW 8</title>
 
 <script>/*! jQuery v1.11.3 | (c) 2005, 2015 jQuery Foundation, Inc. | jquery.org/license */
 !function(a,b){"object"==typeof module&&"object"==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error("jQuery requires a window with a document");return b(a)}:b(a)}("undefined"!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l="1.11.3",m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g,o=/^-ms-/,p=/-([\da-z])/gi,q=function(a,b){return b.toUpperCase()};m.fn=m.prototype={jquery:l,constructor:m,selector:"",length:0,toArray:function(){return d.call(this)},get:function(a){return null!=a?0>a?this[a+this.length]:this[a]:d.call(this)},pushStack:function(a){var b=m.merge(this.constructor(),a);return b.prevObject=this,b.context=this.context,b},each:function(a,b){return m.each(this,a,b)},map:function(a){return this.pushStack(m.map(this,function(b,c){return a.call(b,c,b)}))},slice:function(){return this.pushStack(d.apply(this,arguments))},first:function(){return this.eq(0)},last:function(){return this.eq(-1)},eq:function(a){var b=this.length,c=+a+(0>a?b:0);return this.pushStack(c>=0&&b>c?[this[c]]:[])},end:function(){return this.prevObject||this.constructor(null)},push:f,sort:c.sort,splice:c.splice},m.extend=m.fn.extend=function(){var a,b,c,d,e,f,g=arguments[0]||{},h=1,i=arguments.length,j=!1;for("boolean"==typeof g&&(j=g,g=arguments[h]||{},h++),"object"==typeof g||m.isFunction(g)||(g={}),h===i&&(g=this,h--);i>h;h++)if(null!=(e=arguments[h]))for(d in e)a=g[d],c=e[d],g!==c&&(j&&c&&(m.isPlainObject(c)||(b=m.isArray(c)))?(b?(b=!1,f=a&&m.isArray(a)?a:[]):f=a&&m.isPlainObject(a)?a:{},g[d]=m.extend(j,f,c)):void 0!==c&&(g[d]=c));return g},m.extend({expando:"jQuery"+(l+Math.random()).replace(/\D/g,""),isReady:!0,error:function(a){throw new Error(a)},noop:function(){},isFunction:function(a){return"function"===m.type(a)},isArray:Array.isArray||function(a){return"array"===m.type(a)},isWindow:function(a){return null!=a&&a==a.window},isNumeric:function(a){return!m.isArray(a)&&a-parseFloat(a)+1>=0},isEmptyObject:function(a){var b;for(b in a)return!1;return!0},isPlainObject:function(a){var b;if(!a||"object"!==m.type(a)||a.nodeType||m.isWindow(a))return!1;try{if(a.constructor&&!j.call(a,"constructor")&&!j.call(a.constructor.prototype,"isPrototypeOf"))return!1}catch(c){return!1}if(k.ownLast)for(b in a)return j.call(a,b);for(b in a);return void 0===b||j.call(a,b)},type:function(a){return null==a?a+"":"object"==typeof a||"function"==typeof a?h[i.call(a)]||"object":typeof a},globalEval:function(b){b&&m.trim(b)&&(a.execScript||function(b){a.eval.call(a,b)})(b)},camelCase:function(a){return a.replace(o,"ms-").replace(p,q)},nodeName:function(a,b){return a.nodeName&&a.nodeName.toLowerCase()===b.toLowerCase()},each:function(a,b,c){var d,e=0,f=a.length,g=r(a);if(c){if(g){for(;f>e;e++)if(d=b.apply(a[e],c),d===!1)break}else for(e in a)if(d=b.apply(a[e],c),d===!1)break}else if(g){for(;f>e;e++)if(d=b.call(a[e],e,a[e]),d===!1)break}else for(e in a)if(d=b.call(a[e],e,a[e]),d===!1)break;return a},trim:function(a){return null==a?"":(a+"").replace(n,"")},makeArray:function(a,b){var c=b||[];return null!=a&&(r(Object(a))?m.merge(c,"string"==typeof a?[a]:a):f.call(c,a)),c},inArray:function(a,b,c){var d;if(b){if(g)return g.call(b,a,c);for(d=b.length,c=c?0>c?Math.max(0,d+c):c:0;d>c;c++)if(c in b&&b[c]===a)return c}return-1},merge:function(a,b){var c=+b.length,d=0,e=a.length;while(c>d)a[e++]=b[d++];if(c!==c)while(void 0!==b[d])a[e++]=b[d++];return a.length=e,a},grep:function(a,b,c){for(var d,e=[],f=0,g=a.length,h=!c;g>f;f++)d=!b(a[f],f),d!==h&&e.push(a[f]);return e},map:function(a,b,c){var d,f=0,g=a.length,h=r(a),i=[];if(h)for(;g>f;f++)d=b(a[f],f,c),null!=d&&i.push(d);else for(f in a)d=b(a[f],f,c),null!=d&&i.push(d);return e.apply([],i)},guid:1,proxy:function(a,b){var c,e,f;return"string"==typeof b&&(f=a[b],b=a,a=f),m.isFunction(a)?(c=d.call(arguments,2),e=function(){return a.apply(b||this,c.concat(d.call(arguments)))},e.guid=a.guid=a.guid||m.guid++,e):void 0},now:function(){return+new Date},support:k}),m.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(a,b){h["[object "+b+"]"]=b.toLowerCase()});function r(a){var b="length"in a&&a.length,c=m.type(a);return"function"===c||m.isWindow(a)?!1:1===a.nodeType&&b?!0:"array"===c||0===b||"number"==typeof b&&b>0&&b-1 in a}var s=function(a){var b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u="sizzle"+1*new Date,v=a.document,w=0,x=0,y=ha(),z=ha(),A=ha(),B=function(a,b){return a===b&&(l=!0),0},C=1<<31,D={}.hasOwnProperty,E=[],F=E.pop,G=E.push,H=E.push,I=E.slice,J=function(a,b){for(var c=0,d=a.length;d>c;c++)if(a[c]===b)return c;return-1},K="checked|selected|async|autofocus|autoplay|controls|defer|disabled|hidden|ismap|loop|multiple|open|readonly|required|scoped",L="[\\x20\\t\\r\\n\\f]",M="(?:\\\\.|[\\w-]|[^\\x00-\\xa0])+",N=M.replace("w","w#"),O="\\["+L+"*("+M+")(?:"+L+"*([*^$|!~]?=)"+L+"*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|("+N+"))|)"+L+"*\\]",P=":("+M+")(?:\\((('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|((?:\\\\.|[^\\\\()[\\]]|"+O+")*)|.*)\\)|)",Q=new RegExp(L+"+","g"),R=new RegExp("^"+L+"+|((?:^|[^\\\\])(?:\\\\.)*)"+L+"+$","g"),S=new RegExp("^"+L+"*,"+L+"*"),T=new RegExp("^"+L+"*([>+~]|"+L+")"+L+"*"),U=new RegExp("="+L+"*([^\\]'\"]*?)"+L+"*\\]","g"),V=new RegExp(P),W=new RegExp("^"+N+"$"),X={ID:new RegExp("^#("+M+")"),CLASS:new RegExp("^\\.("+M+")"),TAG:new RegExp("^("+M.replace("w","w*")+")"),ATTR:new RegExp("^"+O),PSEUDO:new RegExp("^"+P),CHILD:new RegExp("^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\("+L+"*(even|odd|(([+-]|)(\\d*)n|)"+L+"*(?:([+-]|)"+L+"*(\\d+)|))"+L+"*\\)|)","i"),bool:new RegExp("^(?:"+K+")$","i"),needsContext:new RegExp("^"+L+"*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\("+L+"*((?:-\\d)?\\d*)"+L+"*\\)|)(?=[^-]|$)","i")},Y=/^(?:input|select|textarea|button)$/i,Z=/^h\d$/i,$=/^[^{]+\{\s*\[native \w/,_=/^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/,aa=/[+~]/,ba=/'|\\/g,ca=new RegExp("\\\\([\\da-f]{1,6}"+L+"?|("+L+")|.)","ig"),da=function(a,b,c){var d="0x"+b-65536;return d!==d||c?b:0>d?String.fromCharCode(d+65536):String.fromCharCode(d>>10|55296,1023&d|56320)},ea=function(){m()};try{H.apply(E=I.call(v.childNodes),v.childNodes),E[v.childNodes.length].nodeType}catch(fa){H={apply:E.length?function(a,b){G.apply(a,I.call(b))}:function(a,b){var c=a.length,d=0;while(a[c++]=b[d++]);a.length=c-1}}}function ga(a,b,d,e){var f,h,j,k,l,o,r,s,w,x;if((b?b.ownerDocument||b:v)!==n&&m(b),b=b||n,d=d||[],k=b.nodeType,"string"!=typeof a||!a||1!==k&&9!==k&&11!==k)return d;if(!e&&p){if(11!==k&&(f=_.exec(a)))if(j=f[1]){if(9===k){if(h=b.getElementById(j),!h||!h.parentNode)return d;if(h.id===j)return d.push(h),d}else if(b.ownerDocument&&(h=b.ownerDocument.getElementById(j))&&t(b,h)&&h.id===j)return d.push(h),d}else{if(f[2])return H.apply(d,b.getElementsByTagName(a)),d;if((j=f[3])&&c.getElementsByClassName)return H.apply(d,b.getElementsByClassName(j)),d}if(c.qsa&&(!q||!q.test(a))){if(s=r=u,w=b,x=1!==k&&a,1===k&&"object"!==b.nodeName.toLowerCase()){o=g(a),(r=b.getAttribute("id"))?s=r.replace(ba,"\\$&"):b.setAttribute("id",s),s="[id='"+s+"'] ",l=o.length;while(l--)o[l]=s+ra(o[l]);w=aa.test(a)&&pa(b.parentNode)||b,x=o.join(",")}if(x)try{return H.apply(d,w.querySelectorAll(x)),d}catch(y){}finally{r||b.removeAttribute("id")}}}return i(a.replace(R,"$1"),b,d,e)}function ha(){var a=[];function b(c,e){return a.push(c+" ")>d.cacheLength&&delete b[a.shift()],b[c+" "]=e}return b}function ia(a){return a[u]=!0,a}function ja(a){var b=n.createElement("div");try{return!!a(b)}catch(c){return!1}finally{b.parentNode&&b.parentNode.removeChild(b),b=null}}function ka(a,b){var c=a.split("|"),e=a.length;while(e--)d.attrHandle[c[e]]=b}function la(a,b){var c=b&&a,d=c&&1===a.nodeType&&1===b.nodeType&&(~b.sourceIndex||C)-(~a.sourceIndex||C);if(d)return d;if(c)while(c=c.nextSibling)if(c===b)return-1;return a?1:-1}function ma(a){return function(b){var c=b.nodeName.toLowerCase();return"input"===c&&b.type===a}}function na(a){return function(b){var c=b.nodeName.toLowerCase();return("input"===c||"button"===c)&&b.type===a}}function oa(a){return ia(function(b){return b=+b,ia(function(c,d){var e,f=a([],c.length,b),g=f.length;while(g--)c[e=f[g]]&&(c[e]=!(d[e]=c[e]))})})}function pa(a){return a&&"undefined"!=typeof a.getElementsByTagName&&a}c=ga.support={},f=ga.isXML=function(a){var b=a&&(a.ownerDocument||a).documentElement;return b?"HTML"!==b.nodeName:!1},m=ga.setDocument=function(a){var b,e,g=a?a.ownerDocument||a:v;return g!==n&&9===g.nodeType&&g.documentElement?(n=g,o=g.documentElement,e=g.defaultView,e&&e!==e.top&&(e.addEventListener?e.addEventListener("unload",ea,!1):e.attachEvent&&e.attachEvent("onunload",ea)),p=!f(g),c.attributes=ja(function(a){return a.className="i",!a.getAttribute("className")}),c.getElementsByTagName=ja(function(a){return a.appendChild(g.createComment("")),!a.getElementsByTagName("*").length}),c.getElementsByClassName=$.test(g.getElementsByClassName),c.getById=ja(function(a){return o.appendChild(a).id=u,!g.getElementsByName||!g.getElementsByName(u).length}),c.getById?(d.find.ID=function(a,b){if("undefined"!=typeof b.getElementById&&p){var c=b.getElementById(a);return c&&c.parentNode?[c]:[]}},d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){return a.getAttribute("id")===b}}):(delete d.find.ID,d.filter.ID=function(a){var b=a.replace(ca,da);return function(a){var c="undefined"!=typeof a.getAttributeNode&&a.getAttributeNode("id");return c&&c.value===b}}),d.find.TAG=c.getElementsByTagName?function(a,b){return"undefined"!=typeof b.getElementsByTagName?b.getElementsByTagName(a):c.qsa?b.querySelectorAll(a):void 0}:function(a,b){var c,d=[],e=0,f=b.getElementsByTagName(a);if("*"===a){while(c=f[e++])1===c.nodeType&&d.push(c);return d}return f},d.find.CLASS=c.getElementsByClassName&&function(a,b){return p?b.getElementsByClassName(a):void 0},r=[],q=[],(c.qsa=$.test(g.querySelectorAll))&&(ja(function(a){o.appendChild(a).innerHTML="<a id='"+u+"'></a><select id='"+u+"-\f]' msallowcapture=''><option selected=''></option></select>",a.querySelectorAll("[msallowcapture^='']").length&&q.push("[*^$]="+L+"*(?:''|\"\")"),a.querySelectorAll("[selected]").length||q.push("\\["+L+"*(?:value|"+K+")"),a.querySelectorAll("[id~="+u+"-]").length||q.push("~="),a.querySelectorAll(":checked").length||q.push(":checked"),a.querySelectorAll("a#"+u+"+*").length||q.push(".#.+[+~]")}),ja(function(a){var b=g.createElement("input");b.setAttribute("type","hidden"),a.appendChild(b).setAttribute("name","D"),a.querySelectorAll("[name=d]").length&&q.push("name"+L+"*[*^$|!~]?="),a.querySelectorAll(":enabled").length||q.push(":enabled",":disabled"),a.querySelectorAll("*,:x"),q.push(",.*:")})),(c.matchesSelector=$.test(s=o.matches||o.webkitMatchesSelector||o.mozMatchesSelector||o.oMatchesSelector||o.msMatchesSelector))&&ja(function(a){c.disconnectedMatch=s.call(a,"div"),s.call(a,"[s!='']:x"),r.push("!=",P)}),q=q.length&&new RegExp(q.join("|")),r=r.length&&new RegExp(r.join("|")),b=$.test(o.compareDocumentPosition),t=b||$.test(o.contains)?function(a,b){var c=9===a.nodeType?a.documentElement:a,d=b&&b.parentNode;return a===d||!(!d||1!==d.nodeType||!(c.contains?c.contains(d):a.compareDocumentPosition&&16&a.compareDocumentPosition(d)))}:function(a,b){if(b)while(b=b.parentNode)if(b===a)return!0;return!1},B=b?function(a,b){if(a===b)return l=!0,0;var d=!a.compareDocumentPosition-!b.compareDocumentPosition;return d?d:(d=(a.ownerDocument||a)===(b.ownerDocument||b)?a.compareDocumentPosition(b):1,1&d||!c.sortDetached&&b.compareDocumentPosition(a)===d?a===g||a.ownerDocument===v&&t(v,a)?-1:b===g||b.ownerDocument===v&&t(v,b)?1:k?J(k,a)-J(k,b):0:4&d?-1:1)}:function(a,b){if(a===b)return l=!0,0;var c,d=0,e=a.parentNode,f=b.parentNode,h=[a],i=[b];if(!e||!f)return a===g?-1:b===g?1:e?-1:f?1:k?J(k,a)-J(k,b):0;if(e===f)return la(a,b);c=a;while(c=c.parentNode)h.unshift(c);c=b;while(c=c.parentNode)i.unshift(c);while(h[d]===i[d])d++;return d?la(h[d],i[d]):h[d]===v?-1:i[d]===v?1:0},g):n},ga.matches=function(a,b){return ga(a,null,null,b)},ga.matchesSelector=function(a,b){if((a.ownerDocument||a)!==n&&m(a),b=b.replace(U,"='$1']"),!(!c.matchesSelector||!p||r&&r.test(b)||q&&q.test(b)))try{var d=s.call(a,b);if(d||c.disconnectedMatch||a.document&&11!==a.document.nodeType)return d}catch(e){}return ga(b,n,null,[a]).length>0},ga.contains=function(a,b){return(a.ownerDocument||a)!==n&&m(a),t(a,b)},ga.attr=function(a,b){(a.ownerDocument||a)!==n&&m(a);var e=d.attrHandle[b.toLowerCase()],f=e&&D.call(d.attrHandle,b.toLowerCase())?e(a,b,!p):void 0;return void 0!==f?f:c.attributes||!p?a.getAttribute(b):(f=a.getAttributeNode(b))&&f.specified?f.value:null},ga.error=function(a){throw new Error("Syntax error, unrecognized expression: "+a)},ga.uniqueSort=function(a){var b,d=[],e=0,f=0;if(l=!c.detectDuplicates,k=!c.sortStable&&a.slice(0),a.sort(B),l){while(b=a[f++])b===a[f]&&(e=d.push(f));while(e--)a.splice(d[e],1)}return k=null,a},e=ga.getText=function(a){var b,c="",d=0,f=a.nodeType;if(f){if(1===f||9===f||11===f){if("string"==typeof a.textContent)return a.textContent;for(a=a.firstChild;a;a=a.nextSibling)c+=e(a)}else if(3===f||4===f)return a.nodeValue}else while(b=a[d++])c+=e(b);return c},d=ga.selectors={cacheLength:50,createPseudo:ia,match:X,attrHandle:{},find:{},relative:{">":{dir:"parentNode",first:!0}," ":{dir:"parentNode"},"+":{dir:"previousSibling",first:!0},"~":{dir:"previousSibling"}},preFilter:{ATTR:function(a){return a[1]=a[1].replace(ca,da),a[3]=(a[3]||a[4]||a[5]||"").replace(ca,da),"~="===a[2]&&(a[3]=" "+a[3]+" "),a.slice(0,4)},CHILD:function(a){return a[1]=a[1].toLowerCase(),"nth"===a[1].slice(0,3)?(a[3]||ga.error(a[0]),a[4]=+(a[4]?a[5]+(a[6]||1):2*("even"===a[3]||"odd"===a[3])),a[5]=+(a[7]+a[8]||"odd"===a[3])):a[3]&&ga.error(a[0]),a},PSEUDO:function(a){var b,c=!a[6]&&a[2];return X.CHILD.test(a[0])?null:(a[3]?a[2]=a[4]||a[5]||"":c&&V.test(c)&&(b=g(c,!0))&&(b=c.indexOf(")",c.length-b)-c.length)&&(a[0]=a[0].slice(0,b),a[2]=c.slice(0,b)),a.slice(0,3))}},filter:{TAG:function(a){var b=a.replace(ca,da).toLowerCase();return"*"===a?function(){return!0}:function(a){return a.nodeName&&a.nodeName.toLowerCase()===b}},CLASS:function(a){var b=y[a+" "];return b||(b=new RegExp("(^|"+L+")"+a+"("+L+"|$)"))&&y(a,function(a){return b.test("string"==typeof a.className&&a.className||"undefined"!=typeof a.getAttribute&&a.getAttribute("class")||"")})},ATTR:function(a,b,c){return function(d){var e=ga.attr(d,a);return null==e?"!="===b:b?(e+="","="===b?e===c:"!="===b?e!==c:"^="===b?c&&0===e.indexOf(c):"*="===b?c&&e.indexOf(c)>-1:"$="===b?c&&e.slice(-c.length)===c:"~="===b?(" "+e.replace(Q," ")+" ").indexOf(c)>-1:"|="===b?e===c||e.slice(0,c.length+1)===c+"-":!1):!0}},CHILD:function(a,b,c,d,e){var f="nth"!==a.slice(0,3),g="last"!==a.slice(-4),h="of-type"===b;return 1===d&&0===e?function(a){return!!a.parentNode}:function(b,c,i){var j,k,l,m,n,o,p=f!==g?"nextSibling":"previousSibling",q=b.parentNode,r=h&&b.nodeName.toLowerCase(),s=!i&&!h;if(q){if(f){while(p){l=b;while(l=l[p])if(h?l.nodeName.toLowerCase()===r:1===l.nodeType)return!1;o=p="only"===a&&!o&&"nextSibling"}return!0}if(o=[g?q.firstChild:q.lastChild],g&&s){k=q[u]||(q[u]={}),j=k[a]||[],n=j[0]===w&&j[1],m=j[0]===w&&j[2],l=n&&q.childNodes[n];while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if(1===l.nodeType&&++m&&l===b){k[a]=[w,n,m];break}}else if(s&&(j=(b[u]||(b[u]={}))[a])&&j[0]===w)m=j[1];else while(l=++n&&l&&l[p]||(m=n=0)||o.pop())if((h?l.nodeName.toLowerCase()===r:1===l.nodeType)&&++m&&(s&&((l[u]||(l[u]={}))[a]=[w,m]),l===b))break;return m-=e,m===d||m%d===0&&m/d>=0}}},PSEUDO:function(a,b){var c,e=d.pseudos[a]||d.setFilters[a.toLowerCase()]||ga.error("unsupported pseudo: "+a);return e[u]?e(b):e.length>1?(c=[a,a,"",b],d.setFilters.hasOwnProperty(a.toLowerCase())?ia(function(a,c){var d,f=e(a,b),g=f.length;while(g--)d=J(a,f[g]),a[d]=!(c[d]=f[g])}):function(a){return e(a,0,c)}):e}},pseudos:{not:ia(function(a){var b=[],c=[],d=h(a.replace(R,"$1"));return d[u]?ia(function(a,b,c,e){var f,g=d(a,null,e,[]),h=a.length;while(h--)(f=g[h])&&(a[h]=!(b[h]=f))}):function(a,e,f){return b[0]=a,d(b,null,f,c),b[0]=null,!c.pop()}}),has:ia(function(a){return function(b){return ga(a,b).length>0}}),contains:ia(function(a){return a=a.replace(ca,da),function(b){return(b.textContent||b.innerText||e(b)).indexOf(a)>-1}}),lang:ia(function(a){return W.test(a||"")||ga.error("unsupported lang: "+a),a=a.replace(ca,da).toLowerCase(),function(b){var c;do if(c=p?b.lang:b.getAttribute("xml:lang")||b.getAttribute("lang"))return c=c.toLowerCase(),c===a||0===c.indexOf(a+"-");while((b=b.parentNode)&&1===b.nodeType);return!1}}),target:function(b){var c=a.location&&a.location.hash;return c&&c.slice(1)===b.id},root:function(a){return a===o},focus:function(a){return a===n.activeElement&&(!n.hasFocus||n.hasFocus())&&!!(a.type||a.href||~a.tabIndex)},enabled:function(a){return a.disabled===!1},disabled:function(a){return a.disabled===!0},checked:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&!!a.checked||"option"===b&&!!a.selected},selected:function(a){return a.parentNode&&a.parentNode.selectedIndex,a.selected===!0},empty:function(a){for(a=a.firstChild;a;a=a.nextSibling)if(a.nodeType<6)return!1;return!0},parent:function(a){return!d.pseudos.empty(a)},header:function(a){return Z.test(a.nodeName)},input:function(a){return Y.test(a.nodeName)},button:function(a){var b=a.nodeName.toLowerCase();return"input"===b&&"button"===a.type||"button"===b},text:function(a){var b;return"input"===a.nodeName.toLowerCase()&&"text"===a.type&&(null==(b=a.getAttribute("type"))||"text"===b.toLowerCase())},first:oa(function(){return[0]}),last:oa(function(a,b){return[b-1]}),eq:oa(function(a,b,c){return[0>c?c+b:c]}),even:oa(function(a,b){for(var c=0;b>c;c+=2)a.push(c);return a}),odd:oa(function(a,b){for(var c=1;b>c;c+=2)a.push(c);return a}),lt:oa(function(a,b,c){for(var d=0>c?c+b:c;--d>=0;)a.push(d);return a}),gt:oa(function(a,b,c){for(var d=0>c?c+b:c;++d<b;)a.push(d);return a})}},d.pseudos.nth=d.pseudos.eq;for(b in{radio:!0,checkbox:!0,file:!0,password:!0,image:!0})d.pseudos[b]=ma(b);for(b in{submit:!0,reset:!0})d.pseudos[b]=na(b);function qa(){}qa.prototype=d.filters=d.pseudos,d.setFilters=new qa,g=ga.tokenize=function(a,b){var c,e,f,g,h,i,j,k=z[a+" "];if(k)return b?0:k.slice(0);h=a,i=[],j=d.preFilter;while(h){(!c||(e=S.exec(h)))&&(e&&(h=h.slice(e[0].length)||h),i.push(f=[])),c=!1,(e=T.exec(h))&&(c=e.shift(),f.push({value:c,type:e[0].replace(R," ")}),h=h.slice(c.length));for(g in d.filter)!(e=X[g].exec(h))||j[g]&&!(e=j[g](e))||(c=e.shift(),f.push({value:c,type:g,matches:e}),h=h.slice(c.length));if(!c)break}return b?h.length:h?ga.error(a):z(a,i).slice(0)};function ra(a){for(var b=0,c=a.length,d="";c>b;b++)d+=a[b].value;return d}function sa(a,b,c){var d=b.dir,e=c&&"parentNode"===d,f=x++;return b.first?function(b,c,f){while(b=b[d])if(1===b.nodeType||e)return a(b,c,f)}:function(b,c,g){var h,i,j=[w,f];if(g){while(b=b[d])if((1===b.nodeType||e)&&a(b,c,g))return!0}else while(b=b[d])if(1===b.nodeType||e){if(i=b[u]||(b[u]={}),(h=i[d])&&h[0]===w&&h[1]===f)return j[2]=h[2];if(i[d]=j,j[2]=a(b,c,g))return!0}}}function ta(a){return a.length>1?function(b,c,d){var e=a.length;while(e--)if(!a[e](b,c,d))return!1;return!0}:a[0]}function ua(a,b,c){for(var d=0,e=b.length;e>d;d++)ga(a,b[d],c);return c}function va(a,b,c,d,e){for(var f,g=[],h=0,i=a.length,j=null!=b;i>h;h++)(f=a[h])&&(!c||c(f,d,e))&&(g.push(f),j&&b.push(h));return g}function wa(a,b,c,d,e,f){return d&&!d[u]&&(d=wa(d)),e&&!e[u]&&(e=wa(e,f)),ia(function(f,g,h,i){var j,k,l,m=[],n=[],o=g.length,p=f||ua(b||"*",h.nodeType?[h]:h,[]),q=!a||!f&&b?p:va(p,m,a,h,i),r=c?e||(f?a:o||d)?[]:g:q;if(c&&c(q,r,h,i),d){j=va(r,n),d(j,[],h,i),k=j.length;while(k--)(l=j[k])&&(r[n[k]]=!(q[n[k]]=l))}if(f){if(e||a){if(e){j=[],k=r.length;while(k--)(l=r[k])&&j.push(q[k]=l);e(null,r=[],j,i)}k=r.length;while(k--)(l=r[k])&&(j=e?J(f,l):m[k])>-1&&(f[j]=!(g[j]=l))}}else r=va(r===g?r.splice(o,r.length):r),e?e(null,g,r,i):H.apply(g,r)})}function xa(a){for(var b,c,e,f=a.length,g=d.relative[a[0].type],h=g||d.relative[" "],i=g?1:0,k=sa(function(a){return a===b},h,!0),l=sa(function(a){return J(b,a)>-1},h,!0),m=[function(a,c,d){var e=!g&&(d||c!==j)||((b=c).nodeType?k(a,c,d):l(a,c,d));return b=null,e}];f>i;i++)if(c=d.relative[a[i].type])m=[sa(ta(m),c)];else{if(c=d.filter[a[i].type].apply(null,a[i].matches),c[u]){for(e=++i;f>e;e++)if(d.relative[a[e].type])break;return wa(i>1&&ta(m),i>1&&ra(a.slice(0,i-1).concat({value:" "===a[i-2].type?"*":""})).replace(R,"$1"),c,e>i&&xa(a.slice(i,e)),f>e&&xa(a=a.slice(e)),f>e&&ra(a))}m.push(c)}return ta(m)}function ya(a,b){var c=b.length>0,e=a.length>0,f=function(f,g,h,i,k){var l,m,o,p=0,q="0",r=f&&[],s=[],t=j,u=f||e&&d.find.TAG("*",k),v=w+=null==t?1:Math.random()||.1,x=u.length;for(k&&(j=g!==n&&g);q!==x&&null!=(l=u[q]);q++){if(e&&l){m=0;while(o=a[m++])if(o(l,g,h)){i.push(l);break}k&&(w=v)}c&&((l=!o&&l)&&p--,f&&r.push(l))}if(p+=q,c&&q!==p){m=0;while(o=b[m++])o(r,s,g,h);if(f){if(p>0)while(q--)r[q]||s[q]||(s[q]=F.call(i));s=va(s)}H.apply(i,s),k&&!f&&s.length>0&&p+b.length>1&&ga.uniqueSort(i)}return k&&(w=v,j=t),r};return c?ia(f):f}return h=ga.compile=function(a,b){var c,d=[],e=[],f=A[a+" "];if(!f){b||(b=g(a)),c=b.length;while(c--)f=xa(b[c]),f[u]?d.push(f):e.push(f);f=A(a,ya(e,d)),f.selector=a}return f},i=ga.select=function(a,b,e,f){var i,j,k,l,m,n="function"==typeof a&&a,o=!f&&g(a=n.selector||a);if(e=e||[],1===o.length){if(j=o[0]=o[0].slice(0),j.length>2&&"ID"===(k=j[0]).type&&c.getById&&9===b.nodeType&&p&&d.relative[j[1].type]){if(b=(d.find.ID(k.matches[0].replace(ca,da),b)||[])[0],!b)return e;n&&(b=b.parentNode),a=a.slice(j.shift().value.length)}i=X.needsContext.test(a)?0:j.length;while(i--){if(k=j[i],d.relative[l=k.type])break;if((m=d.find[l])&&(f=m(k.matches[0].replace(ca,da),aa.test(j[0].type)&&pa(b.parentNode)||b))){if(j.splice(i,1),a=f.length&&ra(j),!a)return H.apply(e,f),e;break}}}return(n||h(a,o))(f,b,!p,e,aa.test(a)&&pa(b.parentNode)||b),e},c.sortStable=u.split("").sort(B).join("")===u,c.detectDuplicates=!!l,m(),c.sortDetached=ja(function(a){return 1&a.compareDocumentPosition(n.createElement("div"))}),ja(function(a){return a.innerHTML="<a href='#'></a>","#"===a.firstChild.getAttribute("href")})||ka("type|href|height|width",function(a,b,c){return c?void 0:a.getAttribute(b,"type"===b.toLowerCase()?1:2)}),c.attributes&&ja(function(a){return a.innerHTML="<input/>",a.firstChild.setAttribute("value",""),""===a.firstChild.getAttribute("value")})||ka("value",function(a,b,c){return c||"input"!==a.nodeName.toLowerCase()?void 0:a.defaultValue}),ja(function(a){return null==a.getAttribute("disabled")})||ka(K,function(a,b,c){var d;return c?void 0:a[b]===!0?b.toLowerCase():(d=a.getAttributeNode(b))&&d.specified?d.value:null}),ga}(a);m.find=s,m.expr=s.selectors,m.expr[":"]=m.expr.pseudos,m.unique=s.uniqueSort,m.text=s.getText,m.isXMLDoc=s.isXML,m.contains=s.contains;var t=m.expr.match.needsContext,u=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,v=/^.[^:#\[\.,]*$/;function w(a,b,c){if(m.isFunction(b))return m.grep(a,function(a,d){return!!b.call(a,d,a)!==c});if(b.nodeType)return m.grep(a,function(a){return a===b!==c});if("string"==typeof b){if(v.test(b))return m.filter(b,a,c);b=m.filter(b,a)}return m.grep(a,function(a){return m.inArray(a,b)>=0!==c})}m.filter=function(a,b,c){var d=b[0];return c&&(a=":not("+a+")"),1===b.length&&1===d.nodeType?m.find.matchesSelector(d,a)?[d]:[]:m.find.matches(a,m.grep(b,function(a){return 1===a.nodeType}))},m.fn.extend({find:function(a){var b,c=[],d=this,e=d.length;if("string"!=typeof a)return this.pushStack(m(a).filter(function(){for(b=0;e>b;b++)if(m.contains(d[b],this))return!0}));for(b=0;e>b;b++)m.find(a,d[b],c);return c=this.pushStack(e>1?m.unique(c):c),c.selector=this.selector?this.selector+" "+a:a,c},filter:function(a){return this.pushStack(w(this,a||[],!1))},not:function(a){return this.pushStack(w(this,a||[],!0))},is:function(a){return!!w(this,"string"==typeof a&&t.test(a)?m(a):a||[],!1).length}});var x,y=a.document,z=/^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/,A=m.fn.init=function(a,b){var c,d;if(!a)return this;if("string"==typeof a){if(c="<"===a.charAt(0)&&">"===a.charAt(a.length-1)&&a.length>=3?[null,a,null]:z.exec(a),!c||!c[1]&&b)return!b||b.jquery?(b||x).find(a):this.constructor(b).find(a);if(c[1]){if(b=b instanceof m?b[0]:b,m.merge(this,m.parseHTML(c[1],b&&b.nodeType?b.ownerDocument||b:y,!0)),u.test(c[1])&&m.isPlainObject(b))for(c in b)m.isFunction(this[c])?this[c](b[c]):this.attr(c,b[c]);return this}if(d=y.getElementById(c[2]),d&&d.parentNode){if(d.id!==c[2])return x.find(a);this.length=1,this[0]=d}return this.context=y,this.selector=a,this}return a.nodeType?(this.context=this[0]=a,this.length=1,this):m.isFunction(a)?"undefined"!=typeof x.ready?x.ready(a):a(m):(void 0!==a.selector&&(this.selector=a.selector,this.context=a.context),m.makeArray(a,this))};A.prototype=m.fn,x=m(y);var B=/^(?:parents|prev(?:Until|All))/,C={children:!0,contents:!0,next:!0,prev:!0};m.extend({dir:function(a,b,c){var d=[],e=a[b];while(e&&9!==e.nodeType&&(void 0===c||1!==e.nodeType||!m(e).is(c)))1===e.nodeType&&d.push(e),e=e[b];return d},sibling:function(a,b){for(var c=[];a;a=a.nextSibling)1===a.nodeType&&a!==b&&c.push(a);return c}}),m.fn.extend({has:function(a){var b,c=m(a,this),d=c.length;return this.filter(function(){for(b=0;d>b;b++)if(m.contains(this,c[b]))return!0})},closest:function(a,b){for(var c,d=0,e=this.length,f=[],g=t.test(a)||"string"!=typeof a?m(a,b||this.context):0;e>d;d++)for(c=this[d];c&&c!==b;c=c.parentNode)if(c.nodeType<11&&(g?g.index(c)>-1:1===c.nodeType&&m.find.matchesSelector(c,a))){f.push(c);break}return this.pushStack(f.length>1?m.unique(f):f)},index:function(a){return a?"string"==typeof a?m.inArray(this[0],m(a)):m.inArray(a.jquery?a[0]:a,this):this[0]&&this[0].parentNode?this.first().prevAll().length:-1},add:function(a,b){return this.pushStack(m.unique(m.merge(this.get(),m(a,b))))},addBack:function(a){return this.add(null==a?this.prevObject:this.prevObject.filter(a))}});function D(a,b){do a=a[b];while(a&&1!==a.nodeType);return a}m.each({parent:function(a){var b=a.parentNode;return b&&11!==b.nodeType?b:null},parents:function(a){return m.dir(a,"parentNode")},parentsUntil:function(a,b,c){return m.dir(a,"parentNode",c)},next:function(a){return D(a,"nextSibling")},prev:function(a){return D(a,"previousSibling")},nextAll:function(a){return m.dir(a,"nextSibling")},prevAll:function(a){return m.dir(a,"previousSibling")},nextUntil:function(a,b,c){return m.dir(a,"nextSibling",c)},prevUntil:function(a,b,c){return m.dir(a,"previousSibling",c)},siblings:function(a){return m.sibling((a.parentNode||{}).firstChild,a)},children:function(a){return m.sibling(a.firstChild)},contents:function(a){return m.nodeName(a,"iframe")?a.contentDocument||a.contentWindow.document:m.merge([],a.childNodes)}},function(a,b){m.fn[a]=function(c,d){var e=m.map(this,b,c);return"Until"!==a.slice(-5)&&(d=c),d&&"string"==typeof d&&(e=m.filter(d,e)),this.length>1&&(C[a]||(e=m.unique(e)),B.test(a)&&(e=e.reverse())),this.pushStack(e)}});var E=/\S+/g,F={};function G(a){var b=F[a]={};return m.each(a.match(E)||[],function(a,c){b[c]=!0}),b}m.Callbacks=function(a){a="string"==typeof a?F[a]||G(a):m.extend({},a);var b,c,d,e,f,g,h=[],i=!a.once&&[],j=function(l){for(c=a.memory&&l,d=!0,f=g||0,g=0,e=h.length,b=!0;h&&e>f;f++)if(h[f].apply(l[0],l[1])===!1&&a.stopOnFalse){c=!1;break}b=!1,h&&(i?i.length&&j(i.shift()):c?h=[]:k.disable())},k={add:function(){if(h){var d=h.length;!function f(b){m.each(b,function(b,c){var d=m.type(c);"function"===d?a.unique&&k.has(c)||h.push(c):c&&c.length&&"string"!==d&&f(c)})}(arguments),b?e=h.length:c&&(g=d,j(c))}return this},remove:function(){return h&&m.each(arguments,function(a,c){var d;while((d=m.inArray(c,h,d))>-1)h.splice(d,1),b&&(e>=d&&e--,f>=d&&f--)}),this},has:function(a){return a?m.inArray(a,h)>-1:!(!h||!h.length)},empty:function(){return h=[],e=0,this},disable:function(){return h=i=c=void 0,this},disabled:function(){return!h},lock:function(){return i=void 0,c||k.disable(),this},locked:function(){return!i},fireWith:function(a,c){return!h||d&&!i||(c=c||[],c=[a,c.slice?c.slice():c],b?i.push(c):j(c)),this},fire:function(){return k.fireWith(this,arguments),this},fired:function(){return!!d}};return k},m.extend({Deferred:function(a){var b=[["resolve","done",m.Callbacks("once memory"),"resolved"],["reject","fail",m.Callbacks("once memory"),"rejected"],["notify","progress",m.Callbacks("memory")]],c="pending",d={state:function(){return c},always:function(){return e.done(arguments).fail(arguments),this},then:function(){var a=arguments;return m.Deferred(function(c){m.each(b,function(b,f){var g=m.isFunction(a[b])&&a[b];e[f[1]](function(){var a=g&&g.apply(this,arguments);a&&m.isFunction(a.promise)?a.promise().done(c.resolve).fail(c.reject).progress(c.notify):c[f[0]+"With"](this===d?c.promise():this,g?[a]:arguments)})}),a=null}).promise()},promise:function(a){return null!=a?m.extend(a,d):d}},e={};return d.pipe=d.then,m.each(b,function(a,f){var g=f[2],h=f[3];d[f[1]]=g.add,h&&g.add(function(){c=h},b[1^a][2].disable,b[2][2].lock),e[f[0]]=function(){return e[f[0]+"With"](this===e?d:this,arguments),this},e[f[0]+"With"]=g.fireWith}),d.promise(e),a&&a.call(e,e),e},when:function(a){var b=0,c=d.call(arguments),e=c.length,f=1!==e||a&&m.isFunction(a.promise)?e:0,g=1===f?a:m.Deferred(),h=function(a,b,c){return function(e){b[a]=this,c[a]=arguments.length>1?d.call(arguments):e,c===i?g.notifyWith(b,c):--f||g.resolveWith(b,c)}},i,j,k;if(e>1)for(i=new Array(e),j=new Array(e),k=new Array(e);e>b;b++)c[b]&&m.isFunction(c[b].promise)?c[b].promise().done(h(b,k,c)).fail(g.reject).progress(h(b,j,i)):--f;return f||g.resolveWith(k,c),g.promise()}});var H;m.fn.ready=function(a){return m.ready.promise().done(a),this},m.extend({isReady:!1,readyWait:1,holdReady:function(a){a?m.readyWait++:m.ready(!0)},ready:function(a){if(a===!0?!--m.readyWait:!m.isReady){if(!y.body)return setTimeout(m.ready);m.isReady=!0,a!==!0&&--m.readyWait>0||(H.resolveWith(y,[m]),m.fn.triggerHandler&&(m(y).triggerHandler("ready"),m(y).off("ready")))}}});function I(){y.addEventListener?(y.removeEventListener("DOMContentLoaded",J,!1),a.removeEventListener("load",J,!1)):(y.detachEvent("onreadystatechange",J),a.detachEvent("onload",J))}function J(){(y.addEventListener||"load"===event.type||"complete"===y.readyState)&&(I(),m.ready())}m.ready.promise=function(b){if(!H)if(H=m.Deferred(),"complete"===y.readyState)setTimeout(m.ready);else if(y.addEventListener)y.addEventListener("DOMContentLoaded",J,!1),a.addEventListener("load",J,!1);else{y.attachEvent("onreadystatechange",J),a.attachEvent("onload",J);var c=!1;try{c=null==a.frameElement&&y.documentElement}catch(d){}c&&c.doScroll&&!function e(){if(!m.isReady){try{c.doScroll("left")}catch(a){return setTimeout(e,50)}I(),m.ready()}}()}return H.promise(b)};var K="undefined",L;for(L in m(k))break;k.ownLast="0"!==L,k.inlineBlockNeedsLayout=!1,m(function(){var a,b,c,d;c=y.getElementsByTagName("body")[0],c&&c.style&&(b=y.createElement("div"),d=y.createElement("div"),d.style.cssText="position:absolute;border:0;width:0;height:0;top:0;left:-9999px",c.appendChild(d).appendChild(b),typeof b.style.zoom!==K&&(b.style.cssText="display:inline;margin:0;border:0;padding:1px;width:1px;zoom:1",k.inlineBlockNeedsLayout=a=3===b.offsetWidth,a&&(c.style.zoom=1)),c.removeChild(d))}),function(){var a=y.createElement("div");if(null==k.deleteExpando){k.deleteExpando=!0;try{delete a.test}catch(b){k.deleteExpando=!1}}a=null}(),m.acceptData=function(a){var b=m.noData[(a.nodeName+" ").toLowerCase()],c=+a.nodeType||1;return 1!==c&&9!==c?!1:!b||b!==!0&&a.getAttribute("classid")===b};var M=/^(?:\{[\w\W]*\}|\[[\w\W]*\])$/,N=/([A-Z])/g;function O(a,b,c){if(void 0===c&&1===a.nodeType){var d="data-"+b.replace(N,"-$1").toLowerCase();if(c=a.getAttribute(d),"string"==typeof c){try{c="true"===c?!0:"false"===c?!1:"null"===c?null:+c+""===c?+c:M.test(c)?m.parseJSON(c):c}catch(e){}m.data(a,b,c)}else c=void 0}return c}function P(a){var b;for(b in a)if(("data"!==b||!m.isEmptyObject(a[b]))&&"toJSON"!==b)return!1;
@@ -2938,314 +2938,299 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">HW 7</h1>
+<h1 class="title toc-ignore">HW 8</h1>
 
 </div>
 
 
 <!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <blockquote>
 <p>Grading Notes:</p>
-<p>For questions that require a text answer: Full credit: requires an answer to each question asked. Your explanations need to valid and logical. You don’t need to use the same words as the key, but the meaning needs to be complete. Assign partial credit for answers that are incomplete. For multi-part questions, divide points approximatly equally unless otherwise specified.</p>
+</blockquote>
+<blockquote>
 <p>For all questions, if you get the right answer using a different approach than I use, that is fine.</p>
 </blockquote>
 <blockquote>
-<p>Fill in your scores in the google form here: <a href="https://forms.gle/xfFnXBUY5JBxcbYh9" class="uri">https://forms.gle/xfFnXBUY5JBxcbYh9</a>. PLEASE ONLY ENTER A NUMBER. IF YOU WANT TO LEAVE A COMMENT ABOUT A SCORE, DO IT DIRECTLY ON CANVES. It will require you to log in with your ucdavis email address. Let me know if this causes problems. This way I can associate your grades with you on Canvas</p>
+<p>Fill in your scores in the google form here: <a href="https://forms.gle/T4kK8gwrxjwj4t8W7" class="uri">https://forms.gle/T4kK8gwrxjwj4t8W7</a>. PLEASE ONLY ENTER A NUMBER. IF YOU WANT TO LEAVE A COMMENT ABOUT A SCORE, DO IT DIRECTLY ON CANVES. It will require you to log in with your ucdavis email address. Let me know if this causes problems. This way I can associate your grades with you on Canvas</p>
 </blockquote>
-<p>Re-install PLS205 package: Run the following command directly in your RStudio console: <code>devtools::install_github(&#39;deruncie/PLS205_package&#39;)</code></p>
+<hr />
+<p>The following data are from a spring oats trial run in Craibstone, near Aberdeen in Scottland.</p>
+<p>24 varieties of oats were grown each grown in 3 fields (<code>rep</code>), and the yield (tonnes / ha) was assessed at the end of the season. Each field was divided into 6 blocks, named B1…B6.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>A split-plot experiment for studying the corrosion resistance of steel bars treated with four coatings (C1, C2, C3, C4) at three furnace temperatures (360C, 370C, 380C). It takes considerable time to reset the furnace and reach a new equilibrium temperature. Therefore, each the furnace was set twice to each temperature (in a randomized order), and then while it was at the set temperature, four bars, one with each coating, were positioned in the furnace at randomized locations and heated. Each bar was then tested individually for corrosion resistance.</p>
-<p>Data from the experiment are provided here:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29ycm9zaW9uID0gcmVhZC5jc3YoJ2NvcnJvc2lvbi5jc3YnLHN0cmluZ3NBc0ZhY3RvcnMgPSBUKVxuc3RyKGNvcnJvc2lvbilcbmBgYCJ9 -->
-<pre class="r"><code>corrosion = read.csv(&#39;corrosion.csv&#39;,stringsAsFactors = T)
-str(corrosion)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxub2F0cyA9IHJlYWQuY3N2KCdPYXRzX3RyaWFscy5jc3YnKVxuc3RyKG9hdHMpXG5gYGAifQ== -->
+<pre class="r"><code>oats = read.csv(&#39;Oats_trials.csv&#39;)
+str(oats)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0MjQgb2JzLiBvZiAgNSB2YXJpYWJsZXM6XG4gJCBCYXIgICAgICA6IGludCAgMSAyIDMgNCA1IDYgNyA4IDkgMTAgLi4uXG4gJCBUcmlhbCAgICA6IGludCAgMSAxIDEgMSAyIDIgMiAyIDMgMyAuLi5cbiAkIFRlbXAgICAgIDogRmFjdG9yIHcvIDMgbGV2ZWxzIFwiMzYwb0NcIixcIjM3MG9DXCIsLi46IDEgMSAxIDEgMiAyIDIgMiAzIDMgLi4uXG4gJCBDb2F0ICAgICA6IEZhY3RvciB3LyA0IGxldmVscyBcIkMxXCIsXCJDMlwiLFwiQzNcIiwuLjogMSAyIDMgNCAxIDIgMyA0IDEgMiAuLi5cbiAkIENvcnJvc2lvbjogaW50ICA2NyA3MyA4MyA4OSA2NSA5MSA4NyA4NiAxNTUgMTI3IC4uLlxuIn0= -->
-<pre><code>&#39;data.frame&#39;:   24 obs. of  5 variables:
- $ Bar      : int  1 2 3 4 5 6 7 8 9 10 ...
- $ Trial    : int  1 1 1 1 2 2 2 2 3 3 ...
- $ Temp     : Factor w/ 3 levels &quot;360oC&quot;,&quot;370oC&quot;,..: 1 1 1 1 2 2 2 2 3 3 ...
- $ Coat     : Factor w/ 4 levels &quot;C1&quot;,&quot;C2&quot;,&quot;C3&quot;,..: 1 2 3 4 1 2 3 4 1 2 ...
- $ Corrosion: int  67 73 83 89 65 91 87 86 155 127 ...</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiJ2RhdGEuZnJhbWUnOlx0NzIgb2JzLiBvZiAgNSB2YXJpYWJsZXM6XG4gJCBwbG90IDogaW50ICAxIDIgMyA0IDUgNiA3IDggOSAxMCAuLi5cbiAkIHJlcCAgOiBjaHIgIFwiUjFcIiBcIlIxXCIgXCJSMVwiIFwiUjFcIiAuLi5cbiAkIGJsb2NrOiBjaHIgIFwiQjFcIiBcIkIxXCIgXCJCMVwiIFwiQjFcIiAuLi5cbiAkIGdlbiAgOiBjaHIgIFwiRzExXCIgXCJHMDRcIiBcIkcwNVwiIFwiRzIyXCIgLi4uXG4gJCB5aWVsZDogbnVtICA0LjEyIDQuNDUgNS44OCA0LjU4IDQuNjUgLi4uXG4ifQ== -->
+<pre><code>&#39;data.frame&#39;:   72 obs. of  5 variables:
+ $ plot : int  1 2 3 4 5 6 7 8 9 10 ...
+ $ rep  : chr  &quot;R1&quot; &quot;R1&quot; &quot;R1&quot; &quot;R1&quot; ...
+ $ block: chr  &quot;B1&quot; &quot;B1&quot; &quot;B1&quot; &quot;B1&quot; ...
+ $ gen  : chr  &quot;G11&quot; &quot;G04&quot; &quot;G05&quot; &quot;G22&quot; ...
+ $ yield: num  4.12 4.45 5.88 4.58 4.65 ...</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<div id="create-the-design-table-for-this-experiment" class="section level2">
-<h2><span class="header-section-number">0.1</span> 1) Create the design table for this experiment</h2>
-<p>Correct any of the variables in the data.frame to correspond to the design table</p>
+<p>Your goal over the following set of questions is to identify a set of genotypes to keep / recommend for use.</p>
+<div id="blocks-are-specific-to-each-field" class="section level2">
+<h2><span class="header-section-number">0.1</span> 1.1 Blocks are specific to each field</h2>
+<p>How many unique blocks are there? If necessary, re-name the blocks so that they are appropriately nested in the fields.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2l0aChvYXRzLHRhYmxlKHJlcCxibG9jaykpXG5gYGAifQ== -->
+<pre class="r"><code>with(oats,table(rep,block))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiICAgIGJsb2NrXG5yZXAgIEIxIEIyIEIzIEI0IEI1IEI2XG4gIFIxICA0ICA0ICA0ICA0ICA0ICA0XG4gIFIyICA0ICA0ICA0ICA0ICA0ICA0XG4gIFIzICA0ICA0ICA0ICA0ICA0ICA0XG4ifQ== -->
+<pre><code>    block
+rep  B1 B2 B3 B4 B5 B6
+  R1  4  4  4  4  4  4
+  R2  4  4  4  4  4  4
+  R3  4  4  4  4  4  4</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<blockquote>
+<p>There are 6*3 = 18 blocks. Blocks are nested in rep’s (ie Fields). So B1 in R1 is different from B1 in R2.</p>
+</blockquote>
+<blockquote>
+<p>[6 points]</p>
+</blockquote>
+</div>
+<div id="characterize-the-experimental-design" class="section level2">
+<h2><span class="header-section-number">0.2</span> 1.2 Characterize the experimental design</h2>
+<p>Start by making a model table:</p>
 <table>
 <thead>
 <tr class="header">
 <th>Structure</th>
 <th>Variable</th>
 <th>Type</th>
-<th>#levels</th>
-<th>EU</th>
+<th># levels</th>
+<th>Experiment Unit</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Treatment</td>
-<td>Temp</td>
-<td>Cat</td>
-<td>3</td>
-<td>Trial</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Coat</td>
-<td>Cat</td>
-<td>4</td>
-<td>Trial:Coat</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Temp:Coat</td>
-<td>Cat</td>
-<td>12</td>
-<td>Trial:Temp:Coat</td>
+<td>gen</td>
+<td>Categorical</td>
+<td>24</td>
+<td>rep:gen</td>
 </tr>
 <tr class="even">
 <td>Design</td>
-<td>Trial</td>
-<td>Cat</td>
-<td>6</td>
+<td>rep</td>
+<td>Categorical</td>
+<td>3</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td></td>
-<td>Trial:Coat</td>
-<td>Cat</td>
-<td>24</td>
+<td>block</td>
+<td>Categorical</td>
+<td>18</td>
 <td></td>
 </tr>
 <tr class="even">
 <td></td>
-<td>Temp:Trial:Coat</td>
-<td>Cat</td>
-<td>24</td>
+<td>rep:gen</td>
+<td>Categorical</td>
+<td>72</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td></td>
-<td>Bar</td>
-<td>Cat</td>
-<td>24</td>
+<td>block:gen</td>
+<td>Categorical</td>
+<td>72</td>
 <td></td>
 </tr>
 <tr class="even">
+<td></td>
+<td>plot</td>
+<td>Categorical</td>
+<td>72</td>
+<td></td>
+</tr>
+<tr class="odd">
 <td>Response</td>
-<td>Corrosion</td>
+<td>yield</td>
 <td>Numeric</td>
-<td>24</td>
+<td>72</td>
 <td></td>
 </tr>
 </tbody>
 </table>
+<blockquote>
+<p>[8 points]</p>
+</blockquote>
+<blockquote>
+<p>All terms here should be listed, with correct numbers of levels. Do not take off again here if # levels for block is wrong; however it should be matching with your answer in 1.1. You can label field as rep and vice-versa. Don’t worry about the name of the design! [-3 points] For wrong levels or missing elements. Also take off points if the number of levels of blocks does not match with your answer in 1.1.</p>
+</blockquote>
+</div>
+<div id="this-is-an-incomplete-block-design.-fill-in-the-following" class="section level2">
+<h2><span class="header-section-number">0.3</span> 1.3 This is an incomplete block design. Fill in the following:</h2>
+<table>
+<thead>
+<tr class="header">
+<th>parameter</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td># treatments (t)</td>
+<td>24</td>
+</tr>
+<tr class="even">
+<td># blocks (b)</td>
+<td>18</td>
+</tr>
+<tr class="odd">
+<td># reps/trt (n)</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td># trts / block (k)</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>Could this design be balanced? What is lambda (the average times each pair of treatments occur in the same block)?</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29ycm9zaW9uJEJhciA9IGFzLmZhY3Rvcihjb3Jyb3Npb24kQmFyKVxuY29ycm9zaW9uJFRyaWFsID0gYXMuZmFjdG9yKGNvcnJvc2lvbiRUcmlhbClcbmBgYCJ9 -->
-<pre class="r"><code>corrosion$Bar = as.factor(corrosion$Bar)
-corrosion$Trial = as.factor(corrosion$Trial)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGFtYmRhID0gMyooNC0xKS8oMjQtMSlcbmxhbWJkYVxuYGBgIn0= -->
+<pre class="r"><code>lambda = 3*(4-1)/(24-1)
+lambda</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <blockquote>
-<p>[9 points]</p>
+<p>This design cannot be balanced because lambda is not an integer. The average number of times each pair of treatments occurs in the same block is lambda ~ 0.39.</p>
 </blockquote>
 <blockquote>
-<p>The three treatment variables should each have their own EUs. The order of names in combinations do not matter, but otherwise they should all be there. “Bar” is not needed, but OK to include</p>
+
+</blockquote>
+<blockquote>
+<p>[2 points] For filling in table correctly. [2 points] For correctly specifying the lambda equation with the numbers from your table. So even if you got the numbers wrong in the table, you can still get full points for getting the equation correctly. [2 point] For explanation on whether or not the design is balanced, based on your lambda value.</p>
 </blockquote>
 </div>
-<div id="write-a-linear-model-for-these-data" class="section level2">
-<h2><span class="header-section-number">0.2</span> 2) Write a linear model for these data</h2>
+<div id="make-an-incidence-matrix-for-the-design." class="section level2">
+<h2><span class="header-section-number">0.4</span> 1.4 Make an incidence matrix for the design.</h2>
+<p>Use the <code>table</code> function as in Lab_9. Is the design balanced? (Hint: use the <code>crossprod</code> function)</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29ycm9zaW9uX21vZGVsID0gbG1lcihDb3Jyb3Npb24gfiBUZW1wK0NvYXQrVGVtcDpDb2F0KygxfFRyaWFsKSxjb3Jyb3Npb24pXG5gYGAifQ== -->
-<pre class="r"><code>corrosion_model = lmer(Corrosion ~ Temp+Coat+Temp:Coat+(1|Trial),corrosion)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY3Jvc3Nwcm9kKGlzX2Nyb3NzZWQoYmxvY2s6cmVwfmdlbixvYXRzKSlcbmBgYCJ9 -->
+<pre class="r"><code>crossprod(is_crossed(block:rep~gen,oats))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <blockquote>
-<p>[5 points]</p>
+<p>No, the design clearly is not balanced. No pair of treatments is in the same block more than once, but many pairs of treatments are never in the same block</p>
 </blockquote>
 <blockquote>
-<p>We must have Trial declared as an EU. The other two EU cannot enter the model</p>
+<p><a href>6 points total</a>: [3 points] For the crossproduct matrix between rep and gen. [3 points] For your explanation of why the cross product matrix shows that the design is unbalanced.</p>
 </blockquote>
 </div>
-<div id="run-appropiate-model-diagnostics" class="section level2">
-<h2><span class="header-section-number">0.3</span> 3) Run appropiate model diagnostics</h2>
-<p>Be sure to do diagnostics on all EU. Do you see any issues? <em>Do not do any transformation in either case</em></p>
+<div id="is-the-design-resolvable" class="section level2">
+<h2><span class="header-section-number">0.5</span> 1.5 Is the design resolvable?</h2>
+<p>Resolvable designs are designs in which a subset of the blocks constitutes a complete block of the treatments. Resolvable designs are nice because each larger block is a complete replicate of the experiment, so each super-block can be run separately.</p>
+<p>Identify blocks that can be resolved into a complete block. <strong>Hint</strong>: Check the Reps!</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxzMjA1X2RpYWdub3N0aWNzKGNvcnJvc2lvbl9tb2RlbCxFVSA9ICdUcmlhbCcpXG5wbHMyMDVfZGlhZ25vc3RpY3MoY29ycm9zaW9uX21vZGVsLEVVID0gJ1RyaWFsOkNvYXQnKVxucGxzMjA1X2RpYWdub3N0aWNzKGNvcnJvc2lvbl9tb2RlbCxFVSA9ICdUcmlhbDpDb2F0OlRlbXAnKVxuYGBgIn0= -->
-<pre class="r"><code>pls205_diagnostics(corrosion_model,EU = &#39;Trial&#39;)
-pls205_diagnostics(corrosion_model,EU = &#39;Trial:Coat&#39;)
-pls205_diagnostics(corrosion_model,EU = &#39;Trial:Coat:Temp&#39;)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKGlzX2Nyb3NzZWQocmVwfmdlbixvYXRzKSlcbmBgYCJ9 -->
+<pre class="r"><code>(is_crossed(rep~gen,oats))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <blockquote>
-<p>[6 points]</p>
+<p>Yes, the design is resolvable. All treatments occur 1x in each Rep. Blocks 1-6 in each Rep constitute a complete block of the 24 genotypes.</p>
 </blockquote>
 <blockquote>
-<p>The diagnostics for the last two EUs are identical because they are aliased. The diagnostics for Trial have so few points it’s hard to do much with them. But we really don’t see any indiciation of any problems here.</p>
+
+</blockquote>
+<blockquote>
+<p>[3 points] For showing that each rep (field) has 1 replicate of each genotype. This can be through a cross product matrix, a table, etc. [3 points] For mentioning something about how the reps (fields) are resolvable.</p>
 </blockquote>
 </div>
-<div id="how-strong-is-the-evidence-that-temp-has-any-effect-on-corrosion" class="section level2">
-<h2><span class="header-section-number">0.4</span> 4) How strong is the evidence that Temp has any effect on corrosion?</h2>
+<div id="fit-a-linear-model-to-the-yield-data." class="section level2">
+<h2><span class="header-section-number">0.6</span> 1.6 Fit a linear model to the yield data.</h2>
+<p>Use an ANOVA to assess whether there is strong evidence for differences among the genotypes.</p>
+<p><strong>Note</strong>: If you use fixed blocks, ensure that in your model and ANOVA table, blocks are included before <code>gen</code>. If you use <code>rep:block</code> to nest block in <code>rep</code>, then R will move the <code>rep:block</code> term to the end of the model. To avoid this, make a new term <code>unique_blocks</code> with a separate ID for block in each rep. Alternatively, declare blocks random (but be careful about nesting!).</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBtZXRob2QgMTogQU5PVkEsIGFyZSBhbnkgVGVtcCBzcGVjaWZpYyBlZmZlY3RzIG5vbi16ZXJvP1xudGVtcF9tb2RlbCA9IGxtZXIoQ29ycm9zaW9uIH4gQ29hdCtUZW1wOkNvYXQrKDF8VHJpYWwpLGNvcnJvc2lvbilcbmFub3ZhKHRlbXBfbW9kZWwsZGRmID0gJ0snKVxuYGBgIn0= -->
-<pre class="r"><code># method 1: ANOVA, are any Temp specific effects non-zero?
-temp_model = lmer(Corrosion ~ Coat+Temp:Coat+(1|Trial),corrosion)
-anova(temp_model,ddf = &#39;K&#39;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiVHlwZSBJSUkgQW5hbHlzaXMgb2YgVmFyaWFuY2UgVGFibGUgd2l0aCBLZW53YXJkLVJvZ2VyJ3MgbWV0aG9kXG4gICAgICAgICAgU3VtIFNxIE1lYW4gU3EgTnVtREYgIERlbkRGIEYgdmFsdWUgIFByKD5GKSAgXG5Db2F0ICAgICAgMTE3NC40ICAzOTEuNDYgICAgIDMgOS4wMDAwICAzLjE0MzIgMC4wNzk1MyAuXG5Db2F0OlRlbXAgMzk1NS45ICA0OTQuNDkgICAgIDggNy4xMzU3ICAzLjY3NzggMC4wNTAwOSAuXG4tLS1cblNpZ25pZi4gY29kZXM6ICAwIOKAmCoqKuKAmSAwLjAwMSDigJgqKuKAmSAwLjAxIOKAmCrigJkgMC4wNSDigJgu4oCZIDAuMSDigJgg4oCZIDFcbiJ9 -->
-<pre><code>Type III Analysis of Variance Table with Kenward-Roger&#39;s method
-          Sum Sq Mean Sq NumDF  DenDF F value  Pr(&gt;F)  
-Coat      1174.4  391.46     3 9.0000  3.1432 0.07953 .
-Coat:Temp 3955.9  494.49     8 7.1357  3.6778 0.05009 .
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBtZXRob2QgMjoganVzdCBkaXJlY3RseSBjb21wYXJlIGFsbCBzcGVjaWZpYyBlZmZlY3RzIG9mIHRlbXAgd2l0aGluIGVhY2ggQ29hdCBsZXZlbFxudGVtcF9tZWFucyA9IGVtbWVhbnMoY29ycm9zaW9uX21vZGVsLHNwZWMgPSAnVGVtcCcsYnkgPSAnQ29hdCcpXG50ZW1wX2VmZmVjdHMgPSBjb250cmFzdCh0ZW1wX21lYW5zLCdwYWlyd2lzZScpXG5zdW1tYXJ5KHRlbXBfZWZmZWN0cyxsZXZlbCA9IDEtMC4wNS80LGluZmVyID0gVClcbmBgYCJ9 -->
-<pre class="r"><code># method 2: just directly compare all specific effects of temp within each Coat level
-temp_means = emmeans(corrosion_model,spec = &#39;Temp&#39;,by = &#39;Coat&#39;)
-temp_effects = contrast(temp_means,&#39;pairwise&#39;)
-summary(temp_effects,level = 1-0.05/4,infer = T)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiQ29hdCA9IEMxOlxuIGNvbnRyYXN0ICAgICAgZXN0aW1hdGUgU0UgICBkZiBsb3dlci5DTCB1cHBlci5DTCB0LnJhdGlvIHAudmFsdWVcbiAzNjBvQyAtIDM3MG9DICAgIC01Mi41IDM2IDMuNDggICAgIC0yNzAgICAgICAxNjUgLTEuNDU4ICAwLjQwOTUgXG4gMzYwb0MgLSAzODBvQyAgICAtODEuNSAzNiAzLjQ4ICAgICAtMjk5ICAgICAgMTM2IC0yLjI2MyAgMC4xODgxIFxuIDM3MG9DIC0gMzgwb0MgICAgLTI5LjAgMzYgMy40OCAgICAgLTI0NiAgICAgIDE4OCAtMC44MDUgIDAuNzIyOCBcblxuQ29hdCA9IEMyOlxuIGNvbnRyYXN0ICAgICAgZXN0aW1hdGUgU0UgICBkZiBsb3dlci5DTCB1cHBlci5DTCB0LnJhdGlvIHAudmFsdWVcbiAzNjBvQyAtIDM3MG9DICAgIC03Ni4wIDM2IDMuNDggICAgIC0yOTMgICAgICAxNDEgLTIuMTExICAwLjIxNzYgXG4gMzYwb0MgLSAzODBvQyAgICAtNzMuMCAzNiAzLjQ4ICAgICAtMjkwICAgICAgMTQ0IC0yLjAyNyAgMC4yMzU4IFxuIDM3MG9DIC0gMzgwb0MgICAgICAzLjAgMzYgMy40OCAgICAgLTIxNCAgICAgIDIyMCAgMC4wODMgIDAuOTk2MiBcblxuQ29hdCA9IEMzOlxuIGNvbnRyYXN0ICAgICAgZXN0aW1hdGUgU0UgICBkZiBsb3dlci5DTCB1cHBlci5DTCB0LnJhdGlvIHAudmFsdWVcbiAzNjBvQyAtIDM3MG9DICAgIC0zOS41IDM2IDMuNDggICAgIC0yNTcgICAgICAxNzggLTEuMDk3ICAwLjU3MDkgXG4gMzYwb0MgLSAzODBvQyAgICAtNTQuMCAzNiAzLjQ4ICAgICAtMjcxICAgICAgMTYzIC0xLjUwMCAgMC4zOTM0IFxuIDM3MG9DIC0gMzgwb0MgICAgLTE0LjUgMzYgMy40OCAgICAgLTIzMiAgICAgIDIwMyAtMC40MDMgIDAuOTE2NiBcblxuQ29hdCA9IEM0OlxuIGNvbnRyYXN0ICAgICAgZXN0aW1hdGUgU0UgICBkZiBsb3dlci5DTCB1cHBlci5DTCB0LnJhdGlvIHAudmFsdWVcbiAzNjBvQyAtIDM3MG9DICAgIC00Ni41IDM2IDMuNDggICAgIC0yNjQgICAgICAxNzEgLTEuMjkxICAwLjQ3OTEgXG4gMzYwb0MgLSAzODBvQyAgIC0xMTEuMCAzNiAzLjQ4ICAgICAtMzI4ICAgICAgMTA2IC0zLjA4MiAgMC4wOTAyIFxuIDM3MG9DIC0gMzgwb0MgICAgLTY0LjUgMzYgMy40OCAgICAgLTI4MiAgICAgIDE1MyAtMS43OTEgIDAuMjk2NSBcblxuRGVncmVlcy1vZi1mcmVlZG9tIG1ldGhvZDoga2Vud2FyZC1yb2dlciBcbkNvbmZpZGVuY2UgbGV2ZWwgdXNlZDogMC45ODc1IFxuQ29uZi1sZXZlbCBhZGp1c3RtZW50OiB0dWtleSBtZXRob2QgZm9yIGNvbXBhcmluZyBhIGZhbWlseSBvZiAzIGVzdGltYXRlcyBcblAgdmFsdWUgYWRqdXN0bWVudDogdHVrZXkgbWV0aG9kIGZvciBjb21wYXJpbmcgYSBmYW1pbHkgb2YgMyBlc3RpbWF0ZXMgXG4ifQ== -->
-<pre><code>Coat = C1:
- contrast      estimate SE   df lower.CL upper.CL t.ratio p.value
- 360oC - 370oC    -52.5 36 3.48     -270      165 -1.458  0.4095 
- 360oC - 380oC    -81.5 36 3.48     -299      136 -2.263  0.1881 
- 370oC - 380oC    -29.0 36 3.48     -246      188 -0.805  0.7228 
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG1lMSA9IGxtZXIoeWllbGQgfiByZXAgKyAoMXxibG9jazpyZXApICsgZ2VuLG9hdHMpICMgb3JkZXIgb2YgdGVybXMgZG9lc24ndCBtYXR0ZXIgaW4gYSBsbWVyVGVzdCBvYmplY3QsXG4jIGJ1dCBzdGlsbCBnb29kIHRvIHB1dCBibG9ja2luZyBmYWN0b3JzIGZpcnN0LlxuIyBjb3VsZCBoYXZlIGNyZWF0ZWQgYSBuZXcgYmxvY2sgdGVybTogb2F0cyRuZXN0ZWRfYmxvY2sgPSB3aXRoKG9hdHMsaW50ZXJhY3Rpb24oYmxvY2sscmVwKSksIGFuZCB1c2VkIHRoaXMgYXMgdGhlIHJhbmRvbSBlZmZlY3RcbmFub3ZhKGxtZTEsZGRmPSdLJylcblxuIyBhbHRlcm5hdGl2ZSBhbnN3ZXI6XG5hbm92YShsbSh5aWVsZCB+IHJlcCArIGJsb2NrOnJlcCArIGdlbixvYXRzKSkgICMgVGhpcyBtb2RlbCBwdXRzIGJsb2NrOnJlcCBhZnRlciBnZW4uIFNvIGl0cyBhbnN3ZXIgaXMgd3JvbmchXG5vYXRzJGJsb2NrMiA9IHBhc3RlKG9hdHMkcmVwLG9hdHMkYmxvY2ssc2VwPSc6JylcbmFub3ZhKGxtKHlpZWxkIH4gcmVwICsgYmxvY2syICsgZ2VuLG9hdHMpKSAjIFRoaXMgaXMgYWxzbyBhbiBhY2NlcHRhYmxlIGFuc3dlci5cbmBgYCJ9 -->
+<pre class="r"><code>lme1 = lmer(yield ~ rep + (1|block:rep) + gen,oats) # order of terms doesn&#39;t matter in a lmerTest object,
+# but still good to put blocking factors first.
+# could have created a new block term: oats$nested_block = with(oats,interaction(block,rep)), and used this as the random effect
+anova(lme1,ddf=&#39;K&#39;)
 
-Coat = C2:
- contrast      estimate SE   df lower.CL upper.CL t.ratio p.value
- 360oC - 370oC    -76.0 36 3.48     -293      141 -2.111  0.2176 
- 360oC - 380oC    -73.0 36 3.48     -290      144 -2.027  0.2358 
- 370oC - 380oC      3.0 36 3.48     -214      220  0.083  0.9962 
-
-Coat = C3:
- contrast      estimate SE   df lower.CL upper.CL t.ratio p.value
- 360oC - 370oC    -39.5 36 3.48     -257      178 -1.097  0.5709 
- 360oC - 380oC    -54.0 36 3.48     -271      163 -1.500  0.3934 
- 370oC - 380oC    -14.5 36 3.48     -232      203 -0.403  0.9166 
-
-Coat = C4:
- contrast      estimate SE   df lower.CL upper.CL t.ratio p.value
- 360oC - 370oC    -46.5 36 3.48     -264      171 -1.291  0.4791 
- 360oC - 380oC   -111.0 36 3.48     -328      106 -3.082  0.0902 
- 370oC - 380oC    -64.5 36 3.48     -282      153 -1.791  0.2965 
-
-Degrees-of-freedom method: kenward-roger 
-Confidence level used: 0.9875 
-Conf-level adjustment: tukey method for comparing a family of 3 estimates 
-P value adjustment: tukey method for comparing a family of 3 estimates </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<blockquote>
-<p>[6 points]</p>
-</blockquote>
-<blockquote>
-<p>We can answer this using ANOVA (testing all specific effects of Temp at once), or using emmeans with the pairwise contrasts. You only need to do one. The evidence for any Temp effect on metal with any of the 4 coatings is very weak (p = 0.05). (4 points for similar statement) The strongest evidence is the comparison between 380C and 360C for coating C4. Note: we correct the level for 4 sets of pairwise comparisons (one for each coating). (2)</p>
-</blockquote>
-</div>
-<div id="how-strong-is-the-evidence-that-the-coating-has-any-effect-on-corrosion" class="section level2">
-<h2><span class="header-section-number">0.5</span> 5) How strong is the evidence that the Coating has any effect on Corrosion?</h2>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29hdGluZ19tb2RlbCA9IGxtZXIoQ29ycm9zaW9uIH4gVGVtcCtUZW1wOkNvYXQrKDF8VHJpYWwpLGNvcnJvc2lvbilcbmFub3ZhKGNvYXRpbmdfbW9kZWwsZGRmID0gJ0snKVxuXG5jb2F0X21lYW5zID0gZW1tZWFucyhjb2F0aW5nX21vZGVsLHNwZWMgPSAnQ29hdCcsYnkgPSAnVGVtcCcpXG5jb2F0X2VmZmVjdHMgPSBjb250cmFzdChjb2F0X21lYW5zLCdwYWlyd2lzZScpXG5jbGQoY29hdF9tZWFucyxsZXZlbCA9IDEtMC4wNS8zKVxuYGBgIn0= -->
-<pre class="r"><code>coating_model = lmer(Corrosion ~ Temp+Temp:Coat+(1|Trial),corrosion)
-anova(coating_model,ddf = &#39;K&#39;)
-
-coat_means = emmeans(coating_model,spec = &#39;Coat&#39;,by = &#39;Temp&#39;)
-coat_effects = contrast(coat_means,&#39;pairwise&#39;)
-cld(coat_means,level = 1-0.05/3)</code></pre>
+# alternative answer:
+anova(lm(yield ~ rep + block:rep + gen,oats))  # This model puts block:rep after gen. So its answer is wrong!
+oats$block2 = paste(oats$rep,oats$block,sep=&#39;:&#39;)
+anova(lm(yield ~ rep + block2 + gen,oats)) # This is also an acceptable answer.</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <blockquote>
-<p>[6 points]</p>
+<p>There is strong evidence (p ~ 1e-5) evidence that there are differences in yield among the genotypes. Note: only one model is needed. But if the <code>lm</code> model is used, check that the block terms has the correct number of Df.</p>
 </blockquote>
 <blockquote>
-<p>We can answer this using ANOVA (testing all specific effects of Coat at once), or using emmeans with the pairwise contrasts. You only need to do one. There is strong evidence of an effect of the Coatings (p = 0.0045). However, we can only distinguish coating C4 from the others at 380C with alpha = 0.05. (4 points for similar statement) Note: we correct the level for 3 sets of pairwise comparisons (one for each Temp). (2 points)</p>
+
+</blockquote>
+<blockquote>
+<p>[3 points] For the correct model formulation. There are potentially two ways to model this, using a random effects model (lmer) with blocks nested within reps (block:rep), or using an lm model with a variable that is unique for each block*rep combination (block2).</p>
+</blockquote>
+<blockquote>
+<p>lmer model: Putting rep as a random effect for your lmer model is also ok.</p>
+</blockquote>
+<blockquote>
+<p>lm model: You also need to get the order of variables right if you use an lm model and run an anova on it. You don’t need to worry about getting the order right for an lmer model.</p>
+</blockquote>
+<blockquote>
+<p>[3 points] For your explanation based on your model. If you modeled according to the answer key, then you should mention that there is strong evidence for the difference in genotypes for yield.</p>
 </blockquote>
 </div>
-<div id="can-you-conclude-that-temp-modifies-the-effect-of-coat" class="section level2">
-<h2><span class="header-section-number">0.6</span> 6) Can you conclude that Temp modifies the effect of Coat?</h2>
-<p>What contrast among Coatings appears to change the most among temperatures? Include a figure demonstrating your results</p>
+<div id="make-a-compact-letter-display-to-compare-the-genotypes." class="section level2">
+<h2><span class="header-section-number">0.7</span> 1.7 Make a Compact Letter Display to compare the genotypes.</h2>
+<p>Identify the best-preforming genotype, and any others that can’t be statistically distinguished (alpha = 0.1) from the one that performed best.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBtZXRob2QgMTogQU5PVkEgdG8gdGVzdCBpbnRlcmFjdGlvbnNcbmFub3ZhKGNvcnJvc2lvbl9tb2RlbCxkZGY9J0snKVxuZW1taXAoY29ycm9zaW9uX21vZGVsLENvYXR+VGVtcClcblxuIyBtZXRob2QgMjogY29tcGFyZSBzcGVjaWZpYyBlZmZlY3RzIGZvciBlYWNoIGNvbnRyYXN0XG5jb2F0X2VmZmVjdHNfYnlfY29udHJhc3QgPSBlbW1lYW5zKHRlbXBfZWZmZWN0cyxzcGVjcyA9ICdDb2F0JyxieSA9ICdjb250cmFzdCcpXG5pbnRlcmFjdGlvbl9lZmZlY3RzID0gY29udHJhc3QoY29hdF9lZmZlY3RzX2J5X2NvbnRyYXN0LG1ldGhvZCA9ICdwYWlyd2lzZScpXG5jbGQoY29hdF9lZmZlY3RzX2J5X2NvbnRyYXN0LGxldmVsID0gMS0wLjA1LzMpXG5wbG90KGludGVyYWN0aW9uX2VmZmVjdHMpXG5gYGAifQ== -->
-<pre class="r"><code># method 1: ANOVA to test interactions
-anova(corrosion_model,ddf=&#39;K&#39;)
-emmip(corrosion_model,Coat~Temp)
-
-# method 2: compare specific effects for each contrast
-coat_effects_by_contrast = emmeans(temp_effects,specs = &#39;Coat&#39;,by = &#39;contrast&#39;)
-interaction_effects = contrast(coat_effects_by_contrast,method = &#39;pairwise&#39;)
-cld(coat_effects_by_contrast,level = 1-0.05/3)
-plot(interaction_effects)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbnMgPSBlbW1lYW5zKGxtZTEsc3BlY3MgPSAnZ2VuJyxkZGY9J0snLGxldmVsID0gMC45OSlcbiMgbWVhbnMgPSBlbW1lYW5zKGxtKHlpZWxkIH4gcmVwICsgYmxvY2syICsgZ2VuLG9hdHMpLHNwZWNzID0gJ2dlbicpXG5jbGQobWVhbnMsYWxwaGEgPSAwLjEsbGV2ZWwgPSAwLjkpXG5gYGAifQ== -->
+<pre class="r"><code>means = emmeans(lme1,specs = &#39;gen&#39;,ddf=&#39;K&#39;,level = 0.99)
+# means = emmeans(lm(yield ~ rep + block2 + gen,oats),specs = &#39;gen&#39;)
+cld(means,alpha = 0.1,level = 0.9)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <blockquote>
-<p>[6 points]</p>
+<p>The answer depends slightly on whether you treat Blocks as Fixed or Random. The genotype with the highest mean (emmean) is G01. With Random blocks, only G03, G09, G20 and G07 can be statistically distinguished from G01 at alpha = 0.1. With Fixed blocks, only G03, G09 can be statistically distinguished from G01 at alpha = 0.1.</p>
 </blockquote>
 <blockquote>
-<p>Contrasts C2-C4 and C3-C4 change the most between 360C and 380C</p>
+
 </blockquote>
 <blockquote>
-<p>3 points for testing using either method 2 points for statement 1 point for either figure or similar</p>
-</blockquote>
-</div>
-<div id="report-the-standard-errors-of-the-following-specific-effects-and-interaction-effects" class="section level2">
-<h2><span class="header-section-number">0.7</span> 7) Report the standard errors of the following specific effects and interaction effects:</h2>
-<p>(C4-C2)|380C, (380C - 360C)|C4, and ((C4-C2)|380C - (C4-C2)|360C). Which is largest? Which is smallest? What is surprising about this result?</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29hdF9lZmZlY3RzWzE3XVxudGVtcF9lZmZlY3RzWzExXVxuaW50ZXJhY3Rpb25fZWZmZWN0c1sxMV1cbmBgYCJ9 -->
-<pre class="r"><code>coat_effects[17]
-temp_effects[11]
-interaction_effects[11]</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<blockquote>
-<p>[6 points]</p>
-</blockquote>
-<blockquote>
-<p>(C4-C2)|380C: 11.2 (380C - 360C)|C4: 36 ((C4-C2)|380C - (C4-C2)|360C): 15.8</p>
-</blockquote>
-<blockquote>
-<p>NOTE: The code to subset the effects above is not needed for a correct answer. The only thing we need is the SEs and the interpretation. The comparisons among Coatings are more precise because they happen within the same trial (ie time in the oven). The comparisons among oven temperatures are less precise. In this case, the interaction effect is actually estimated with much more precision than the temperature specific effect!</p>
-</blockquote>
-<blockquote>
-<p>3 points for SEs, 3 points for discussion</p>
+<p>[3 points] For the cld. Your emmeans object should also be using an alpha 0.1, not 0.1. [3 points] You need to also mention that only a few genotypes can be distinguished from the genotype with the highest mean (in this case G03, G09, G20 and G07 are distinguishable from G01 an alpha of 0.1) for full credit. Conversely, you can mention the genotypes that aren’t distinguishable. You need to get all of the distinguishable and/or undistinguishable genotypes for full credit. Otherwise [-1 point]</p>
 </blockquote>
 </div>
-<div id="speculate-on-whether-the-experiment-would-have-been-more-or-less-precise-if-it-had-been-run-as-a-standard-factorial-instead-of-a-split-plot." class="section level2">
-<h2><span class="header-section-number">0.8</span> 8) Speculate on whether the experiment would have been more or less precise if it had been run as a standard factorial instead of a split-plot.</h2>
-<p>In this case, only a single bar would have been heated in an oven at a time. How much longer would the experiment have taken?</p>
+<div id="in-the-above-analysis-if-you-declare-the-blocks-to-be-random-you-should-find-that-g02-is-declared-different-from-g09-but-g04-is-not.-however-the-estimated-value-of-g02-is-closer-to-g09-than-g04-is." class="section level2">
+<h2><span class="header-section-number">0.8</span> 1.8. In the above analysis, if you declare the blocks to be random, you should find that G02 is declared different from G09 but G04 is not. However the estimated value of G02 is closer to G09 than G04 is.</h2>
+<p>Explain this observation. Why can we distinguish G02 and G09, but not G04 and G09 at alpha = 0.1?</p>
 <blockquote>
-<p>[6 points]</p>
+<p>The reason is that G09 and G02 are tested in the same block, but G04 and G09 are not, so the confidence interval on their difference is larger.</p>
 </blockquote>
 <blockquote>
-<p>As a standard factorial, the oven would have been re-heated separately for each bar. This would have taken ~4 times longer because in the split-plot design, 4 bars are run at once. Also, the variation among bars would presumably be much greater because the variation among trials here was large (note how much larger the standard errors for the specific effects of temperature are above; this is driven by the among-trial variation. We can also view the lmer model and it’s state that the standard deviation among trials: 34.3 was about 3x the standard deviation among bars in a trial (~11)). In the standard factorials, these two sources of variation would have been combined, so the residual SD would be about sqrt(34^2 + 11^2) = 35. The only benefit to this design would be more degrees of freedom for the specific effects of temperature.</p>
+<p>[6 points] For mentioning that the confidence intervals are wider for some comparisons than others. You can also say how certain combinations of genotypes are not observed in the same block, which increases our uncertainty of those comparisons.</p>
 </blockquote>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiSFcgNyIKb3V0cHV0OiAKIGh0bWxfbm90ZWJvb2s6CiAgICB0b2M6IHRydWUKICAgIHRvY19mbG9hdDogdHJ1ZQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlCi0tLQoKPiBHcmFkaW5nIE5vdGVzOgo+Cj4gRm9yIHF1ZXN0aW9ucyB0aGF0IHJlcXVpcmUgYSB0ZXh0IGFuc3dlcjoKPiBGdWxsIGNyZWRpdDogcmVxdWlyZXMgYW4gYW5zd2VyIHRvIGVhY2ggcXVlc3Rpb24gYXNrZWQuIFlvdXIgZXhwbGFuYXRpb25zIG5lZWQgdG8gdmFsaWQKYW5kIGxvZ2ljYWwuIFlvdSBkb24ndCBuZWVkIHRvIHVzZSB0aGUgc2FtZSB3b3JkcyBhcyB0aGUga2V5LCBidXQgdGhlIG1lYW5pbmcgbmVlZHMgdG8gYmUgY29tcGxldGUuCj4gQXNzaWduIHBhcnRpYWwgY3JlZGl0IGZvciBhbnN3ZXJzIHRoYXQgYXJlIGluY29tcGxldGUuIEZvciBtdWx0aS1wYXJ0IHF1ZXN0aW9ucywgZGl2aWRlIHBvaW50cwphcHByb3hpbWF0bHkgZXF1YWxseSB1bmxlc3Mgb3RoZXJ3aXNlIHNwZWNpZmllZC4KPgo+IEZvciBhbGwgcXVlc3Rpb25zLCBpZiB5b3UgZ2V0IHRoZSByaWdodCBhbnN3ZXIgdXNpbmcgYSBkaWZmZXJlbnQgYXBwcm9hY2ggdGhhbiBJIHVzZSwgdGhhdCBpcyBmaW5lLgoKPiBGaWxsIGluIHlvdXIgc2NvcmVzIGluIHRoZSBnb29nbGUgZm9ybSBoZXJlOiBodHRwczovL2Zvcm1zLmdsZS94ZkZuWEJVWTVKQnhjYlloOS4gClBMRUFTRSBPTkxZIEVOVEVSIEEgTlVNQkVSLiBJRiBZT1UgV0FOVCBUTyBMRUFWRSBBIENPTU1FTlQgQUJPVVQgQSBTQ09SRSwgRE8gSVQgRElSRUNUTFkgT04gQ0FOVkVTLgpJdCB3aWxsIHJlcXVpcmUgeW91IHRvIGxvZyBpbiB3aXRoIHlvdXIgdWNkYXZpcyBlbWFpbCBhZGRyZXNzLiBMZXQgbWUga25vdyBpZiB0aGlzIGNhdXNlcyBwcm9ibGVtcy4gVGhpcyB3YXkgSSBjYW4gYXNzb2NpYXRlIHlvdXIgZ3JhZGVzIHdpdGggeW91IG9uIENhbnZhcwoKClJlLWluc3RhbGwgUExTMjA1IHBhY2thZ2U6IApSdW4gdGhlIGZvbGxvd2luZyBjb21tYW5kIGRpcmVjdGx5IGluIHlvdXIgUlN0dWRpbyBjb25zb2xlOgpgZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCdkZXJ1bmNpZS9QTFMyMDVfcGFja2FnZScpYAoKYGBge3IgZWNobz1GQUxTRSxtZXNzYWdlPUZBTFNFLHdhcm5pbmc9RkFMU0V9CmxpYnJhcnkobG1lNCkKbGlicmFyeShsbWVyVGVzdCkKbGlicmFyeShlbW1lYW5zKQpsaWJyYXJ5KGdncGxvdDIpCmxpYnJhcnkoUExTMjA1KQpsaWJyYXJ5KG11bHRjb21wKQpgYGAKCgpBIHNwbGl0LXBsb3QgZXhwZXJpbWVudCBmb3Igc3R1ZHlpbmcgdGhlIGNvcnJvc2lvbiByZXNpc3RhbmNlIG9mIHN0ZWVsIGJhcnMgdHJlYXRlZCB3aXRoIGZvdXIgY29hdGluZ3MgKEMxLCBDMiwgQzMsIEM0KSBhdCB0aHJlZSBmdXJuYWNlIHRlbXBlcmF0dXJlcyAoMzYwQywgMzcwQywgMzgwQykuIApJdCB0YWtlcyBjb25zaWRlcmFibGUgdGltZSB0byByZXNldCB0aGUgZnVybmFjZSBhbmQgcmVhY2ggYSBuZXcgZXF1aWxpYnJpdW0gdGVtcGVyYXR1cmUuIApUaGVyZWZvcmUsIGVhY2ggdGhlIGZ1cm5hY2Ugd2FzIHNldCB0d2ljZSB0byBlYWNoIHRlbXBlcmF0dXJlIChpbiBhIHJhbmRvbWl6ZWQgb3JkZXIpLCBhbmQgdGhlbiB3aGlsZSBpdCB3YXMgYXQgdGhlIHNldCB0ZW1wZXJhdHVyZSwKZm91ciBiYXJzLCBvbmUgd2l0aCBlYWNoIGNvYXRpbmcsIHdlcmUgcG9zaXRpb25lZCBpbiB0aGUgZnVybmFjZSBhdCByYW5kb21pemVkIGxvY2F0aW9ucyBhbmQgaGVhdGVkLgpFYWNoIGJhciB3YXMgdGhlbiB0ZXN0ZWQgaW5kaXZpZHVhbGx5IGZvciBjb3Jyb3Npb24gcmVzaXN0YW5jZS4KCkRhdGEgZnJvbSB0aGUgZXhwZXJpbWVudCBhcmUgcHJvdmlkZWQgaGVyZToKYGBge3J9CmNvcnJvc2lvbiA9IHJlYWQuY3N2KCdjb3Jyb3Npb24uY3N2JyxzdHJpbmdzQXNGYWN0b3JzID0gVCkKc3RyKGNvcnJvc2lvbikKYGBgCiMjIDEpIENyZWF0ZSB0aGUgZGVzaWduIHRhYmxlIGZvciB0aGlzIGV4cGVyaW1lbnQKQ29ycmVjdCBhbnkgb2YgdGhlIHZhcmlhYmxlcyBpbiB0aGUgZGF0YS5mcmFtZSB0byBjb3JyZXNwb25kIHRvIHRoZSBkZXNpZ24gdGFibGUKCnwgU3RydWN0dXJlIHwgVmFyaWFibGUgICAgICAgIHwgVHlwZSAgICB8ICNsZXZlbHMgfCBFVSAgICAgICAgICAgICAgfAp8LS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tfC0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLXwKfCBUcmVhdG1lbnQgfCBUZW1wICAgICAgICAgICAgfCBDYXQgICAgIHwgMyAgICAgICB8IFRyaWFsICAgICAgICAgICB8CnwgICAgICAgICAgIHwgQ29hdCAgICAgICAgICAgIHwgQ2F0ICAgICB8IDQgICAgICAgfCBUcmlhbDpDb2F0ICAgICAgfAp8ICAgICAgICAgICB8IFRlbXA6Q29hdCAgICAgICB8IENhdCAgICAgfCAxMiAgICAgIHwgVHJpYWw6VGVtcDpDb2F0IHwKfCBEZXNpZ24gICAgfCBUcmlhbCAgICAgICAgICAgfCBDYXQgICAgIHwgNiAgICAgICB8ICAgICAgICAgICAgICAgICB8CnwgICAgICAgICAgIHwgVHJpYWw6Q29hdCAgICAgIHwgQ2F0ICAgICB8IDI0ICAgICAgfCAgICAgICAgICAgICAgICAgfAp8ICAgICAgICAgICB8IFRlbXA6VHJpYWw6Q29hdCB8IENhdCAgICAgfCAyNCAgICAgIHwgICAgICAgICAgICAgICAgIHwKfCAgICAgICAgICAgfCBCYXIgICAgICAgICAgICAgfCBDYXQgICAgIHwgMjQgICAgICB8ICAgICAgICAgICAgICAgICB8CnwgUmVzcG9uc2UgIHwgQ29ycm9zaW9uICAgICAgIHwgTnVtZXJpYyB8IDI0ICAgICAgfCAgICAgICAgICAgICAgICAgfAoKYGBge3J9CmNvcnJvc2lvbiRCYXIgPSBhcy5mYWN0b3IoY29ycm9zaW9uJEJhcikKY29ycm9zaW9uJFRyaWFsID0gYXMuZmFjdG9yKGNvcnJvc2lvbiRUcmlhbCkKYGBgCgo+IFs5IHBvaW50c10KCj4gVGhlIHRocmVlIHRyZWF0bWVudCB2YXJpYWJsZXMgc2hvdWxkIGVhY2ggaGF2ZSB0aGVpciBvd24gRVVzLiBUaGUgb3JkZXIgb2YgbmFtZXMgaW4gY29tYmluYXRpb25zIGRvIG5vdCBtYXR0ZXIsIGJ1dCBvdGhlcndpc2UgdGhleSBzaG91bGQgYWxsIGJlIHRoZXJlLgo+ICJCYXIiIGlzIG5vdCBuZWVkZWQsIGJ1dCBPSyB0byBpbmNsdWRlCgojIyAyKSBXcml0ZSBhIGxpbmVhciBtb2RlbCBmb3IgdGhlc2UgZGF0YQpgYGB7cn0KY29ycm9zaW9uX21vZGVsID0gbG1lcihDb3Jyb3Npb24gfiBUZW1wK0NvYXQrVGVtcDpDb2F0KygxfFRyaWFsKSxjb3Jyb3Npb24pCmBgYAoKPiBbNSBwb2ludHNdCgo+IFdlIG11c3QgaGF2ZSBUcmlhbCBkZWNsYXJlZCBhcyBhbiBFVS4gVGhlIG90aGVyIHR3byBFVSBjYW5ub3QgZW50ZXIgdGhlIG1vZGVsCgojIyAzKSBSdW4gYXBwcm9waWF0ZSBtb2RlbCBkaWFnbm9zdGljcwpCZSBzdXJlIHRvIGRvIGRpYWdub3N0aWNzIG9uIGFsbCBFVS4KRG8geW91IHNlZSBhbnkgaXNzdWVzPyAKKkRvIG5vdCBkbyBhbnkgdHJhbnNmb3JtYXRpb24gaW4gZWl0aGVyIGNhc2UqCmBgYHtyfQpwbHMyMDVfZGlhZ25vc3RpY3MoY29ycm9zaW9uX21vZGVsLEVVID0gJ1RyaWFsJykKcGxzMjA1X2RpYWdub3N0aWNzKGNvcnJvc2lvbl9tb2RlbCxFVSA9ICdUcmlhbDpDb2F0JykKcGxzMjA1X2RpYWdub3N0aWNzKGNvcnJvc2lvbl9tb2RlbCxFVSA9ICdUcmlhbDpDb2F0OlRlbXAnKQpgYGAKPiBbNiBwb2ludHNdCgo+IFRoZSBkaWFnbm9zdGljcyBmb3IgdGhlIGxhc3QgdHdvIEVVcyBhcmUgaWRlbnRpY2FsIGJlY2F1c2UgdGhleSBhcmUgYWxpYXNlZC4gVGhlIGRpYWdub3N0aWNzIGZvciBUcmlhbCBoYXZlIHNvIGZldyBwb2ludHMgaXQncyBoYXJkIHRvIGRvIG11Y2ggd2l0aCB0aGVtLgo+IEJ1dCB3ZSByZWFsbHkgZG9uJ3Qgc2VlIGFueSBpbmRpY2lhdGlvbiBvZiBhbnkgcHJvYmxlbXMgaGVyZS4KCiMjIDQpIEhvdyBzdHJvbmcgaXMgdGhlIGV2aWRlbmNlIHRoYXQgVGVtcCBoYXMgYW55IGVmZmVjdCBvbiBjb3Jyb3Npb24/CmBgYHtyfQojIG1ldGhvZCAxOiBBTk9WQSwgYXJlIGFueSBUZW1wIHNwZWNpZmljIGVmZmVjdHMgbm9uLXplcm8/CnRlbXBfbW9kZWwgPSBsbWVyKENvcnJvc2lvbiB+IENvYXQrVGVtcDpDb2F0KygxfFRyaWFsKSxjb3Jyb3Npb24pCmFub3ZhKHRlbXBfbW9kZWwsZGRmID0gJ0snKQoKIyBtZXRob2QgMjoganVzdCBkaXJlY3RseSBjb21wYXJlIGFsbCBzcGVjaWZpYyBlZmZlY3RzIG9mIHRlbXAgd2l0aGluIGVhY2ggQ29hdCBsZXZlbAp0ZW1wX21lYW5zID0gZW1tZWFucyhjb3Jyb3Npb25fbW9kZWwsc3BlYyA9ICdUZW1wJyxieSA9ICdDb2F0JykKdGVtcF9lZmZlY3RzID0gY29udHJhc3QodGVtcF9tZWFucywncGFpcndpc2UnKQpzdW1tYXJ5KHRlbXBfZWZmZWN0cyxsZXZlbCA9IDEtMC4wNS80LGluZmVyID0gVCkKYGBgCj4gWzYgcG9pbnRzXQoKPiBXZSBjYW4gYW5zd2VyIHRoaXMgdXNpbmcgQU5PVkEgKHRlc3RpbmcgYWxsIHNwZWNpZmljIGVmZmVjdHMgb2YgVGVtcCBhdCBvbmNlKSwgb3IgdXNpbmcgZW1tZWFucyB3aXRoIHRoZSBwYWlyd2lzZSBjb250cmFzdHMuIFlvdSBvbmx5IG5lZWQgdG8gZG8gb25lLgo+IFRoZSBldmlkZW5jZSBmb3IgYW55IFRlbXAgZWZmZWN0IG9uIG1ldGFsIHdpdGggYW55IG9mIHRoZSA0IGNvYXRpbmdzIGlzIHZlcnkgd2VhayAocCA9IDAuMDUpLiAoNCBwb2ludHMgZm9yIHNpbWlsYXIgc3RhdGVtZW50KQpUaGUgc3Ryb25nZXN0IGV2aWRlbmNlIGlzIHRoZSBjb21wYXJpc29uIGJldHdlZW4gMzgwQyBhbmQgMzYwQyBmb3IgY29hdGluZyBDNC4KPiBOb3RlOiB3ZSBjb3JyZWN0IHRoZSBsZXZlbCBmb3IgNCBzZXRzIG9mIHBhaXJ3aXNlIGNvbXBhcmlzb25zIChvbmUgZm9yIGVhY2ggY29hdGluZykuICgyKQoKIyMgNSkgSG93IHN0cm9uZyBpcyB0aGUgZXZpZGVuY2UgdGhhdCB0aGUgQ29hdGluZyBoYXMgYW55IGVmZmVjdCBvbiBDb3Jyb3Npb24/CmBgYHtyfQpjb2F0aW5nX21vZGVsID0gbG1lcihDb3Jyb3Npb24gfiBUZW1wK1RlbXA6Q29hdCsoMXxUcmlhbCksY29ycm9zaW9uKQphbm92YShjb2F0aW5nX21vZGVsLGRkZiA9ICdLJykKCmNvYXRfbWVhbnMgPSBlbW1lYW5zKGNvYXRpbmdfbW9kZWwsc3BlYyA9ICdDb2F0JyxieSA9ICdUZW1wJykKY29hdF9lZmZlY3RzID0gY29udHJhc3QoY29hdF9tZWFucywncGFpcndpc2UnKQpjbGQoY29hdF9tZWFucyxsZXZlbCA9IDEtMC4wNS8zKQpgYGAKPiBbNiBwb2ludHNdCgo+IFdlIGNhbiBhbnN3ZXIgdGhpcyB1c2luZyBBTk9WQSAodGVzdGluZyBhbGwgc3BlY2lmaWMgZWZmZWN0cyBvZiBDb2F0IGF0IG9uY2UpLCBvciB1c2luZyBlbW1lYW5zIHdpdGggdGhlIHBhaXJ3aXNlIGNvbnRyYXN0cy4gWW91IG9ubHkgbmVlZCB0byBkbyBvbmUuCj4gVGhlcmUgaXMgc3Ryb25nIGV2aWRlbmNlIG9mIGFuIGVmZmVjdCBvZiB0aGUgQ29hdGluZ3MgKHAgPSAwLjAwNDUpLiBIb3dldmVyLCB3ZSBjYW4gb25seSBkaXN0aW5ndWlzaCBjb2F0aW5nIEM0IGZyb20gdGhlIG90aGVycyBhdCAzODBDIHdpdGggYWxwaGEgPSAwLjA1LiAoNCBwb2ludHMgZm9yIHNpbWlsYXIgc3RhdGVtZW50KQo+IE5vdGU6IHdlIGNvcnJlY3QgdGhlIGxldmVsIGZvciAzIHNldHMgb2YgcGFpcndpc2UgY29tcGFyaXNvbnMgKG9uZSBmb3IgZWFjaCBUZW1wKS4gKDIgcG9pbnRzKQoKIyMgNikgQ2FuIHlvdSBjb25jbHVkZSB0aGF0IFRlbXAgbW9kaWZpZXMgdGhlIGVmZmVjdCBvZiBDb2F0PwpXaGF0IGNvbnRyYXN0IGFtb25nIENvYXRpbmdzIGFwcGVhcnMgdG8gY2hhbmdlIHRoZSBtb3N0IGFtb25nIHRlbXBlcmF0dXJlcz8KSW5jbHVkZSBhIGZpZ3VyZSBkZW1vbnN0cmF0aW5nIHlvdXIgcmVzdWx0cwpgYGB7cn0KIyBtZXRob2QgMTogQU5PVkEgdG8gdGVzdCBpbnRlcmFjdGlvbnMKYW5vdmEoY29ycm9zaW9uX21vZGVsLGRkZj0nSycpCmVtbWlwKGNvcnJvc2lvbl9tb2RlbCxDb2F0flRlbXApCgojIG1ldGhvZCAyOiBjb21wYXJlIHNwZWNpZmljIGVmZmVjdHMgZm9yIGVhY2ggY29udHJhc3QKY29hdF9lZmZlY3RzX2J5X2NvbnRyYXN0ID0gZW1tZWFucyh0ZW1wX2VmZmVjdHMsc3BlY3MgPSAnQ29hdCcsYnkgPSAnY29udHJhc3QnKQppbnRlcmFjdGlvbl9lZmZlY3RzID0gY29udHJhc3QoY29hdF9lZmZlY3RzX2J5X2NvbnRyYXN0LG1ldGhvZCA9ICdwYWlyd2lzZScpCmNsZChjb2F0X2VmZmVjdHNfYnlfY29udHJhc3QsbGV2ZWwgPSAxLTAuMDUvMykKcGxvdChpbnRlcmFjdGlvbl9lZmZlY3RzKQpgYGAKPiBbNiBwb2ludHNdCgo+IENvbnRyYXN0cyBDMi1DNCBhbmQgQzMtQzQgY2hhbmdlIHRoZSBtb3N0IGJldHdlZW4gMzYwQyBhbmQgMzgwQwoKPiAzIHBvaW50cyBmb3IgdGVzdGluZyB1c2luZyBlaXRoZXIgbWV0aG9kCj4gMiBwb2ludHMgZm9yIHN0YXRlbWVudAo+IDEgcG9pbnQgZm9yIGVpdGhlciBmaWd1cmUgb3Igc2ltaWxhcgoKCiMjIDcpIFJlcG9ydCB0aGUgc3RhbmRhcmQgZXJyb3JzIG9mIHRoZSBmb2xsb3dpbmcgc3BlY2lmaWMgZWZmZWN0cyBhbmQgaW50ZXJhY3Rpb24gZWZmZWN0czoKKEM0LUMyKXwzODBDLCAoMzgwQyAtIDM2MEMpfEM0LCBhbmQgKChDNC1DMil8MzgwQyAtIChDNC1DMil8MzYwQykuCldoaWNoIGlzIGxhcmdlc3Q/IFdoaWNoIGlzIHNtYWxsZXN0PyBXaGF0IGlzIHN1cnByaXNpbmcgYWJvdXQgdGhpcyByZXN1bHQ/CmBgYHtyfQpjb2F0X2VmZmVjdHNbMTddCnRlbXBfZWZmZWN0c1sxMV0KaW50ZXJhY3Rpb25fZWZmZWN0c1sxMV0KYGBgCj4gWzYgcG9pbnRzXQoKPiAoQzQtQzIpfDM4MEM6IDExLjIKPiAoMzgwQyAtIDM2MEMpfEM0OiAzNgo+ICgoQzQtQzIpfDM4MEMgLSAoQzQtQzIpfDM2MEMpOiAxNS44Cgo+IE5PVEU6IFRoZSBjb2RlIHRvIHN1YnNldCB0aGUgZWZmZWN0cyBhYm92ZSBpcyBub3QgbmVlZGVkIGZvciBhIGNvcnJlY3QgYW5zd2VyLiBUaGUgb25seSB0aGluZyB3ZSBuZWVkIGlzIHRoZSBTRXMgYW5kIHRoZSBpbnRlcnByZXRhdGlvbi4KPiBUaGUgY29tcGFyaXNvbnMgYW1vbmcgQ29hdGluZ3MgYXJlIG1vcmUgcHJlY2lzZSBiZWNhdXNlIHRoZXkgaGFwcGVuIHdpdGhpbiB0aGUgc2FtZSB0cmlhbCAoaWUgdGltZSBpbiB0aGUgb3ZlbikuIFRoZSBjb21wYXJpc29ucyBhbW9uZyBvdmVuIHRlbXBlcmF0dXJlcwphcmUgbGVzcyBwcmVjaXNlLiBJbiB0aGlzIGNhc2UsIHRoZSBpbnRlcmFjdGlvbiBlZmZlY3QgaXMgYWN0dWFsbHkgZXN0aW1hdGVkIHdpdGggbXVjaCBtb3JlIHByZWNpc2lvbiB0aGFuIHRoZSB0ZW1wZXJhdHVyZSBzcGVjaWZpYyBlZmZlY3QhCgo+IDMgcG9pbnRzIGZvciBTRXMsIDMgcG9pbnRzIGZvciBkaXNjdXNzaW9uCgoKIyMgOCkgU3BlY3VsYXRlIG9uIHdoZXRoZXIgdGhlIGV4cGVyaW1lbnQgd291bGQgaGF2ZSBiZWVuIG1vcmUgb3IgbGVzcyBwcmVjaXNlIGlmIGl0IGhhZCBiZWVuIHJ1biBhcyBhIHN0YW5kYXJkIGZhY3RvcmlhbCBpbnN0ZWFkIG9mIGEgc3BsaXQtcGxvdC4KSW4gdGhpcyBjYXNlLCBvbmx5IGEgc2luZ2xlIGJhciB3b3VsZCBoYXZlIGJlZW4gaGVhdGVkIGluIGFuIG92ZW4gYXQgYSB0aW1lLgpIb3cgbXVjaCBsb25nZXIgd291bGQgdGhlIGV4cGVyaW1lbnQgaGF2ZSB0YWtlbj8KCj4gWzYgcG9pbnRzXQoKPiBBcyBhIHN0YW5kYXJkIGZhY3RvcmlhbCwgdGhlIG92ZW4gd291bGQgaGF2ZSBiZWVuIHJlLWhlYXRlZCBzZXBhcmF0ZWx5IGZvciBlYWNoIGJhci4gVGhpcyB3b3VsZCBoYXZlIHRha2VuIH40IHRpbWVzIGxvbmdlciBiZWNhdXNlIGluIHRoZSBzcGxpdC1wbG90IGRlc2lnbiwgNCBiYXJzIGFyZSBydW4gYXQgb25jZS4gQWxzbywgdGhlIHZhcmlhdGlvbiBhbW9uZyBiYXJzIHdvdWxkIHByZXN1bWFibHkgYmUgbXVjaCBncmVhdGVyIGJlY2F1c2UgdGhlIHZhcmlhdGlvbiBhbW9uZyB0cmlhbHMgaGVyZSB3YXMgbGFyZ2UgKG5vdGUgaG93IG11Y2ggbGFyZ2VyIHRoZSBzdGFuZGFyZCBlcnJvcnMgZm9yIHRoZSBzcGVjaWZpYyBlZmZlY3RzIG9mIHRlbXBlcmF0dXJlIGFyZSBhYm92ZTsgdGhpcyBpcyBkcml2ZW4gYnkgdGhlIGFtb25nLXRyaWFsIHZhcmlhdGlvbi4gV2UgY2FuIGFsc28gdmlldyB0aGUgbG1lciBtb2RlbCBhbmQgaXQncyBzdGF0ZSB0aGF0IHRoZSBzdGFuZGFyZCBkZXZpYXRpb24gYW1vbmcgdHJpYWxzOiAzNC4zIHdhcyBhYm91dCAzeCB0aGUgc3RhbmRhcmQgZGV2aWF0aW9uIGFtb25nIGJhcnMgaW4gYSB0cmlhbCAofjExKSkuIEluIHRoZSBzdGFuZGFyZCBmYWN0b3JpYWxzLCB0aGVzZSB0d28gc291cmNlcyBvZiB2YXJpYXRpb24gd291bGQgaGF2ZSBiZWVuIGNvbWJpbmVkLCBzbyB0aGUgcmVzaWR1YWwgU0Qgd291bGQgYmUgYWJvdXQgc3FydCgzNF4yICsgMTFeMikgPSAzNS4gVGhlIG9ubHkgYmVuZWZpdCB0byB0aGlzIGRlc2lnbiB3b3VsZCBiZSBtb3JlIGRlZ3JlZXMgb2YgZnJlZWRvbSBmb3IgdGhlIHNwZWNpZmljIGVmZmVjdHMgb2YgdGVtcGVyYXR1cmUuCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiSFcgOCIKb3V0cHV0OiAKIGh0bWxfbm90ZWJvb2s6CiAgICB0b2M6IHRydWUKICAgIHRvY19mbG9hdDogdHJ1ZQogICAgbnVtYmVyX3NlY3Rpb25zOiB0cnVlCi0tLQoKYGBge3IgZWNobz1GQUxTRSxtZXNzYWdlPUZBTFNFLHdhcm5pbmc9RkFMU0V9CmxpYnJhcnkobG1lclRlc3QpCmxpYnJhcnkocGJrcnRlc3QpCmxpYnJhcnkoZW1tZWFucykKbGlicmFyeShQTFMyMDUpCmxpYnJhcnkobXVsdGNvbXApCmBgYAoKPiBHcmFkaW5nIE5vdGVzOgoKPiBGb3IgYWxsIHF1ZXN0aW9ucywgaWYgeW91IGdldCB0aGUgcmlnaHQgYW5zd2VyIHVzaW5nIGEgZGlmZmVyZW50IGFwcHJvYWNoIHRoYW4gSSB1c2UsIHRoYXQgaXMgZmluZS4KCj4gRmlsbCBpbiB5b3VyIHNjb3JlcyBpbiB0aGUgZ29vZ2xlIGZvcm0gaGVyZTogaHR0cHM6Ly9mb3Jtcy5nbGUvVDRrSzhnd3J4andqNHQ4VzcuIApQTEVBU0UgT05MWSBFTlRFUiBBIE5VTUJFUi4gSUYgWU9VIFdBTlQgVE8gTEVBVkUgQSBDT01NRU5UIEFCT1VUIEEgU0NPUkUsIERPIElUIERJUkVDVExZIE9OIENBTlZFUy4KSXQgd2lsbCByZXF1aXJlIHlvdSB0byBsb2cgaW4gd2l0aCB5b3VyIHVjZGF2aXMgZW1haWwgYWRkcmVzcy4gTGV0IG1lIGtub3cgaWYgdGhpcyBjYXVzZXMgcHJvYmxlbXMuIFRoaXMgd2F5IEkgY2FuIGFzc29jaWF0ZSB5b3VyIGdyYWRlcyB3aXRoIHlvdSBvbiBDYW52YXMKCi0tLQoKVGhlIGZvbGxvd2luZyBkYXRhIGFyZSBmcm9tIGEgc3ByaW5nIG9hdHMgdHJpYWwgcnVuIGluIENyYWlic3RvbmUsIG5lYXIgQWJlcmRlZW4gaW4gU2NvdHRsYW5kLgoKMjQgdmFyaWV0aWVzIG9mIG9hdHMgd2VyZSBncm93biBlYWNoIGdyb3duIGluIDMgZmllbGRzIChgcmVwYCksIGFuZCB0aGUgeWllbGQgKHRvbm5lcyAvIGhhKSB3YXMgYXNzZXNzZWQgYXQgdGhlIGVuZCBvZiB0aGUgc2Vhc29uLgpFYWNoIGZpZWxkIHdhcyBkaXZpZGVkIGludG8gNiBibG9ja3MsIG5hbWVkIEIxLi4uQjYuCgpgYGB7cn0Kb2F0cyA9IHJlYWQuY3N2KCdPYXRzX3RyaWFscy5jc3YnKQpzdHIob2F0cykKYGBgCgpZb3VyIGdvYWwgb3ZlciB0aGUgZm9sbG93aW5nIHNldCBvZiBxdWVzdGlvbnMgaXMgdG8gaWRlbnRpZnkgYSBzZXQgb2YgZ2Vub3R5cGVzIHRvIGtlZXAgLyByZWNvbW1lbmQgZm9yIHVzZS4KCiMjIDEuMSBCbG9ja3MgYXJlIHNwZWNpZmljIHRvIGVhY2ggZmllbGQKSG93IG1hbnkgdW5pcXVlIGJsb2NrcyBhcmUgdGhlcmU/IApJZiBuZWNlc3NhcnksIHJlLW5hbWUgdGhlIGJsb2NrcyBzbyB0aGF0IHRoZXkgYXJlIGFwcHJvcHJpYXRlbHkgbmVzdGVkIGluIHRoZSBmaWVsZHMuCgpgYGB7cn0Kd2l0aChvYXRzLHRhYmxlKHJlcCxibG9jaykpCmBgYAoKPiBUaGVyZSBhcmUgNiozID0gMTggYmxvY2tzLiBCbG9ja3MgYXJlIG5lc3RlZCBpbiByZXAncyAoaWUgRmllbGRzKS4gU28gQjEgaW4gUjEgaXMgZGlmZmVyZW50IGZyb20gQjEgaW4gUjIuCgo+IFs2IHBvaW50c10KCiMjIDEuMiBDaGFyYWN0ZXJpemUgdGhlIGV4cGVyaW1lbnRhbCBkZXNpZ24KClN0YXJ0IGJ5IG1ha2luZyBhIG1vZGVsIHRhYmxlOiAKCnwgU3RydWN0dXJlIHwgVmFyaWFibGUgfCBUeXBlICAgICAgICB8ICMgbGV2ZWxzIHwgRXhwZXJpbWVudCBVbml0IHwKfC0tLS0tLS0tLS0tfC0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLXwtLS0tLS0tLS0tfC0tLS0tLS0tLS0tLS0tLS0tfAp8IFRyZWF0bWVudCB8IGdlbiAgICAgIHwgQ2F0ZWdvcmljYWwgfCAyNCAgICAgICB8IHJlcDpnZW4gICAgICAgICB8CnwgRGVzaWduICAgIHwgcmVwICAgICAgfCBDYXRlZ29yaWNhbCB8IDMgICAgICAgIHwgICAgICAgICAgICAgICAgIHwKfCAgICAgICAgICAgfCBibG9jayAgICB8IENhdGVnb3JpY2FsIHwgMTggICAgICAgfCAgICAgICAgICAgICAgICAgfAp8ICAgICAgICAgICB8IHJlcDpnZW4gIHwgQ2F0ZWdvcmljYWwgfCA3MiAgICAgICB8ICAgICAgICAgICAgICAgICB8CnwgICAgICAgICAgIHwgYmxvY2s6Z2VufCBDYXRlZ29yaWNhbCB8IDcyICAgICAgIHwgICAgICAgICAgICAgICAgIHwKfCAgICAgICAgICAgfCBwbG90ICAgICB8IENhdGVnb3JpY2FsIHwgNzIgICAgICAgfCAgICAgICAgICAgICAgICAgfAp8IFJlc3BvbnNlICB8IHlpZWxkICAgIHwgTnVtZXJpYyAgICAgfCA3MiAgICAgICB8ICAgICAgICAgICAgICAgICB8Cgo+IFs4IHBvaW50c10KCj4gQWxsIHRlcm1zIGhlcmUgc2hvdWxkIGJlIGxpc3RlZCwgd2l0aCBjb3JyZWN0IG51bWJlcnMgb2YgbGV2ZWxzLgo+IERvIG5vdCB0YWtlIG9mZiBhZ2FpbiBoZXJlIGlmICMgbGV2ZWxzIGZvciBibG9jayBpcyB3cm9uZzsgaG93ZXZlciBpdCBzaG91bGQgYmUgbWF0Y2hpbmcgd2l0aCB5b3VyIGFuc3dlciBpbiAxLjEuCllvdSBjYW4gbGFiZWwgZmllbGQgYXMgcmVwIGFuZCB2aWNlLXZlcnNhLgo+IERvbid0IHdvcnJ5IGFib3V0IHRoZSBuYW1lIG9mIHRoZSBkZXNpZ24hClstMyBwb2ludHNdIEZvciB3cm9uZyBsZXZlbHMgb3IgbWlzc2luZyBlbGVtZW50cy4gQWxzbyB0YWtlIG9mZiBwb2ludHMgaWYgdGhlIG51bWJlciBvZiBsZXZlbHMgb2YgYmxvY2tzIGRvZXMgbm90IG1hdGNoIHdpdGggeW91ciBhbnN3ZXIgaW4gMS4xLiAKCiMjIDEuMyBUaGlzIGlzIGFuIGluY29tcGxldGUgYmxvY2sgZGVzaWduLiBGaWxsIGluIHRoZSBmb2xsb3dpbmc6Cgp8IHBhcmFtZXRlciAgICAgICAgICB8IHZhbHVlIHwKfC0tLS0tLS0tLS0tLS0tLS0tLS0tfC0tLS0tLS18CnwgIyB0cmVhdG1lbnRzICh0KSAgIHwgMjQgICAgfAp8ICMgYmxvY2tzIChiKSAgICAgICB8IDE4ICAgIHwKfCAjIHJlcHMvdHJ0IChuKSAgICAgfCAgMyAgICB8CnwgIyB0cnRzIC8gYmxvY2sgKGspIHwgIDQgICB8CgpDb3VsZCB0aGlzIGRlc2lnbiBiZSBiYWxhbmNlZD8gV2hhdCBpcyBsYW1iZGEgKHRoZSBhdmVyYWdlIHRpbWVzIGVhY2ggcGFpciBvZiB0cmVhdG1lbnRzIG9jY3VyIGluIHRoZSBzYW1lIGJsb2NrKT8KCmBgYHtyfQpsYW1iZGEgPSAzKig0LTEpLygyNC0xKQpsYW1iZGEKYGBgCgo+IFRoaXMgZGVzaWduIGNhbm5vdCBiZSBiYWxhbmNlZCBiZWNhdXNlIGxhbWJkYSBpcyBub3QgYW4gaW50ZWdlci4gVGhlIGF2ZXJhZ2UgbnVtYmVyIG9mIHRpbWVzCmVhY2ggcGFpciBvZiB0cmVhdG1lbnRzIG9jY3VycyBpbiB0aGUgc2FtZSBibG9jayBpcyBsYW1iZGEgfiAwLjM5LgoKPiBbNiBwb2ludHMgdG90YWxdOgoKPiBbMiBwb2ludHNdIEZvciBmaWxsaW5nIGluIHRhYmxlIGNvcnJlY3RseS4KPiBbMiBwb2ludHNdIEZvciBjb3JyZWN0bHkgc3BlY2lmeWluZyB0aGUgbGFtYmRhIGVxdWF0aW9uIHdpdGggdGhlIG51bWJlcnMgZnJvbSB5b3VyIHRhYmxlLiBTbyBldmVuIGlmIHlvdSBnb3QgdGhlIG51bWJlcnMgd3JvbmcgaW4gdGhlIHRhYmxlLCB5b3UgY2FuIHN0aWxsIGdldCBmdWxsIHBvaW50cyBmb3IgZ2V0dGluZyB0aGUgZXF1YXRpb24gY29ycmVjdGx5Lgo+IFsyIHBvaW50XSBGb3IgZXhwbGFuYXRpb24gb24gd2hldGhlciBvciBub3QgdGhlIGRlc2lnbiBpcyBiYWxhbmNlZCwgYmFzZWQgb24geW91ciBsYW1iZGEgdmFsdWUuCgojIyAxLjQgTWFrZSBhbiBpbmNpZGVuY2UgbWF0cml4IGZvciB0aGUgZGVzaWduLiAKVXNlIHRoZSBgdGFibGVgIGZ1bmN0aW9uIGFzIGluIExhYl85LiBJcyB0aGUgZGVzaWduIGJhbGFuY2VkPyAoSGludDogdXNlIHRoZSBgY3Jvc3Nwcm9kYCBmdW5jdGlvbikKYGBge3J9CmNyb3NzcHJvZChpc19jcm9zc2VkKGJsb2NrOnJlcH5nZW4sb2F0cykpCmBgYAoKPiBObywgdGhlIGRlc2lnbiBjbGVhcmx5IGlzIG5vdCBiYWxhbmNlZC4gTm8gcGFpciBvZiB0cmVhdG1lbnRzIGlzIGluIHRoZSBzYW1lIGJsb2NrIG1vcmUgdGhhbiBvbmNlLApidXQgbWFueSBwYWlycyBvZiB0cmVhdG1lbnRzIGFyZSBuZXZlciBpbiB0aGUgc2FtZSBibG9jawoKPiBbNiBwb2ludHMgdG90YWxdOgo+IFszIHBvaW50c10gRm9yIHRoZSBjcm9zc3Byb2R1Y3QgbWF0cml4IGJldHdlZW4gcmVwIGFuZCBnZW4uCj4gWzMgcG9pbnRzXSBGb3IgeW91ciBleHBsYW5hdGlvbiBvZiB3aHkgdGhlIGNyb3NzIHByb2R1Y3QgbWF0cml4IHNob3dzIHRoYXQgdGhlIGRlc2lnbiBpcyB1bmJhbGFuY2VkLiAKCgojIyAxLjUgSXMgdGhlIGRlc2lnbiByZXNvbHZhYmxlPwpSZXNvbHZhYmxlIGRlc2lnbnMgYXJlIGRlc2lnbnMgaW4gd2hpY2ggYSBzdWJzZXQgb2YgdGhlIGJsb2NrcyBjb25zdGl0dXRlcyBhIGNvbXBsZXRlIGJsb2NrIG9mIHRoZSB0cmVhdG1lbnRzLgpSZXNvbHZhYmxlIGRlc2lnbnMgYXJlIG5pY2UgYmVjYXVzZSBlYWNoIGxhcmdlciBibG9jayBpcyBhIGNvbXBsZXRlIHJlcGxpY2F0ZSBvZiB0aGUgZXhwZXJpbWVudCwgc28gZWFjaCBzdXBlci1ibG9jawpjYW4gYmUgcnVuIHNlcGFyYXRlbHkuCgpJZGVudGlmeSBibG9ja3MgdGhhdCBjYW4gYmUgcmVzb2x2ZWQgaW50byBhIGNvbXBsZXRlIGJsb2NrLiAKKipIaW50Kio6IENoZWNrIHRoZSBSZXBzIQpgYGB7cn0KKGlzX2Nyb3NzZWQocmVwfmdlbixvYXRzKSkKYGBgCgo+IFllcywgdGhlIGRlc2lnbiBpcyByZXNvbHZhYmxlLiBBbGwgdHJlYXRtZW50cyBvY2N1ciAxeCBpbiBlYWNoIFJlcC4gQmxvY2tzIDEtNiBpbiBlYWNoIFJlcCBjb25zdGl0dXRlIGEgY29tcGxldGUgYmxvY2sgb2YgdGhlIDI0IGdlbm90eXBlcy4KCj4gWzYgcG9pbnRzIHRvdGFsXToKCj4gWzMgcG9pbnRzXSBGb3Igc2hvd2luZyB0aGF0IGVhY2ggcmVwIChmaWVsZCkgaGFzIDEgcmVwbGljYXRlIG9mIGVhY2ggZ2Vub3R5cGUuIFRoaXMgY2FuIGJlIHRocm91Z2ggYSBjcm9zcyBwcm9kdWN0IG1hdHJpeCwgYSB0YWJsZSwgZXRjLgo+IFszIHBvaW50c10gRm9yIG1lbnRpb25pbmcgc29tZXRoaW5nIGFib3V0IGhvdyB0aGUgcmVwcyAoZmllbGRzKSBhcmUgcmVzb2x2YWJsZS4gCgojIyAxLjYgRml0IGEgbGluZWFyIG1vZGVsIHRvIHRoZSB5aWVsZCBkYXRhLiAKVXNlIGFuIEFOT1ZBIHRvIGFzc2VzcyB3aGV0aGVyIHRoZXJlIGlzIHN0cm9uZyBldmlkZW5jZSBmb3IgZGlmZmVyZW5jZXMgYW1vbmcgdGhlIGdlbm90eXBlcy4KCioqTm90ZSoqOiBJZiB5b3UgdXNlIGZpeGVkIGJsb2NrcywgZW5zdXJlIHRoYXQgaW4geW91ciBtb2RlbCBhbmQgQU5PVkEgdGFibGUsIGJsb2NrcyBhcmUgaW5jbHVkZWQgYmVmb3JlIGBnZW5gLgpJZiB5b3UgdXNlIGByZXA6YmxvY2tgIHRvIG5lc3QgYmxvY2sgaW4gYHJlcGAsIHRoZW4gUiB3aWxsIG1vdmUgdGhlIGByZXA6YmxvY2tgIHRlcm0gdG8gdGhlIGVuZCBvZiB0aGUgbW9kZWwuClRvIGF2b2lkIHRoaXMsIG1ha2UgYSBuZXcgdGVybSBgdW5pcXVlX2Jsb2Nrc2Agd2l0aCBhIHNlcGFyYXRlIElEIGZvciBibG9jayBpbiBlYWNoIHJlcC4KQWx0ZXJuYXRpdmVseSwgZGVjbGFyZSBibG9ja3MgcmFuZG9tIChidXQgYmUgY2FyZWZ1bCBhYm91dCBuZXN0aW5nISkuCgpgYGB7cn0KbG1lMSA9IGxtZXIoeWllbGQgfiByZXAgKyAoMXxibG9jazpyZXApICsgZ2VuLG9hdHMpICMgb3JkZXIgb2YgdGVybXMgZG9lc24ndCBtYXR0ZXIgaW4gYSBsbWVyVGVzdCBvYmplY3QsCiMgYnV0IHN0aWxsIGdvb2QgdG8gcHV0IGJsb2NraW5nIGZhY3RvcnMgZmlyc3QuCiMgY291bGQgaGF2ZSBjcmVhdGVkIGEgbmV3IGJsb2NrIHRlcm06IG9hdHMkbmVzdGVkX2Jsb2NrID0gd2l0aChvYXRzLGludGVyYWN0aW9uKGJsb2NrLHJlcCkpLCBhbmQgdXNlZCB0aGlzIGFzIHRoZSByYW5kb20gZWZmZWN0CmFub3ZhKGxtZTEsZGRmPSdLJykKCiMgYWx0ZXJuYXRpdmUgYW5zd2VyOgphbm92YShsbSh5aWVsZCB+IHJlcCArIGJsb2NrOnJlcCArIGdlbixvYXRzKSkgICMgVGhpcyBtb2RlbCBwdXRzIGJsb2NrOnJlcCBhZnRlciBnZW4uIFNvIGl0cyBhbnN3ZXIgaXMgd3JvbmchCm9hdHMkYmxvY2syID0gcGFzdGUob2F0cyRyZXAsb2F0cyRibG9jayxzZXA9JzonKQphbm92YShsbSh5aWVsZCB+IHJlcCArIGJsb2NrMiArIGdlbixvYXRzKSkgIyBUaGlzIGlzIGFsc28gYW4gYWNjZXB0YWJsZSBhbnN3ZXIuCmBgYAoKPiBUaGVyZSBpcyBzdHJvbmcgZXZpZGVuY2UgKHAgfiAxZS01KSBldmlkZW5jZSB0aGF0IHRoZXJlIGFyZSBkaWZmZXJlbmNlcyBpbiB5aWVsZCBhbW9uZyB0aGUgZ2Vub3R5cGVzLgo+IE5vdGU6IG9ubHkgb25lIG1vZGVsIGlzIG5lZWRlZC4gQnV0IGlmIHRoZSBgbG1gIG1vZGVsIGlzIHVzZWQsIGNoZWNrIHRoYXQgdGhlIGJsb2NrIHRlcm1zIGhhcyB0aGUgY29ycmVjdCBudW1iZXIgb2YgRGYuCgo+IFs2IHBvaW50cyB0b3RhbF06Cgo+IFszIHBvaW50c10gRm9yIHRoZSBjb3JyZWN0IG1vZGVsIGZvcm11bGF0aW9uLiBUaGVyZSBhcmUgcG90ZW50aWFsbHkgdHdvIHdheXMgdG8gbW9kZWwgdGhpcywgdXNpbmcgYSByYW5kb20gZWZmZWN0cyBtb2RlbCAobG1lcikgd2l0aCBibG9ja3MgbmVzdGVkIHdpdGhpbiByZXBzIChibG9jazpyZXApLCBvciB1c2luZyBhbiBsbSBtb2RlbCB3aXRoIGEgdmFyaWFibGUgdGhhdCBpcyB1bmlxdWUgZm9yIGVhY2ggYmxvY2sqcmVwIGNvbWJpbmF0aW9uIChibG9jazIpLiAKCj4gbG1lciBtb2RlbDogUHV0dGluZyByZXAgYXMgYSByYW5kb20gZWZmZWN0IGZvciB5b3VyIGxtZXIgbW9kZWwgaXMgYWxzbyBvay4KCj4gbG0gbW9kZWw6IFlvdSBhbHNvIG5lZWQgdG8gZ2V0IHRoZSBvcmRlciBvZiB2YXJpYWJsZXMgcmlnaHQgaWYgeW91IHVzZSBhbiBsbSBtb2RlbCBhbmQgcnVuIGFuIGFub3ZhIG9uIGl0LiBZb3UgZG9u4oCZdCBuZWVkIHRvIHdvcnJ5IGFib3V0IGdldHRpbmcgdGhlIG9yZGVyIHJpZ2h0IGZvciBhbiBsbWVyIG1vZGVsLgoKPiBbMyBwb2ludHNdIEZvciB5b3VyIGV4cGxhbmF0aW9uIGJhc2VkIG9uIHlvdXIgbW9kZWwuIElmIHlvdSBtb2RlbGVkIGFjY29yZGluZyB0byB0aGUgYW5zd2VyIGtleSwgdGhlbiB5b3Ugc2hvdWxkIG1lbnRpb24gdGhhdCB0aGVyZSBpcyBzdHJvbmcgZXZpZGVuY2UgZm9yIHRoZSBkaWZmZXJlbmNlIGluIGdlbm90eXBlcyBmb3IgeWllbGQuCgojIyAxLjcgTWFrZSBhIENvbXBhY3QgTGV0dGVyIERpc3BsYXkgdG8gY29tcGFyZSB0aGUgZ2Vub3R5cGVzLgpJZGVudGlmeSB0aGUgYmVzdC1wcmVmb3JtaW5nIGdlbm90eXBlLCBhbmQgYW55IG90aGVycyB0aGF0IGNhbid0IGJlIHN0YXRpc3RpY2FsbHkgZGlzdGluZ3Vpc2hlZCAoYWxwaGEgPSAwLjEpIGZyb20gdGhlIG9uZSB0aGF0IHBlcmZvcm1lZCBiZXN0LgoKYGBge3J9Cm1lYW5zID0gZW1tZWFucyhsbWUxLHNwZWNzID0gJ2dlbicsZGRmPSdLJyxsZXZlbCA9IDAuOTkpCiMgbWVhbnMgPSBlbW1lYW5zKGxtKHlpZWxkIH4gcmVwICsgYmxvY2syICsgZ2VuLG9hdHMpLHNwZWNzID0gJ2dlbicpCmNsZChtZWFucyxhbHBoYSA9IDAuMSxsZXZlbCA9IDAuOSkKYGBgCgo+IFRoZSBhbnN3ZXIgZGVwZW5kcyBzbGlnaHRseSBvbiB3aGV0aGVyIHlvdSB0cmVhdCBCbG9ja3MgYXMgRml4ZWQgb3IgUmFuZG9tLgo+IFRoZSBnZW5vdHlwZSB3aXRoIHRoZSBoaWdoZXN0IG1lYW4gKGVtbWVhbikgaXMgRzAxLiAKPiBXaXRoIFJhbmRvbSBibG9ja3MsIG9ubHkgRzAzLCBHMDksIEcyMCBhbmQgRzA3IGNhbiBiZSBzdGF0aXN0aWNhbGx5IGRpc3Rpbmd1aXNoZWQgZnJvbSBHMDEgYXQgYWxwaGEgPSAwLjEuCj4gV2l0aCBGaXhlZCBibG9ja3MsIG9ubHkgRzAzLCBHMDkgY2FuIGJlIHN0YXRpc3RpY2FsbHkgZGlzdGluZ3Vpc2hlZCBmcm9tIEcwMSBhdCBhbHBoYSA9IDAuMS4KCj4gWzYgcG9pbnRzIHRvdGFsXToKCj4gWzMgcG9pbnRzXSBGb3IgdGhlIGNsZC4gWW91ciBlbW1lYW5zIG9iamVjdCBzaG91bGQgYWxzbyBiZSB1c2luZyBhbiBhbHBoYSAwLjEsIG5vdCAwLjEuCj4gWzMgcG9pbnRzXSBZb3UgbmVlZCB0byBhbHNvIG1lbnRpb24gdGhhdCBvbmx5IGEgZmV3IGdlbm90eXBlcyBjYW4gYmUgZGlzdGluZ3Vpc2hlZCBmcm9tIHRoZSBnZW5vdHlwZSB3aXRoIHRoZSBoaWdoZXN0IG1lYW4gKGluIHRoaXMgY2FzZSBHMDMsIEcwOSwgRzIwIGFuZCBHMDcgYXJlIGRpc3Rpbmd1aXNoYWJsZSBmcm9tIEcwMSBhbiBhbHBoYSBvZiAwLjEpIGZvciBmdWxsIGNyZWRpdC4gQ29udmVyc2VseSwgeW91IGNhbiBtZW50aW9uIHRoZSBnZW5vdHlwZXMgdGhhdCBhcmVu4oCZdCBkaXN0aW5ndWlzaGFibGUuIFlvdSBuZWVkIHRvIGdldCBhbGwgb2YgdGhlIGRpc3Rpbmd1aXNoYWJsZSBhbmQvb3IgdW5kaXN0aW5ndWlzaGFibGUgZ2Vub3R5cGVzIGZvciBmdWxsIGNyZWRpdC4gT3RoZXJ3aXNlIFstMSBwb2ludF0KCiMjIDEuOC4gSW4gdGhlIGFib3ZlIGFuYWx5c2lzLCBpZiB5b3UgZGVjbGFyZSB0aGUgYmxvY2tzIHRvIGJlIHJhbmRvbSwgeW91IHNob3VsZCBmaW5kIHRoYXQgRzAyIGlzIGRlY2xhcmVkIGRpZmZlcmVudCBmcm9tIEcwOSBidXQgRzA0IGlzIG5vdC4gSG93ZXZlciB0aGUgZXN0aW1hdGVkIHZhbHVlIG9mIEcwMiBpcyBjbG9zZXIgdG8gRzA5IHRoYW4gRzA0IGlzLgpFeHBsYWluIHRoaXMgb2JzZXJ2YXRpb24uIFdoeSBjYW4gd2UgZGlzdGluZ3Vpc2ggRzAyIGFuZCBHMDksIGJ1dCBub3QgRzA0IGFuZCBHMDkgYXQgYWxwaGEgPSAwLjE/Cgo+IFRoZSByZWFzb24gaXMgdGhhdCBHMDkgYW5kIEcwMiBhcmUgdGVzdGVkIGluIHRoZSBzYW1lIGJsb2NrLCBidXQgRzA0IGFuZCBHMDkgYXJlIG5vdCwgc28gdGhlIGNvbmZpZGVuY2UgaW50ZXJ2YWwgb24gdGhlaXIgZGlmZmVyZW5jZSBpcyBsYXJnZXIuCgo+IFs2IHBvaW50c10gRm9yIG1lbnRpb25pbmcgdGhhdCB0aGUgY29uZmlkZW5jZSBpbnRlcnZhbHMgYXJlIHdpZGVyIGZvciBzb21lIGNvbXBhcmlzb25zIHRoYW4gb3RoZXJzLiBZb3UgY2FuIGFsc28gc2F5IGhvdyBjZXJ0YWluIGNvbWJpbmF0aW9ucyBvZiBnZW5vdHlwZXMgYXJlIG5vdCBvYnNlcnZlZCBpbiB0aGUgc2FtZSBibG9jaywgd2hpY2ggaW5jcmVhc2VzIG91ciB1bmNlcnRhaW50eSBvZiB0aG9zZSBjb21wYXJpc29ucy4K</div>
 
 
 </div>
@@ -3294,7 +3279,7 @@ $(document).ready(function () {
 <!-- code folding -->
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("HW7_key.rmd");
+  window.initializeSourceEmbed("HW8_key.rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
