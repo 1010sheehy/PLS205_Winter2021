@@ -77,14 +77,17 @@ str(apples_2)
 ```
 ## 1.4 Create a design table for this larger experiment [8 points]
 
-| Structure | Variable   | Type        | # levels | EU        |
-|-----------|------------|-------------|----------|-----------|
-| Treatment | trt        | categorical | 6        | field:trt | # because field:trt is crossed with block, may need to add field:trt:block term
-| Design    | field:trt  | categorical | 18       |           |
-|           | block:trt  | categorical | 72       |           |
-|           | field      | categorical | 3        |           |
-|           | block      | categorical | 12       |           |
-| Response  | yield      | numeric     | 72       |           |
+| Structure | Variable         | Type        | # levels | EU        |
+|-----------|------------------|-------------|----------|-----------|
+| Treatment | trt              | categorical | 6        | field:trt |
+| Design    | field:trt        | categorical | 18       |           |
+|           | block:trt        | categorical | 72       |           |
+|           | field:block:trt  | categorical | 72       |           |
+|           | field            | categorical | 3        |           |
+|           | block            | categorical | 12       |           |
+| Response  | yield            | numeric     | 72       |           |
+
+> Note, field:block:trt is not strictly necessary to include, as block has been renamed so that they are already uniquely identifieable to the field they are in. Field:block and block are aliased. For example Field 1, block 2 is 1.B2.
 
 ## 1.5 Write an appropriate linear model for the analysis [4 points]
 
@@ -92,11 +95,15 @@ str(apples_2)
 # converting field to factor
 apples_2$Field <- as.factor(apples_2$Field)
 
-# the model
-apples_2_model <- lmer(yield ~ (1|Field:trt) + (1|block) + Field + trt, data = apples_2) #block might not be declared because not nested within field:treatment --> IS crossed
+# checking crosses, nesting
+is_nested(Field:trt ~ block, apples_2 ) # FALSE
+is_crossed(Field:trt ~ block, apples_2) # TRUE
+is_nested(Field ~ Field:trt, apples_2)  # TRUE
+is_nested(Field ~ block, apples_2)      # TRUE
 
-is_nested(Field:trt ~ block, apples_2 )
-is_crossed(Field:trt ~ block, apples_2)
+
+# the model
+apples_2_model <- lmer(yield ~ (1|Field:trt) + block + Field + trt, data = apples_2)
 ```
 
 ## 1.6 Compare the results of this larger experiment to the first experiment. [6 points]
@@ -109,7 +116,7 @@ apples_2_means = emmeans(apples_2_model, specs = 'trt')
 trt_effects_2 = contrast(apples_2_means, method = 'trt.vs.ctrl', ref = 'S')
 summary(trt_effects_2, level = 0.95, infer=T)
 ```
-> No, the general conclusion is still the same -- E has a significantly higher yield than the standard treatment, S. COMMENT ON PRECISION AND HOW INTERPRETATION HAS CHANGED.
+> No, the general conclusion is still the same: E has a significantly higher yield than the standard treatment, S and the other treatments make no significant difference in yield. Our precision has decreased, as our confidence intervals have grown larger than those observed in the single orchard experiment. Our CIs have grown larger, in part, because our degrees of freedom have decreased. This is because the orchards become our new, external block (b=3) versus the four blocks in the first experiment (b=4). Additionally, our data seems to have more spread, as indicated by the SE being larger in the second experiment. Despite having less precision, our results are more generalizeable as treatment E was effective at increasing yield across 3 different orchards.
 
 ----------------------
 
