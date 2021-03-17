@@ -1,0 +1,180 @@
+---
+title: "HW 7"
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+> Grading Notes:
+>
+> For questions that require a text answer:
+> Full credit: requires an answer to each question asked. Your explanations need to valid
+and logical. You don't need to use the same words as the key, but the meaning needs to be complete.
+> Assign partial credit for answers that are incomplete. For multi-part questions, divide points
+approximatly equally unless otherwise specified.
+>
+> For all questions, if you get the right answer using a different approach than I use, that is fine.
+
+> Fill in your scores in the google form here: https://forms.gle/xfFnXBUY5JBxcbYh9. 
+PLEASE ONLY ENTER A NUMBER. IF YOU WANT TO LEAVE A COMMENT ABOUT A SCORE, DO IT DIRECTLY ON CANVES.
+It will require you to log in with your ucdavis email address. Let me know if this causes problems. This way I can associate your grades with you on Canvas
+
+
+Re-install PLS205 package: 
+Run the following command directly in your RStudio console:
+`devtools::install_github('deruncie/PLS205_package')`
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(ggplot2)
+library(PLS205)
+library(multcomp)
+```
+
+
+A split-plot experiment for studying the corrosion resistance of steel bars treated with four coatings (C1, C2, C3, C4) at three furnace temperatures (360C, 370C, 380C). 
+It takes considerable time to reset the furnace and reach a new equilibrium temperature. 
+Therefore, each the furnace was set twice to each temperature (in a randomized order), and then while it was at the set temperature,
+four bars, one with each coating, were positioned in the furnace at randomized locations and heated.
+Each bar was then tested individually for corrosion resistance.
+
+Data from the experiment are provided here:
+```{r}
+corrosion = read.csv('corrosion.csv',stringsAsFactors = T)
+str(corrosion)
+```
+## 1) Create the design table for this experiment
+Correct any of the variables in the data.frame to correspond to the design table
+
+| Structure | Variable        | Type    | #levels | EU              |
+|-----------|-----------------|---------|---------|-----------------|
+| Treatment | Temp            | Cat     | 3       | Trial           |
+|           | Coat            | Cat     | 4       | Trial:Coat      |
+|           | Temp:Coat       | Cat     | 12      | Trial:Temp:Coat |
+| Design    | Trial           | Cat     | 6       |                 |
+|           | Trial:Coat      | Cat     | 24      |                 |
+|           | Temp:Trial:Coat | Cat     | 24      |                 |
+|           | Bar             | Cat     | 24      |                 |
+| Response  | Corrosion       | Numeric | 24      |                 |
+
+```{r}
+corrosion$Bar = as.factor(corrosion$Bar)
+corrosion$Trial = as.factor(corrosion$Trial)
+```
+
+> [9 points]
+
+> The three treatment variables should each have their own EUs. The order of names in combinations do not matter, but otherwise they should all be there.
+> "Bar" is not needed, but OK to include
+
+## 2) Write a linear model for these data
+```{r}
+corrosion_model = lmer(Corrosion ~ Temp+Coat+Temp:Coat+(1|Trial),corrosion)
+```
+
+> [5 points]
+
+> We must have Trial declared as an EU. The other two EU cannot enter the model
+
+## 3) Run appropiate model diagnostics
+Be sure to do diagnostics on all EU.
+Do you see any issues? 
+*Do not do any transformation in either case*
+```{r}
+pls205_diagnostics(corrosion_model,EU = 'Trial')
+pls205_diagnostics(corrosion_model,EU = 'Trial:Coat')
+pls205_diagnostics(corrosion_model,EU = 'Trial:Coat:Temp')
+```
+> [6 points]
+
+> The diagnostics for the last two EUs are identical because they are aliased. The diagnostics for Trial have so few points it's hard to do much with them.
+> But we really don't see any indiciation of any problems here.
+
+## 4) How strong is the evidence that Temp has any effect on corrosion?
+```{r}
+# method 1: ANOVA, are any Temp specific effects non-zero?
+temp_model = lmer(Corrosion ~ Coat+Temp:Coat+(1|Trial),corrosion)
+anova(temp_model,ddf = 'K')
+
+# method 2: just directly compare all specific effects of temp within each Coat level
+temp_means = emmeans(corrosion_model,spec = 'Temp',by = 'Coat')
+temp_effects = contrast(temp_means,'pairwise')
+summary(temp_effects,level = 1-0.05/4,infer = T)
+```
+> [6 points]
+
+> We can answer this using ANOVA (testing all specific effects of Temp at once), or using emmeans with the pairwise contrasts. You only need to do one.
+> The evidence for any Temp effect on metal with any of the 4 coatings is very weak (p = 0.05). (4 points for similar statement)
+The strongest evidence is the comparison between 380C and 360C for coating C4.
+> Note: we correct the level for 4 sets of pairwise comparisons (one for each coating). (2)
+
+## 5) How strong is the evidence that the Coating has any effect on Corrosion?
+```{r}
+coating_model = lmer(Corrosion ~ Temp+Temp:Coat+(1|Trial),corrosion)
+anova(coating_model,ddf = 'K')
+
+coat_means = emmeans(coating_model,spec = 'Coat',by = 'Temp')
+coat_effects = contrast(coat_means,'pairwise')
+cld(coat_means,level = 1-0.05/3)
+```
+> [6 points]
+
+> We can answer this using ANOVA (testing all specific effects of Coat at once), or using emmeans with the pairwise contrasts. You only need to do one.
+> There is strong evidence of an effect of the Coatings (p = 0.0045). However, we can only distinguish coating C4 from the others at 380C with alpha = 0.05. (4 points for similar statement)
+> Note: we correct the level for 3 sets of pairwise comparisons (one for each Temp). (2 points)
+
+## 6) Can you conclude that Temp modifies the effect of Coat?
+What contrast among Coatings appears to change the most among temperatures?
+Include a figure demonstrating your results
+```{r}
+# method 1: ANOVA to test interactions
+anova(corrosion_model,ddf='K')
+emmip(corrosion_model,Coat~Temp)
+
+# method 2: compare specific effects for each contrast
+coat_effects_by_contrast = emmeans(temp_effects,specs = 'Coat',by = 'contrast')
+interaction_effects = contrast(coat_effects_by_contrast,method = 'pairwise')
+cld(coat_effects_by_contrast,level = 1-0.05/3)
+plot(interaction_effects)
+```
+> [6 points]
+
+> Contrasts C2-C4 and C3-C4 change the most between 360C and 380C
+
+> 3 points for testing using either method
+> 2 points for statement
+> 1 point for either figure or similar
+
+
+## 7) Report the standard errors of the following specific effects and interaction effects:
+(C4-C2)|380C, (380C - 360C)|C4, and ((C4-C2)|380C - (C4-C2)|360C).
+Which is largest? Which is smallest? What is surprising about this result?
+```{r}
+coat_effects[17]
+temp_effects[11]
+interaction_effects[11]
+```
+> [6 points]
+
+> (C4-C2)|380C: 11.2
+> (380C - 360C)|C4: 36
+> ((C4-C2)|380C - (C4-C2)|360C): 15.8
+
+> NOTE: The code to subset the effects above is not needed for a correct answer. The only thing we need is the SEs and the interpretation.
+> The comparisons among Coatings are more precise because they happen within the same trial (ie time in the oven). The comparisons among oven temperatures
+are less precise. In this case, the interaction effect is actually estimated with much more precision than the temperature specific effect!
+
+> 3 points for SEs, 3 points for discussion
+
+
+## 8) Speculate on whether the experiment would have been more or less precise if it had been run as a standard factorial instead of a split-plot.
+In this case, only a single bar would have been heated in an oven at a time.
+How much longer would the experiment have taken?
+
+> [6 points]
+
+> As a standard factorial, the oven would have been re-heated separately for each bar. This would have taken ~4 times longer because in the split-plot design, 4 bars are run at once. Also, the variation among bars would presumably be much greater because the variation among trials here was large (note how much larger the standard errors for the specific effects of temperature are above; this is driven by the among-trial variation. We can also view the lmer model and it's state that the standard deviation among trials: 34.3 was about 3x the standard deviation among bars in a trial (~11)). In the standard factorials, these two sources of variation would have been combined, so the residual SD would be about sqrt(34^2 + 11^2) = 35. The only benefit to this design would be more degrees of freedom for the specific effects of temperature.

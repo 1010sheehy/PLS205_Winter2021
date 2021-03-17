@@ -1,0 +1,163 @@
+---
+title: "HW 8"
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+library(lmerTest)
+library(pbkrtest)
+library(emmeans)
+library(PLS205)
+library(multcomp)
+```
+
+---
+
+The following data are from a spring oats trial run in Craibstone, near Aberdeen in Scottland.
+
+24 varieties of oats were grown each grown in 3 fields (`rep`), and the yield (tonnes / ha) was assessed at the end of the season.
+Each field was divided into 6 blocks.
+
+```{r}
+oats = read.csv('Oats_trials.csv')
+str(oats)
+```
+
+Your goal over the following set of questions is to identify a set of genotypes to keep / recommend for use.
+
+## 1.1 Blocks are specific to each field
+How many unique blocks are there? 
+If necessary, re-name the blocks so that they are appropriately nested in the fields.
+
+```{r}
+# exploring the data
+is_nested(block~plot, oats) # TRUE
+
+# creating an interaction term
+oats$uniqueblock <- interaction(oats$rep, oats$block, drop = TRUE)
+```
+
+> There are 18 unique blocks. I created an interaction term that nests the blocks within their field (rep).
+
+## 1.2 Characterize the experimental design
+
+Start by making a model table: 
+
+**Design**: Try to identify the design, but not required.
+
+| Structure | Variable    | Type | # levels | Experiment Unit |
+|-----------|-------------|------|----------|-----------------|
+| Treatment | gen         | cat  |  24      |  rep:gen        |
+|           |             |      |          |  block:gen      |
+| Design    | rep         | cat  |  3       |                 |
+|           | block       | cat  |  18      |                 |
+|           | plot        | cat  |  72      |                 |
+|           | rep:gen     | cat  |  72      |                 |
+|           | block:gen   | cat  |  72      |                 |
+| Response  | Yield       | num  |  72      |                 |
+
+## 1.3 This is an incomplete block design. Fill in the following:
+
+| parameter           | value |
+|---------------------|-------|
+| # treatments (t)    |  24   |
+| # blocks (b)        |  18   |
+| # reps/trt (n_1 = r)|   3   |
+| # trts / block (k)  |   4   |
+
+
+Could this design be balanced? What is lambda (the average times each pair of treatments occur in the same block)?
+
+```{r}
+# assigning variables
+t <- 24
+b <- 18
+r <- 3
+k <- 4
+
+# calculating lambda
+lambda <- r*(k-1)/(t-1)
+lambda
+```
+
+> Because lambda is not a whole number (integer), we can infer that the design is not balanced. This experiment could be balanced if we used more fields to increase the number of reps so that we get an integer (the smallest value would be 23). We could also balance this experiment if we increased the number of blocks or treatments per block, but presumably the researchers did not pursue any of these options due to space, time, or funding constraints.
+
+## 1.4 Make an incidence matrix for the design. 
+Use the `table` function as in Lab_9. Is the design balanced? (Hint: use the `crossprod` function)
+```{r}
+incidence_matrix <- table(oats$uniqueblock, oats$gen)
+incidence_matrix
+
+# checking balance
+crossprod(incidence_matrix)
+```
+
+> In this table, values indicate the number of times that genotypes occur in the same block together. In a completely balanced design, all values would fall along a diagonal. Because there are values off of the diagonal, we can tell that this is not balanced.
+
+## 1.5 Is the design resolvable?
+Resolvable designs are designs in which a subset of the blocks constitutes a complete block of the treatments.
+Resolvable designs are nice because each larger block is a complete replicate of the experiment, so each super-block
+can be run separately.
+
+Identify blocks that can be resolved into a complete block. 
+**Hint**: Check the Reps!
+```{r}
+# checking by reps
+incidence_matrix2 <- table(oats$rep, oats$gen)
+incidence_matrix2
+
+crossprod(incidence_matrix2)
+```
+
+> In this experiment, the fields (reps) are crossed with the genotypes, so it is a complete block. This is shown by the tables, which show symmetry (i.e. that all genotype pairings occur in all reps).
+
+## 1.6 Fit a linear model to the yield data. 
+Use an ANOVA to assess whether there is strong evidence for differences among the genotypes.
+
+**Note**: If you use fixed blocks, ensure that in your model and ANOVA table, blocks are included before `gen`.
+If you use `rep:block` to nest block in `rep`, then R will move the `rep:block` term to the end of the model.
+To avoid this, make a new term `unique_blocks` with a separate ID for block in each rep.
+Alternatively, declare blocks random (but be careful about nesting!).
+
+```{r}
+# # no rep
+# oats_model <- lm(yield ~ uniqueblock + gen, oats)
+# anova(oats_model)
+# 
+# # rep undeclared
+# oats_model_undec <- lm(yield ~ uniqueblock + rep + gen, oats)
+# anova(oats_model_undec)
+# 
+# # uniqueblock declared
+# oats_model_uniquedec <- lmer(yield ~ (1|uniqueblock) + rep + gen, oats)
+# anova(oats_model_uniquedec)
+# 
+
+# rep and uniqueblock declared as random
+oats_model_declared <- lmer(yield ~ (1|uniqueblock) + (1|rep) + gen, oats)
+anova(oats_model_declared)
+
+```
+
+> This ANOVA indicates that there is strong evidence that there are differences in yield among genotypes (a low p-value).
+
+## 1.7 Make a Compact Letter Display to compare the genotypes.
+Identify the best-preforming genotype, and any others that can't be statistically distinguished (alpha = 0.1) from the one that performed best.
+
+```{r}
+# emmeans()
+oats_means <- emmeans(oats_model_declared, spec = 'gen')
+cld(oats_means,Letters = letters, alpha=0.1)
+```
+
+> According to this cld, G01 performed the best but could not be distiguished from G02, G04-06, G08, G10-19, G21, G23, or G24 (20 other genotypes, total).
+
+## 1.8. In the above analysis, if you declare the blocks to be random, you should find that G02 is declared different from G09 but G04 is not. However the estimated value of G02 is closer to G09 than G04 is.
+Explain this observation. Why can we distinguish G02 and G09, but not G04 and G09 at alpha = 0.1?
+
+> This has to do with the occurence of two genotypes within the same block. Because G02 and G09 occur in the same uniqueblock, there is more power (a lower SED) when comparing them. Comparing across blocks will lead to lower power (higher SED). This is true for G04 and G09, which do not occur in the same block together.
+

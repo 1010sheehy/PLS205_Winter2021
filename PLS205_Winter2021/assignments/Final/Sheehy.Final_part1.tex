@@ -1,0 +1,194 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Know Your Audience, Choose Your Stage},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Know Your Audience, Choose Your Stage}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+\hypertarget{experimental-overview}{%
+\subsection{1. Experimental Overview}\label{experimental-overview}}
+
+Animal behavior is often modified by the animal's environment. This
+includes both the physical environment (substrate, spatial complexity,
+etc.) and the social environment, such as mates, family groups, or
+unrelated members of a herd. In the case of dominance interactions
+(fights for social status) the familiarity of an audience may influence
+how much an animal may want to invest in a fight. In a spatially complex
+environment, certain locations may act as a ``stage,'' allowing the
+animal to showcase it's fighting ability to an audience. Conversely,
+spatial complexity may inhibit the audience's ability to see an
+interaction, allowing the animal to conceal it's fighting ability. The
+effects of both the physical and social environment on behavior have
+been well studied in isolation, but rarely in combination.
+
+I propose to examine the interaction of spatial complexity and social
+environment on dominance interactions in the Amazon molly, a naturally
+genetically clonal (and all female) species of fish. In addition to
+being clones, these fish are a useful study system to study dominance
+interactions as fish of the same size will reliably engage in fights for
+dominance.
+
+Fish will be placed in groups of 8 size-matched fish and allowed to
+become familiar over 3 weeks. After this, a pair will be randomly
+selected and placed into separate acclimation chambers within a
+Dominance Interaction tank. This tank will either have a covering which
+obscures 1/2 of the tank (Complex) or be completely open and visible
+(Simple). The remainder of the group OR an unfamiliar group of 6 fish
+(of similar size) will be placed in an adjacent Audience Tank, where
+they will be allowed to observe the pair in the Dominance Interaction
+tank. Fish are readily able to view each other tank to tank (except when
+the barrier is in place, which obscures 1/2 of the view).
+
+After the acclimation period, the dominance pair will be released from
+their chambers and allowed to fight for 5 minutes. Aggressive acts
+(bites, tail beats, and chases) will be recorded and combined to create
+a single ``Aggression'' score for the pair's interaction.
+
+\hypertarget{design-table}{%
+\subsection{2. Design Table}\label{design-table}}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Structure & Variable & Type & \#levels & EU\tabularnewline
+\midrule
+\endhead
+Treatment & Audience & Cat & 2 & Group:Aud\tabularnewline
+& Tank Complexity & Cat & 2 & Group:Comp\tabularnewline
+& Aud:Comp & Cat & 4 & Group:Aud:Comp\tabularnewline
+Design & Group:Aud & Cat & 8 &\tabularnewline
+& Group:Comp & Cat & 8 &\tabularnewline
+& Group:Aud:Comp & Cat & 16 &\tabularnewline
+& Group & Cat & 4 &\tabularnewline
+& Pair & Cat & 16 &\tabularnewline
+& Pair:Aud & Cat & 16 &\tabularnewline
+& Pair:Comp & Cat & 16 &\tabularnewline
+& Pair:Aud:Comp & Cat & 16 &\tabularnewline
+Response & Aggression & Numeric & 16 &\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{quote}
+Because the treatment of familarity is only uniformly applied at the
+Group level, I have chosen Group as the EU. Group is also a block, as
+each ``familar audience'' treatment is necessarily different for each
+Group. Pair can also be considered a block, but is nested within Group.
+\end{quote}
+
+\hypertarget{linear-model}{%
+\subsection{3. Linear model}\label{linear-model}}
+
+\begin{quote}
+mollymolly\_model \textless- lmer(Aggression \textasciitilde{} Aud +
+Comp + Aud:Comp + Group + (1\textbar Group:Aud) + (1\textbar Group:Comp)
++ (1\textbar Group:Aud:Comp) + Pair + (1\textbar Pair:Aud) +
+(1\textbar Pair:Comp) + (1\textbar Pair:Aud:Comp))
+\end{quote}
+
+\hypertarget{effect-estimates}{%
+\subsection{4. Effect Estimates}\label{effect-estimates}}
+
+\begin{quote}
+Using an ANOVA (and the emmip() function), I will compare the treatment
+effect estimates of Familiar vs.~Unfamiliar, Complex vs.~Simple, and the
+interaction of the two (Aud:Comp) to determine if there is evidence of
+an effect of Audience, Complexity, or an interaction of the two, on
+Aggression (units = mean Aggression).
+\end{quote}
+
+\begin{quote}
+Example Statement: We found that there was a significant interaction
+between Tank Complexity and Audience Familiarity. An unfamiliar audience
+always decreased aggression relative to a familiar audience (p-value =
+0.001). However, tank complexity varied depending on the audience
+familiarity, with unfamiliar audiences and simple tanks leading to the
+largest decrease in aggression relative to the other treatment
+combinations.
+\end{quote}
+
+\hypertarget{blocking}{%
+\subsection{5. Blocking}\label{blocking}}
+
+\begin{quote}
+My experiment will be a Complete Block Design, as every treatment
+combination occurs in every Group. There is a possibility that the
+Groups I create will have different collective behavior (and thus, Pair
+behavior), so I need to have several separate Groups to control for any
+variation inherent in the Group. In an ideal world, I would have more
+replicates within a group, but it is unlikely that I will have enough
+fish of the same size to create groups of 16 or more (2 pairs with each
+treatment combo). I plan on re-assessing as I get closer to experiment
+execution and determining whether an Incomplete Block Design is feasible
+with the fish I have available.
+\end{quote}
+
+\end{document}

@@ -1,0 +1,212 @@
+---
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+
+```{r echo=FALSE,message=FALSE, warning=FALSE}
+library(ggplot2)
+library(emmeans)
+library(lme4)
+library(lmerTest)
+library(multcomp)
+library(PLS205)
+```
+
+
+# Instructions
+
+- **Be sure to read every question carefully and answer all parts.** 
+- **Clarification questions should be sent to the professors or TAs.** We will post to Piazza if everyone should see the answer. No consultation with other students or outside experts is allowed during the exam period (including R programming). You may use any notes / printed material / online resources.
+- **Include all `R` code used to answer each question.** Be sure to include a command so that your results are printed out to the knitted output. Be sure to run all code again before submitting (Run -> Run All) so that all answers are included in your output.
+- Some questions can be answered without any `R` code.
+- **Use http://www.tablesgenerator.com/markdown_tables to easily convert excel tables to markdown** You can create your model tables in Excel, paste them into the website, and then copy the correctly formatted table back into this document.
+- **Do not include your name in the file name.** We hide your names during grading to prevent bias.
+- **Please proof-read your .nb.html file.** Submit both the .nb.html and the .Rmd file, but we will only grade the .nb.html file, so please make sure that it formatted right! 
+
+
+----
+# Question 1 - part 1
+A yield trial was performed at an English orchard to evaluate different management treatments for the ground between trees.
+The orchard was divided into blocks and each treatment(trt) was applied to a single row of each block. 
+From each row, the total number of apples in the center 3 trees was counted at the end of the season (yield).
+The 'S' treatment was the standard practice of keeping the land clean in the summer.
+
+```{r}
+apples = read.csv('Apple_yield.csv',stringsAsFactors = TRUE)
+str(apples)
+```
+
+## 1.1 Create a design table for this experiment [8 points]
+
+| Structure | Variable  | Type        | # levels | EU        |
+|-----------|-----------|-------------|----------|-----------|
+| Treatment | trt       | categorical | 6        | block:trt |
+| Design    | block:trt | categorical | 24       |           |
+|           | block:row | categorical | 24       |           |
+|           | block     | categorical | 4        |           |
+| Response  | yield     | numeric     | 24       |           |
+
+## 1.2 Write an appropriate linear model for the analysis [4 points]
+
+```{r}
+# converting to factors
+apples$row <- as.factor(apples$row)
+
+# the model
+apples_model <- lm(yield ~ block + trt, data = apples)
+```
+
+## 1.3 Can you conclude that any of the ground managment techniques increase yield relative to the control 'S'? [5 points]
+Use alpha = 0.05.
+```{r}
+apples_means = emmeans(apples_model, specs = 'trt')
+trt_effects = contrast(apples_means, method = 'trt.vs.ctrl', ref = 'S')
+summary(trt_effects, level = 0.95, infer=T)
+```
+> Yes, treatments E results in significantly higher yields than the control treatment, S. The other treatments, including treatment D does not meet our cutoff for significance (p-value < 0.05).
+
+# Question 1 - part 2
+Given these promising results, you decide to expand the experiment by adding two additional orchards. You replicate the same design over those two additional orchards and add them to your data table.
+
+```{r}
+apples_2 = read.csv('Apples_yield_2.csv',stringsAsFactors = FALSE)
+str(apples_2)
+```
+## 1.4 Create a design table for this larger experiment [8 points]
+
+| Structure | Variable   | Type        | # levels | EU        |
+|-----------|------------|-------------|----------|-----------|
+| Treatment | trt        | categorical | 6        | field:trt | # because field:trt is crossed with block, may need to add field:trt:block term
+| Design    | field:trt  | categorical | 18       |           |
+|           | block:trt  | categorical | 72       |           |
+|           | field      | categorical | 3        |           |
+|           | block      | categorical | 12       |           |
+| Response  | yield      | numeric     | 72       |           |
+
+## 1.5 Write an appropriate linear model for the analysis [4 points]
+
+```{r}
+# converting field to factor
+apples_2$Field <- as.factor(apples_2$Field)
+
+# the model
+apples_2_model <- lmer(yield ~ (1|Field:trt) + (1|block) + Field + trt, data = apples_2) #block might not be declared because not nested within field:treatment --> IS crossed
+
+is_nested(Field:trt ~ block, apples_2 )
+is_crossed(Field:trt ~ block, apples_2)
+```
+
+## 1.6 Compare the results of this larger experiment to the first experiment. [6 points]
+Have your conclusions changed? 
+You've done 3x the work. Have you gained precision in your estimates relative to the first (smaller experiment)? Why or why not?
+How has the *interpretation* of your treatment effects changed with the new experiment?
+
+```{r}
+apples_2_means = emmeans(apples_2_model, specs = 'trt')
+trt_effects_2 = contrast(apples_2_means, method = 'trt.vs.ctrl', ref = 'S')
+summary(trt_effects_2, level = 0.95, infer=T)
+```
+> No, the general conclusion is still the same -- E has a significantly higher yield than the standard treatment, S. COMMENT ON PRECISION AND HOW INTERPRETATION HAS CHANGED.
+
+----------------------
+
+# Question 2 
+A researcher ran a microcosm experiment to study the effect of nitrogen runoff on biodiversity in wetland communities.
+They were interested in how weeds might out-compete native grasses under elevated nitrogen levels.
+They chose three weed species to test. 
+The experiment was run in small artificial wetlands (rectangular wire baskets) that included a combination of a native grass and single weed species. 
+
+The artificial wetlands were set in large trays with water containing a defined level of nitrogen.
+In total, there were 8 trays, with two trays for each of the four levels of nitrogen. 
+Each tray held three artificial wetlands, one for each of the three weed species.
+
+At the end of 8 weeks, the plant material in each wetland was harvested and divided between weed and native grass, and the percentage 
+of biomass that remained as grass was recorded.
+
+```{r}
+biomass_1 = read.csv('weed_biomass_small.csv',stringsAsFactors = TRUE)
+str(biomass_1)
+```
+## 2.1 Create a design table for this experiment [8 points]
+Give a justification for each EU that you specify.
+
+| Structure | Variable           | Type      | # levels | EU                 |
+|-----------|--------------------|-----------|----------|--------------------|
+| Treatment | nitrogen           | factor    | 4        | tray               |
+|           | weed               | factor    | 3        | tray:weed          |
+|           | nitrogen:weed      | factor    | 12       | tray:nitrogen:weed |
+| Design    | tray               | factor    | 8        |                    |
+|           | tray:weed          | factor    | 24       |                    |
+|           | tray:nitrogen:weed | factor    | 24       |                    |
+|           | wetland            | factor    | 24       |                    |
+| Response  | perc_biomass       | numerical | 24       |                    |
+
+> ENTER YOUR RESPONSE HERE
+
+## 2.2 Write an appropriate linear model for the analysis [4 points]
+```{r}
+biomass_1_model <- lmer(perc_biomass ~ nitrogen + weed + nitrogen:weed + (1|tray), data = biomass_1)
+```
+
+## 2.3 How much evidence do you have that nitrogen levels EVER affect the proportion of non-weed biomass? [6 points]
+Use an ANOVA to answer this question. 
+Provide a statement describing the interpretation of the ANOVA results. Be very specific about how you measured the evidence and what you can conclude from this analysis.
+```{r}
+nitrogen_model <- lmer(perc_biomass ~ weed + nitrogen:weed + (1|tray), data = biomass_1)
+anova(nitrogen_model, ddf = 'K')
+
+# corrosion_model = lmer(Corrosion ~ Temp+Coat+Temp:Coat+(1|Trial),corrosion)
+# temp_model = lmer(Corrosion ~ Coat+Temp:Coat+(1|Trial),corrosion)
+# anova(temp_model,ddf = 'K')
+```
+> ENTER YOUR RESPONSE HERE, 
+
+## 2.4 Estimate the effects of changing nitrogen levels on the percent of non-weed biomass [6 points]
+Present a table/display giving estimates and confidence intervals for the nitrogen effects.
+Use 95% confidence intervals adjusted for the number of comparisons.
+Describe the findings. You do not need to specifically describe each contrast, but provide an overall summary of the main findings.
+You may include a figure if you'd like.
+```{r}
+
+```
+> ENTER YOUR RESPONSE HERE
+
+## 2.5 You should have observed above that effects of nitrogen appear much greater for some weed species than others. [6 points]
+Test this hypothesis using an ANOVA. 
+Then estimate how much the nitrogen effects change for species "Weed_2" relative to species "Weed_1".
+Describe the findings. Include a description of an example interaction effect.
+```{r}
+```
+
+> ENTER YOUR RESPONSE HERE
+
+## 2.6 Which specific effects would you expect to be estimated with the greatest precision? Why? [5 points]
+The previous questions used nitrogen as the focal treatment and calculated specific effects of nitrogen for each weed species.
+We could have instead treated weed species as the focal treatment and calculated specific effects for each level of nitrogen.
+Would each specific effect in each set have the same standard error and size of its confidence interval? Why or why not?
+
+> ENTER YOUR RESPONSE HERE
+
+------------------
+
+# Challenge problem: (5 bonus points but only if 100% correct. Max score = 70)
+The above data set is from a classic experiment used to demonstrate split plots. 
+In the original experiment, each of the 24 wetlands was further divided into two halves, and one half was randomly selected for trimming (clipping) to simulate mowing after 1 week. Furthermore, the 8 trays were divided between two tables, with one tray/nitrogen level on each table.
+Create the design table for this experiment and write the corresponding linear model
+
+```{r}
+biomass_full = read.csv('weed_biomass2.csv',stringsAsFactors = TRUE)
+str(biomass_full)
+```
+| Structure | Variable | Type | # levels | EU |
+|-----------|----------|------|----------|----|
+| Treatment |          |      |          |    |
+| Design    |          |      |          |    |
+| Covariate |          |      |          |    |
+| Response  |          |      |          |    |
+
+```{r}
+```

@@ -1,0 +1,183 @@
+---
+title: "HW 7"
+output: 
+ html_notebook:
+    toc: true
+    toc_float: true
+    number_sections: true
+---
+Use this R Notebook document to answer the questions and document your work. 
+Enter the R code used to answer each question in the corresponding R code chunk. 
+Write any textual explanations **outside** of the chunks. When we grade, we will *hide* the code and just look at the R output and your written answers.
+Attempt to clean up your code as much as possible so that only the necessary lines remain. 
+
+When you are done:
+
+1. Select 'Run All' from the 'Run' dropdown menue.
+2. Save (File -> Save)
+3. Click 'Preview' to bring up the `HW1.nb.html` file. Check through this to make sure it rendered correctly.
+4. Upload the `HW1.nb.html` to Canvas.
+
+Re-install PLS205 package: 
+Run the following command directly in your RStudio console:
+`devtools::install_github('deruncie/PLS205_package')`
+
+```{r echo=FALSE,message=FALSE,warning=FALSE}
+library(lme4)
+library(lmerTest)
+library(emmeans)
+library(ggplot2)
+library(PLS205)
+```
+
+
+A split-plot experiment for studying the corrosion resistance of steel bars treated with four coatings (C1, C2, C3, C4) at three furnace temperatures (360oC, 370oC, 380oC). 
+It takes considerable time to reset the furnace and reach a new equilibrium temperature. 
+Therefore, the furnace was set twice to each temperature (in a randomized order), and then while it was at the set temperature,
+four bars, one with each coating, were positioned in the furnace at randomized locations and heated.
+Each bar was then tested individually for corrosion resistance.
+
+Data from the experiment are provided here:
+```{r}
+corrosion = read.csv('corrosion.csv',stringsAsFactors = T)
+str(corrosion)
+```
+## 1) Create the design table for this experiment
+Correct any of the variables in the data.frame to correspond to the design table
+
+| Structure | Variable        | Type    | #levels | EU              |
+|-----------|-----------------|---------|---------|-----------------|
+| Treatment | Coat            | Factor  | 4       | Trial:Coat      |
+|           | Temp            | Factor  | 3       | Trial:Temp      |
+|           | Coat:Temp       | Factor  | 12      | Trial:Coat:Temp |
+| Desgin    | Trial           | Factor  | 6       |                 |
+|           | Trial:Coat      | Factor  | 24      |                 |
+|           | Trial:Temp      | Factor  | 6       |                 |
+|           | Trial:Coat:Temp | Factor  | 24      |                 |
+|           | Bar             | Factor  | 24      |                 |
+| Response  | Corrosion       | Integer | 24      |                 |
+
+```{r}
+corrosion$Bar <- as.factor(corrosion$Bar)
+corrosion$Trial <- as.factor(corrosion$Trial)
+```
+
+
+## 2) Write a linear model for these data
+```{r}
+# checking aliases, crosses, and nesting
+is_aliased(Trial~Trial:Temp, corrosion)
+is_aliased(Bar~Trial:Coat:Temp, corrosion)
+is_aliased(Trial:Coat~Corrosion, corrosion)
+is_nested(Temp~Coat:Temp, corrosion)
+is_nested(Temp~Trial:Temp, corrosion)
+is_nested(Coat~Trial:Coat, corrosion)
+is_crossed(Coat~Temp, corrosion)
+
+# the model
+corrosion_model <- lmer(Corrosion ~ Coat + Temp + Coat:Temp + (1|Trial:Temp), data = corrosion)
+```
+
+
+## 3) Run appropiate model diagnostics
+Be sure to do diagnostics on all EU.
+Do you see any issues? 
+*Do not do any transformation in either case*
+```{r}
+pls205_diagnostics(corrosion_model, EU = 'Trial:Coat')
+pls205_diagnostics(corrosion_model, EU = 'Trial:Temp')
+pls205_diagnostics(corrosion_model, EU = 'Trial:Coat:Temp')
+```
+> The Q-Q Plots for Trial:Coat and Trial:Coat:Temp both look good. The points fall along the line and do not fall outside of the bounds. The Q-Q plot for Trial:Temp is slightly different, but I believe that it follows the same trend and satisfies our assumption of normality. The Scale-Location plots for all three are reasonable, though the S-L plot for Trial:Temp looks a bit strange with so few plots. However, it, along with the other two plots, are good enough to move forwards with analysis.
+
+## 4) How strong is the evidence that Temp has any effect on corrosion?
+```{r}
+temp_only_means = emmeans(corrosion_model, 'Temp')
+temp_only_effects = contrast(temp_only_means, method = 'pairwise')
+summary(temp_only_effects, infer = T, level = .05)
+```
+> When averaging across the levels of Coat, there do not appear to be any effects of temperature on corrosion. All p-values are relatively large.
+
+## 5) How strong is the evidence that the Coating has any effect on Corrosion?
+```{r}
+coat_only_means = emmeans(corrosion_model, 'Coat')
+coat_only_effects = contrast(coat_only_means, method = 'pairwise')
+summary(coat_only_effects, infer = T, level = .05)
+```
+> When averaging over levels of temp, there is strong evidence that C4 differs significantly from C1-3. I would say that there is strong evidence of coating affecting corrosion since the p-values are quite small.
+
+## 6) Can you conclude that Temp modifies the effect of Coat?
+What contrast among Coatings appears to change the most among temperatures?
+Include a figure demonstrating your results
+```{r}
+# writing the new Temp model
+is_nested(Coat~Coat:Temp, corrosion)
+is_nested(Trial:Temp~Coat:Temp, corrosion)
+
+coat_by_temp_model <- lmer(Corrosion ~ Temp + Coat:Temp + (1|Trial:Temp), data = corrosion)
+
+# the anova for new temp model
+anova(coat_by_temp_model, ddf = 'K')
+
+# SPECIFIC EFFECTS
+# specific effects relative to coat for each temp
+coat_means = emmeans(corrosion_model, spec = 'Coat', by = 'Temp')
+coat_effects = contrast(coat_means, method = 'pairwise')
+summary(coat_effects, infer = T, level = 1 - 0.05 / 4)
+
+# re-group specific by contrast
+coat_effects_by_contrast = emmeans(coat_effects, spec = 'Temp',by = 'contrast')
+coat_effects_by_contrast
+
+# compare specific contrast among temps
+corrosion_interaction_effects = contrast(coat_effects_by_contrast, method = 'pairwise')
+summary(corrosion_interaction_effects,infer = T,level = 1-0.05/3)
+
+# INTERACTION EFFECTS
+# interaction effects relative to coat for each temp
+interaction_means = emmeans(corrosion_model, spec = 'Temp', by = 'Coat')
+interaction_effects = contrast(interaction_means, method = 'pairwise')
+summary(interaction_effects, infer = T, level = 1 - 0.05 / 4)
+
+# re-group interaction by contrast
+interaction_by_contrast = emmeans(interaction_effects, spec = 'Coat',by = 'contrast')
+interaction_by_contrast
+
+# compare contrast among temps
+corrosion_interaction_effects = contrast(interaction_by_contrast, method = 'pairwise')
+summary(corrosion_interaction_effects,infer = T,level = 1-0.05/3)
+
+# FIGURE
+# interaction effects
+emmip(corrosion_interaction_effects, contrast~contrast1, CIs=T)
+
+# # plot(coat_effects, level = 1-0.05/4)
+# emmip(corrosion_model, Coat~Temp, CIs=T)
+# # specific effects
+# emmip(coat_interaction_effects, contrast~Coat, CIs=T)
+```
+> There does seem to be an effect of temperature on the differences in coating corrosiveness. There don't appear to be any interaction effects between 360oC and 370oC. However, there is a difference in C3 - C4 changes between 360oC and 380oC as evidenced by a low p-value. This is shown in the figure by the green line (360-380oC) crossing the blue line (370-380oC). There is also a difference between C2 - C4 and C3 - C4 between 370oC - 380oC. This means that between these coats and temperatures, there are interaction effects. This is further supported by the figure.
+
+## 7) Report the standard errors of the following specific effects and interaction effects:
+(C4-C2)|380C, (380C - 360C)|C4, and ((C4-C2)|380C - (C4-C2)|360C).
+Which is largest? Which is smallest? What is surprising about this result?
+```{r}
+# (C4 - C2)|380C
+11.2
+
+# (380C - 360C)|C4
+36
+
+# ((C4-C2)|380C - (C4-C2)|360C)
+15.8
+
+```
+
+> The largest SE was for (380C - 360C)|C4, which makes sense because here we are comparing across Temps (which are blocks that are repeated twice in a split-plot design). This is surprising because it is a specific effect and is larger than the SE for the interaction effect, ((C4-C2)|380C - (C4-C2)|360C). However, the (C4 - C2)|380C, another specific effect, is lowest. This makes more sense, as the C4-C2 comparisons are exclusively within blocks.
+
+## 8) Speculate on whether the experiment would have been more or less precise if it had been run as a standard factorial instead of a split-plot.
+In this case, only a single bar would have been heated in an oven at a time.
+How much longer would the experiment have taken?
+
+>  Assuming the furnace can reliably be heated to the same temperature, the precision of this experiment depends partially on the question being asked. If the goal is primarily to determine the best coat + temp combo, a standard factorial would have been more precise. However, if we are hoping to determine how much better the various combinations are (to describe the interactions), the current design makes more sense.
+> If we did a standard factorial, we would have had to heat the oven up 24 times (once for each bar), and thus it would take 4 times longer than this split-plot design. This may be prohibitive in terms of time or even energy.
