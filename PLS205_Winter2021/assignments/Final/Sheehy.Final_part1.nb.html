@@ -1801,10 +1801,9 @@ summary {
 <!-- rnb-text-begin -->
 <div id="experimental-overview" class="section level2">
 <h2>1. Experimental Overview</h2>
-<p>Animal behavior is often modified by the animal’s environment. This includes both the physical environment (substrate, spatial complexity, etc.) and the social environment, such as mates, family groups, or unrelated members of a herd. The effects of both the physical and social environment on behavior have been well studied in isolation, but rarely in combination.</p>
-<p>I propose to examine the interaction of spatial complexity and social environment on dominance interactions in the Amazon molly, a naturally genetically clonal (and all female) species of fish. In addition to being clones, these fish are a useful study system to study dominance interactions as fish of the same size will reliably engage in fights for dominance.</p>
-<p>Fish will be placed in groups of 8 size-matched fish and allowed to become familiar over 3 weeks. After this, a pair will be randomly selected and placed into separate acclimation chambers within a Dominance Interaction tank. This tank will either have a covering which obscures 1/2 of the tank (Complex) or be completely open and visible (Simple). The remainder of the group OR an unfamiliar group of 6 fish (of similar size) will be placed in an adjacent Audience Tank, where they will be allowed to observe the pair in the Dominance Interaction tank. Fish are readily able to view each other tank to tank (except when the barrier is in place, which obscures 1/2 of the view).</p>
-<p>After the acclimation period, the dominance pair will be released from their chambers and allowed to fight for 5 minutes. Aggressive acts (bites, tail beats, and chases) will be recorded and combined to create a single “Aggression” score for the pair’s interaction.</p>
+<p>Animal behavior is often modified by the animal’s environment. I propose to examine whether spatial complexity affects dominance interactions in the Amazon molly, a naturally genetically clonal (and all female) species of fish. In addition to being clones, these fish are a useful study system to study dominance interactions as fish of the same size will reliably engage in fights for dominance.</p>
+<p>Fish will be placed in 10 groups of 10 size-matched fish. After this, a pair will be randomly selected from the group and placed into a Dominance Interaction tank. This tank will either have a covering which obscures 1/2 of the tank (Complex) or be completely open and visible (Simple). The remainder of their group will be placed in an adjacent Audience Tank, where they will be allowed to observe the pair in the Dominance Interaction tank. Fish are readily able to view each other tank to tank (except when the barrier is in place, which obscures 1/2 of the view).</p>
+<p>The dominance pair will be allowed to fight for 5 minutes. Aggressive acts (bites, tail beats, and chases) will be recorded and combined to create a single “Aggression” score for the pair’s interaction.</p>
 </div>
 <div id="design-table" class="section level2">
 <h2>2. Design Table</h2>
@@ -1821,118 +1820,62 @@ summary {
 <tbody>
 <tr class="odd">
 <td>Treatment</td>
-<td>Audience</td>
-<td>Cat</td>
-<td>2</td>
-<td>Group:Aud</td>
-</tr>
-<tr class="even">
-<td></td>
 <td>Tank Complexity</td>
 <td>Cat</td>
 <td>2</td>
 <td>Group:Comp</td>
 </tr>
-<tr class="odd">
-<td></td>
-<td>Aud:Comp</td>
-<td>Cat</td>
-<td>4</td>
-<td>Group:Aud:Comp</td>
-</tr>
 <tr class="even">
 <td>Design</td>
-<td>Group:Aud</td>
-<td>Cat</td>
-<td>8</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Group:Comp</td>
-<td>Cat</td>
-<td>8</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Group:Aud:Comp</td>
-<td>Cat</td>
-<td>16</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
 <td>Group</td>
 <td>Cat</td>
-<td>4</td>
+<td>10</td>
 <td></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td></td>
 <td>Pair</td>
 <td>Cat</td>
-<td>16</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Pair:Aud</td>
-<td>Cat</td>
-<td>16</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Pair:Comp</td>
-<td>Cat</td>
-<td>16</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Pair:Aud:Comp</td>
-<td>Cat</td>
-<td>16</td>
+<td>50</td>
 <td></td>
 </tr>
 <tr class="even">
 <td>Response</td>
 <td>Aggression</td>
 <td>Numeric</td>
-<td>16</td>
+<td>50</td>
 <td></td>
 </tr>
 </tbody>
 </table>
 <blockquote>
-<p>Because the treatment of familarity is only uniformly applied at the Group level, I have chosen Group as the EU. Group is also a block, as each “familar audience” treatment is necessarily different for each Group. Pair can also be considered a block, but is nested within Group.</p>
+<p>The treatment of complexity is uniformly applied at the pair level. However, I have chosen group as the EU. It is difficult to rear enough fish of the same size, so we need to create several smaller size-matched groups (blocks). Pairs are nested within group.</p>
 </blockquote>
 </div>
 <div id="linear-model" class="section level2">
 <h2>3. Linear model</h2>
 <blockquote>
-<p>mollymolly_model &lt;- lmer(Aggression ~ Aud + Comp + Aud:Comp + Group + (1|Group:Aud) + (1|Group:Comp) + (1|Group:Aud:Comp) + Pair + (1|Pair:Aud) + (1|Pair:Comp) + (1|Pair:Aud:Comp))</p>
+<p>mollymolly_model &lt;- lmer(Aggression ~ Complexity + (1|Group))</p>
 </blockquote>
 </div>
 <div id="effect-estimates" class="section level2">
 <h2>4. Effect Estimates</h2>
 <blockquote>
-<p>Using an ANOVA (and the emmip() function), I will compare the treatment effect estimates of Familiar vs. Unfamiliar, Complex vs. Simple, and the interaction of the two (Aud:Comp) to determine if there is evidence of an effect of Audience, Complexity, or an interaction of the two, on Aggression (units = mean Aggression).</p>
+<p>I will use an ANOVA to test the null hypothesis, that tank complexity has no effect on aggression in the Amazon Molly. I will then compare within and across groups to determine if complexity increased or decreased aggression.</p>
 </blockquote>
 <blockquote>
-<p>Example Statement: We found that there was a significant interaction between Tank Complexity and Audience Familiarity. An unfamiliar audience always decreased aggression relative to a familiar audience (p-value = 0.001). However, tank complexity varied depending on the audience familiarity, with unfamiliar audiences and simple tanks leading to the largest decrease in aggression relative to the other treatment combinations.</p>
+<p>Example Statement: We found that there was a significant effect of Tank Complexity on molly aggression (p &lt;&lt; 0.05). Tank complexity always decreased aggression, indicating that in the presence of an audience, tank complexity reduces aggression.</p>
 </blockquote>
 </div>
 <div id="blocking" class="section level2">
 <h2>5. Blocking</h2>
 <blockquote>
-<p>My experiment will be a Complete Block Design, as every treatment combination occurs in every Group. There is a possibility that the Groups I create will have different collective behavior (and thus, Pair behavior), so I need to have several separate Groups to control for any variation inherent in the Group. In an ideal world, I would have more replicates within a group, but it is unlikely that I will have enough fish of the same size to create groups of 16 or more (2 pairs with each treatment combo). I plan on re-assessing as I get closer to experiment execution and determining whether an Incomplete Block Design is feasible with the fish I have available.</p>
+<p>My experiment will be a Complete Block Design, as every treatment occurs in every Group. As mentioned above, it is difficult to rear enough fish of the same size. We will need to create several smaller size-matched groups (blocks) in order to achiece an appropriate sample size. This has the unexpected added benefit of possibly being able to generalize my results across many sizes of molly, or potentially to uncover a relationship between size, tank complexity, and aggression. However, this is not the goal of the study. If there is evidence that size influeces these dominance interactions, I would design and conduct another experiment to test this explicitly.</p>
 </blockquote>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiS25vdyBZb3VyIEF1ZGllbmNlLCBDaG9vc2UgWW91ciBTdGFnZSIKb3V0cHV0OgogIHdvcmRfZG9jdW1lbnQ6IGRlZmF1bHQKICBodG1sX25vdGVib29rOiBkZWZhdWx0CiAgcGRmX2RvY3VtZW50OiBkZWZhdWx0CiAgaHRtbF9kb2N1bWVudDoKICAgIGRmX3ByaW50OiBwYWdlZAotLS0KCmBgYHtyIGluY2x1ZGUgPSBGQUxTRX0KbGlicmFyeShsbWU0KQpsaWJyYXJ5KGxtZXJUZXN0KQpsaWJyYXJ5KGVtbWVhbnMpCmBgYAojIyAxLiBFeHBlcmltZW50YWwgT3ZlcnZpZXcKCkFuaW1hbCBiZWhhdmlvciBpcyBvZnRlbiBtb2RpZmllZCBieSB0aGUgYW5pbWFsJ3MgZW52aXJvbm1lbnQuIFRoaXMgaW5jbHVkZXMgYm90aCB0aGUgcGh5c2ljYWwgZW52aXJvbm1lbnQgKHN1YnN0cmF0ZSwgc3BhdGlhbCBjb21wbGV4aXR5LCBldGMuKSBhbmQgdGhlIHNvY2lhbCBlbnZpcm9ubWVudCwgc3VjaCBhcyBtYXRlcywgZmFtaWx5IGdyb3Vwcywgb3IgdW5yZWxhdGVkIG1lbWJlcnMgb2YgYSBoZXJkLiBUaGUgZWZmZWN0cyBvZiBib3RoIHRoZSBwaHlzaWNhbCBhbmQgc29jaWFsIGVudmlyb25tZW50IG9uIGJlaGF2aW9yIGhhdmUgYmVlbiB3ZWxsIHN0dWRpZWQgaW4gaXNvbGF0aW9uLCBidXQgcmFyZWx5IGluIGNvbWJpbmF0aW9uLiAKCkkgcHJvcG9zZSB0byBleGFtaW5lIHRoZSBpbnRlcmFjdGlvbiBvZiBzcGF0aWFsIGNvbXBsZXhpdHkgYW5kIHNvY2lhbCBlbnZpcm9ubWVudCBvbiBkb21pbmFuY2UgaW50ZXJhY3Rpb25zIGluIHRoZSBBbWF6b24gbW9sbHksIGEgbmF0dXJhbGx5IGdlbmV0aWNhbGx5IGNsb25hbCAoYW5kIGFsbCBmZW1hbGUpIHNwZWNpZXMgb2YgZmlzaC4gSW4gYWRkaXRpb24gdG8gYmVpbmcgY2xvbmVzLCB0aGVzZSBmaXNoIGFyZSBhIHVzZWZ1bCBzdHVkeSBzeXN0ZW0gdG8gc3R1ZHkgZG9taW5hbmNlIGludGVyYWN0aW9ucyBhcyBmaXNoIG9mIHRoZSBzYW1lIHNpemUgd2lsbCByZWxpYWJseSBlbmdhZ2UgaW4gZmlnaHRzIGZvciBkb21pbmFuY2UuCgpGaXNoIHdpbGwgYmUgcGxhY2VkIGluIGdyb3VwcyBvZiA4IHNpemUtbWF0Y2hlZCBmaXNoIGFuZCBhbGxvd2VkIHRvIGJlY29tZSBmYW1pbGlhciBvdmVyIDMgd2Vla3MuIEFmdGVyIHRoaXMsIGEgcGFpciB3aWxsIGJlIHJhbmRvbWx5IHNlbGVjdGVkIGFuZCBwbGFjZWQgaW50byBzZXBhcmF0ZSBhY2NsaW1hdGlvbiBjaGFtYmVycyB3aXRoaW4gYSBEb21pbmFuY2UgSW50ZXJhY3Rpb24gdGFuay4gVGhpcyB0YW5rIHdpbGwgZWl0aGVyIGhhdmUgYSBjb3ZlcmluZyB3aGljaCBvYnNjdXJlcyAxLzIgb2YgdGhlIHRhbmsgKENvbXBsZXgpIG9yIGJlIGNvbXBsZXRlbHkgb3BlbiBhbmQgdmlzaWJsZSAoU2ltcGxlKS4gVGhlIHJlbWFpbmRlciBvZiB0aGUgZ3JvdXAgT1IgYW4gdW5mYW1pbGlhciBncm91cCBvZiA2IGZpc2ggKG9mIHNpbWlsYXIgc2l6ZSkgd2lsbCBiZSBwbGFjZWQgaW4gYW4gYWRqYWNlbnQgQXVkaWVuY2UgVGFuaywgd2hlcmUgdGhleSB3aWxsIGJlIGFsbG93ZWQgdG8gb2JzZXJ2ZSB0aGUgcGFpciBpbiB0aGUgRG9taW5hbmNlIEludGVyYWN0aW9uIHRhbmsuIEZpc2ggYXJlIHJlYWRpbHkgYWJsZSB0byB2aWV3IGVhY2ggb3RoZXIgdGFuayB0byB0YW5rIChleGNlcHQgd2hlbiB0aGUgYmFycmllciBpcyBpbiBwbGFjZSwgd2hpY2ggb2JzY3VyZXMgMS8yIG9mIHRoZSB2aWV3KS4KCkFmdGVyIHRoZSBhY2NsaW1hdGlvbiBwZXJpb2QsIHRoZSBkb21pbmFuY2UgcGFpciB3aWxsIGJlIHJlbGVhc2VkIGZyb20gdGhlaXIgY2hhbWJlcnMgYW5kIGFsbG93ZWQgdG8gZmlnaHQgZm9yIDUgbWludXRlcy4gQWdncmVzc2l2ZSBhY3RzIChiaXRlcywgdGFpbCBiZWF0cywgYW5kIGNoYXNlcykgd2lsbCBiZSByZWNvcmRlZCBhbmQgY29tYmluZWQgdG8gY3JlYXRlIGEgc2luZ2xlICJBZ2dyZXNzaW9uIiBzY29yZSBmb3IgdGhlIHBhaXIncyBpbnRlcmFjdGlvbi4KCiMjIDIuIERlc2lnbiBUYWJsZQoKfCBTdHJ1Y3R1cmUgfCBWYXJpYWJsZSAgICAgICAgfCBUeXBlICAgIHwgI2xldmVscyB8IEVVICAgICAgICAgICAgICB8CnwtLS0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLXwtLS0tLS0tLS18LS0tLS0tLS0tfC0tLS0tLS0tLS0tLS0tLS0tfAp8IFRyZWF0bWVudCB8IEF1ZGllbmNlICAgICAgICB8IENhdCAgICAgfCAyICAgICAgIHwgR3JvdXA6QXVkICAgICAgIHwKfCAgICAgICAgICAgfCBUYW5rIENvbXBsZXhpdHkgfCBDYXQgICAgIHwgMiAgICAgICB8IEdyb3VwOkNvbXAgICAgICB8CnwgICAgICAgICAgIHwgQXVkOkNvbXAgICAgICAgIHwgQ2F0ICAgICB8IDQgICAgICAgfCBHcm91cDpBdWQ6Q29tcCAgfAp8IERlc2lnbiAgICB8IEdyb3VwOkF1ZCAgICAgICB8IENhdCAgICAgfCA4ICAgICAgIHwgICAgICAgICAgICAgICAgIHwKfCAgICAgICAgICAgfCBHcm91cDpDb21wICAgICAgfCBDYXQgICAgIHwgOCAgICAgICB8ICAgICAgICAgICAgICAgICB8CnwgICAgICAgICAgIHwgR3JvdXA6QXVkOkNvbXAgIHwgQ2F0ICAgICB8IDE2ICAgICAgfCAgICAgICAgICAgICAgICAgfAp8ICAgICAgICAgICB8IEdyb3VwICAgICAgICAgICB8IENhdCAgICAgfCA0ICAgICAgIHwgICAgICAgICAgICAgICAgIHwKfCAgICAgICAgICAgfCBQYWlyICAgICAgICAgICAgfCBDYXQgICAgIHwgMTYgICAgICB8ICAgICAgICAgICAgICAgICB8CnwgICAgICAgICAgIHwgUGFpcjpBdWQgICAgICAgIHwgQ2F0ICAgICB8IDE2ICAgICAgfCAgICAgICAgICAgICAgICAgfAp8ICAgICAgICAgICB8IFBhaXI6Q29tcCAgICAgICB8IENhdCAgICAgfCAxNiAgICAgIHwgICAgICAgICAgICAgICAgIHwgIyBuZXN0ZWQgc3Vic2FtcGxlCnwgICAgICAgICAgIHwgUGFpcjpBdWQ6Q29tcCAgIHwgQ2F0ICAgICB8IDE2ICAgICAgfCAgICAgICAgICAgICAgICAgfCAjIGFsaWFzZWQKfCBSZXNwb25zZSAgfCBBZ2dyZXNzaW9uICAgICAgfCBOdW1lcmljIHwgMTYgICAgICB8ICAgICAgICAgICAgICAgICB8Cgo+IEJlY2F1c2UgdGhlIHRyZWF0bWVudCBvZiBmYW1pbGFyaXR5IGlzIG9ubHkgdW5pZm9ybWx5IGFwcGxpZWQgYXQgdGhlIEdyb3VwIGxldmVsLCBJIGhhdmUgY2hvc2VuIEdyb3VwIGFzIHRoZSBFVS4gR3JvdXAgaXMgYWxzbyBhIGJsb2NrLCBhcyBlYWNoICJmYW1pbGFyIGF1ZGllbmNlIiB0cmVhdG1lbnQgaXMgbmVjZXNzYXJpbHkgZGlmZmVyZW50IGZvciBlYWNoIEdyb3VwLiBQYWlyIGNhbiBhbHNvIGJlIGNvbnNpZGVyZWQgYSBibG9jaywgYnV0IGlzIG5lc3RlZCB3aXRoaW4gR3JvdXAuCgoKIyMgMy4gTGluZWFyIG1vZGVsCgo+IG1vbGx5bW9sbHlfbW9kZWwgPC0gbG1lcihBZ2dyZXNzaW9uIH4gQXVkICsgQ29tcCArIEF1ZDpDb21wICsgR3JvdXAgKyAoMXxHcm91cDpBdWQpICsgKDF8R3JvdXA6Q29tcCkgKyAoMXxHcm91cDpBdWQ6Q29tcCkgKyBQYWlyICsgKDF8UGFpcjpBdWQpICsgKDF8UGFpcjpDb21wKSArICgxfFBhaXI6QXVkOkNvbXApKQoKCiMjIDQuIEVmZmVjdCBFc3RpbWF0ZXMKCj4gVXNpbmcgYW4gQU5PVkEgKGFuZCB0aGUgZW1taXAoKSBmdW5jdGlvbiksIEkgd2lsbCBjb21wYXJlIHRoZSB0cmVhdG1lbnQgZWZmZWN0IGVzdGltYXRlcyBvZiBGYW1pbGlhciB2cy4gVW5mYW1pbGlhciwgQ29tcGxleCB2cy4gU2ltcGxlLCBhbmQgdGhlIGludGVyYWN0aW9uIG9mIHRoZSB0d28gKEF1ZDpDb21wKSB0byBkZXRlcm1pbmUgaWYgdGhlcmUgaXMgZXZpZGVuY2Ugb2YgYW4gZWZmZWN0IG9mIEF1ZGllbmNlLCBDb21wbGV4aXR5LCBvciBhbiBpbnRlcmFjdGlvbiBvZiB0aGUgdHdvLCBvbiBBZ2dyZXNzaW9uICh1bml0cyA9IG1lYW4gQWdncmVzc2lvbikuCgo+IEV4YW1wbGUgU3RhdGVtZW50OiBXZSBmb3VuZCB0aGF0IHRoZXJlIHdhcyBhIHNpZ25pZmljYW50IGludGVyYWN0aW9uIGJldHdlZW4gVGFuayBDb21wbGV4aXR5IGFuZCBBdWRpZW5jZSBGYW1pbGlhcml0eS4gQW4gdW5mYW1pbGlhciBhdWRpZW5jZSBhbHdheXMgZGVjcmVhc2VkIGFnZ3Jlc3Npb24gcmVsYXRpdmUgdG8gYSBmYW1pbGlhciBhdWRpZW5jZSAocC12YWx1ZSA9IDAuMDAxKS4gSG93ZXZlciwgdGFuayBjb21wbGV4aXR5IHZhcmllZCBkZXBlbmRpbmcgb24gdGhlIGF1ZGllbmNlIGZhbWlsaWFyaXR5LCB3aXRoIHVuZmFtaWxpYXIgYXVkaWVuY2VzIGFuZCBzaW1wbGUgdGFua3MgbGVhZGluZyB0byB0aGUgbGFyZ2VzdCBkZWNyZWFzZSBpbiBhZ2dyZXNzaW9uIHJlbGF0aXZlIHRvIHRoZSBvdGhlciB0cmVhdG1lbnQgY29tYmluYXRpb25zLgoKIyMgNS4gQmxvY2tpbmcKCj4gTXkgZXhwZXJpbWVudCB3aWxsIGJlIGEgQ29tcGxldGUgQmxvY2sgRGVzaWduLCBhcyBldmVyeSB0cmVhdG1lbnQgY29tYmluYXRpb24gb2NjdXJzIGluIGV2ZXJ5IEdyb3VwLiBUaGVyZSBpcyBhIHBvc3NpYmlsaXR5IHRoYXQgdGhlIEdyb3VwcyBJIGNyZWF0ZSB3aWxsIGhhdmUgZGlmZmVyZW50IGNvbGxlY3RpdmUgYmVoYXZpb3IgKGFuZCB0aHVzLCBQYWlyIGJlaGF2aW9yKSwgc28gSSBuZWVkIHRvIGhhdmUgc2V2ZXJhbCBzZXBhcmF0ZSBHcm91cHMgdG8gY29udHJvbCBmb3IgYW55IHZhcmlhdGlvbiBpbmhlcmVudCBpbiB0aGUgR3JvdXAuIEluIGFuIGlkZWFsIHdvcmxkLCBJIHdvdWxkIGhhdmUgbW9yZSByZXBsaWNhdGVzIHdpdGhpbiBhIGdyb3VwLCBidXQgaXQgaXMgdW5saWtlbHkgdGhhdCBJIHdpbGwgaGF2ZSBlbm91Z2ggZmlzaCBvZiB0aGUgc2FtZSBzaXplIHRvIGNyZWF0ZSBncm91cHMgb2YgMTYgb3IgbW9yZSAoMiBwYWlycyB3aXRoIGVhY2ggdHJlYXRtZW50IGNvbWJvKS4gSSBwbGFuIG9uIHJlLWFzc2Vzc2luZyBhcyBJIGdldCBjbG9zZXIgdG8gZXhwZXJpbWVudCBleGVjdXRpb24gYW5kIGRldGVybWluaW5nIHdoZXRoZXIgYW4gSW5jb21wbGV0ZSBCbG9jayBEZXNpZ24gaXMgZmVhc2libGUgd2l0aCB0aGUgZmlzaCBJIGhhdmUgYXZhaWxhYmxlLg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiS25vdyBZb3VyIEF1ZGllbmNlLCBDaG9vc2UgWW91ciBTdGFnZSIKb3V0cHV0OgogIHdvcmRfZG9jdW1lbnQ6IGRlZmF1bHQKICBodG1sX25vdGVib29rOiBkZWZhdWx0CiAgcGRmX2RvY3VtZW50OiBkZWZhdWx0CiAgaHRtbF9kb2N1bWVudDoKICAgIGRmX3ByaW50OiBwYWdlZAotLS0KCmBgYHtyIGluY2x1ZGUgPSBGQUxTRX0KbGlicmFyeShsbWU0KQpsaWJyYXJ5KGxtZXJUZXN0KQpsaWJyYXJ5KGVtbWVhbnMpCmBgYAojIyAxLiBFeHBlcmltZW50YWwgT3ZlcnZpZXcKCkFuaW1hbCBiZWhhdmlvciBpcyBvZnRlbiBtb2RpZmllZCBieSB0aGUgYW5pbWFsJ3MgZW52aXJvbm1lbnQuIEkgcHJvcG9zZSB0byBleGFtaW5lIHdoZXRoZXIgc3BhdGlhbCBjb21wbGV4aXR5IGFmZmVjdHMgZG9taW5hbmNlIGludGVyYWN0aW9ucyBpbiB0aGUgQW1hem9uIG1vbGx5LCBhIG5hdHVyYWxseSBnZW5ldGljYWxseSBjbG9uYWwgKGFuZCBhbGwgZmVtYWxlKSBzcGVjaWVzIG9mIGZpc2guIEluIGFkZGl0aW9uIHRvIGJlaW5nIGNsb25lcywgdGhlc2UgZmlzaCBhcmUgYSB1c2VmdWwgc3R1ZHkgc3lzdGVtIHRvIHN0dWR5IGRvbWluYW5jZSBpbnRlcmFjdGlvbnMgYXMgZmlzaCBvZiB0aGUgc2FtZSBzaXplIHdpbGwgcmVsaWFibHkgZW5nYWdlIGluIGZpZ2h0cyBmb3IgZG9taW5hbmNlLgoKRmlzaCB3aWxsIGJlIHBsYWNlZCBpbiAxMCBncm91cHMgb2YgMTAgc2l6ZS1tYXRjaGVkIGZpc2guIEFmdGVyIHRoaXMsIGEgcGFpciB3aWxsIGJlIHJhbmRvbWx5IHNlbGVjdGVkIGZyb20gdGhlIGdyb3VwIGFuZCBwbGFjZWQgaW50byBhIERvbWluYW5jZSBJbnRlcmFjdGlvbiB0YW5rLiBUaGlzIHRhbmsgd2lsbCBlaXRoZXIgaGF2ZSBhIGNvdmVyaW5nIHdoaWNoIG9ic2N1cmVzIDEvMiBvZiB0aGUgdGFuayAoQ29tcGxleCkgb3IgYmUgY29tcGxldGVseSBvcGVuIGFuZCB2aXNpYmxlIChTaW1wbGUpLiBUaGUgcmVtYWluZGVyIG9mIHRoZWlyIGdyb3VwIHdpbGwgYmUgcGxhY2VkIGluIGFuIGFkamFjZW50IEF1ZGllbmNlIFRhbmssIHdoZXJlIHRoZXkgd2lsbCBiZSBhbGxvd2VkIHRvIG9ic2VydmUgdGhlIHBhaXIgaW4gdGhlIERvbWluYW5jZSBJbnRlcmFjdGlvbiB0YW5rLiBGaXNoIGFyZSByZWFkaWx5IGFibGUgdG8gdmlldyBlYWNoIG90aGVyIHRhbmsgdG8gdGFuayAoZXhjZXB0IHdoZW4gdGhlIGJhcnJpZXIgaXMgaW4gcGxhY2UsIHdoaWNoIG9ic2N1cmVzIDEvMiBvZiB0aGUgdmlldykuCgpUaGUgZG9taW5hbmNlIHBhaXIgd2lsbCBiZSBhbGxvd2VkIHRvIGZpZ2h0IGZvciA1IG1pbnV0ZXMuIEFnZ3Jlc3NpdmUgYWN0cyAoYml0ZXMsIHRhaWwgYmVhdHMsIGFuZCBjaGFzZXMpIHdpbGwgYmUgcmVjb3JkZWQgYW5kIGNvbWJpbmVkIHRvIGNyZWF0ZSBhIHNpbmdsZSAiQWdncmVzc2lvbiIgc2NvcmUgZm9yIHRoZSBwYWlyJ3MgaW50ZXJhY3Rpb24uCgojIyAyLiBEZXNpZ24gVGFibGUKCnwgU3RydWN0dXJlIHwgVmFyaWFibGUgICAgICAgIHwgVHlwZSAgICB8ICNsZXZlbHMgfCBFVSAgICAgICAgICAgICAgfAp8LS0tLS0tLS0tLS18LS0tLS0tLS0tLS0tLS0tLS18LS0tLS0tLS0tfC0tLS0tLS0tLXwtLS0tLS0tLS0tLS0tLS0tLXwKfCBUcmVhdG1lbnQgfCBUYW5rIENvbXBsZXhpdHkgfCBDYXQgICAgIHwgMiAgICAgICB8IEdyb3VwOkNvbXAgICAgICB8CnwgRGVzaWduICAgIHwgR3JvdXAgICAgICAgICAgIHwgQ2F0ICAgICB8IDEwICAgICAgfCAgICAgICAgICAgICAgICAgfAp8ICAgICAgICAgICB8IFBhaXIgICAgICAgICAgICB8IENhdCAgICAgfCA1MCAgICAgIHwgICAgICAgICAgICAgICAgIHwKfCBSZXNwb25zZSAgfCBBZ2dyZXNzaW9uICAgICAgfCBOdW1lcmljIHwgNTAgICAgICB8ICAgICAgICAgICAgICAgICB8Cgo+IFRoZSB0cmVhdG1lbnQgb2YgY29tcGxleGl0eSBpcyB1bmlmb3JtbHkgYXBwbGllZCBhdCB0aGUgcGFpciBsZXZlbC4gSG93ZXZlciwgSSBoYXZlIGNob3NlbiBncm91cCBhcyB0aGUgRVUuIEl0IGlzIGRpZmZpY3VsdCB0byByZWFyIGVub3VnaCBmaXNoIG9mIHRoZSBzYW1lIHNpemUsIHNvIHdlIG5lZWQgdG8gY3JlYXRlIHNldmVyYWwgc21hbGxlciBzaXplLW1hdGNoZWQgZ3JvdXBzIChibG9ja3MpLiBQYWlycyBhcmUgbmVzdGVkIHdpdGhpbiBncm91cC4KCgojIyAzLiBMaW5lYXIgbW9kZWwKCj4gbW9sbHltb2xseV9tb2RlbCA8LSBsbWVyKEFnZ3Jlc3Npb24gfiBDb21wbGV4aXR5ICsgKDF8R3JvdXApKQoKCiMjIDQuIEVmZmVjdCBFc3RpbWF0ZXMKCj4gSSB3aWxsIHVzZSBhbiBBTk9WQSB0byB0ZXN0IHRoZSBudWxsIGh5cG90aGVzaXMsIHRoYXQgdGFuayBjb21wbGV4aXR5IGhhcyBubyBlZmZlY3Qgb24gYWdncmVzc2lvbiBpbiB0aGUgQW1hem9uIE1vbGx5LiBJIHdpbGwgdGhlbiBjb21wYXJlIHdpdGhpbiBhbmQgYWNyb3NzIGdyb3VwcyB0byBkZXRlcm1pbmUgaWYgY29tcGxleGl0eSBpbmNyZWFzZWQgb3IgZGVjcmVhc2VkIGFnZ3Jlc3Npb24uCgo+IEV4YW1wbGUgU3RhdGVtZW50OiBXZSBmb3VuZCB0aGF0IHRoZXJlIHdhcyBhIHNpZ25pZmljYW50IGVmZmVjdCBvZiBUYW5rIENvbXBsZXhpdHkgb24gbW9sbHkgYWdncmVzc2lvbiAocCA8PCAwLjA1KS4gVGFuayBjb21wbGV4aXR5IGFsd2F5cyBkZWNyZWFzZWQgYWdncmVzc2lvbiwgaW5kaWNhdGluZyB0aGF0IGluIHRoZSBwcmVzZW5jZSBvZiBhbiBhdWRpZW5jZSwgdGFuayBjb21wbGV4aXR5IHJlZHVjZXMgYWdncmVzc2lvbi4KCiMjIDUuIEJsb2NraW5nCgo+IE15IGV4cGVyaW1lbnQgd2lsbCBiZSBhIENvbXBsZXRlIEJsb2NrIERlc2lnbiwgYXMgZXZlcnkgdHJlYXRtZW50IG9jY3VycyBpbiBldmVyeSBHcm91cC4gQXMgbWVudGlvbmVkIGFib3ZlLCBpdCBpcyBkaWZmaWN1bHQgdG8gcmVhciBlbm91Z2ggZmlzaCBvZiB0aGUgc2FtZSBzaXplLiBXZSB3aWxsIG5lZWQgdG8gY3JlYXRlIHNldmVyYWwgc21hbGxlciBzaXplLW1hdGNoZWQgZ3JvdXBzIChibG9ja3MpIGluIG9yZGVyIHRvIGFjaGllY2UgYW4gYXBwcm9wcmlhdGUgc2FtcGxlIHNpemUuIFRoaXMgaGFzIHRoZSB1bmV4cGVjdGVkIGFkZGVkIGJlbmVmaXQgb2YgcG9zc2libHkgYmVpbmcgYWJsZSB0byBnZW5lcmFsaXplIG15IHJlc3VsdHMgYWNyb3NzIG1hbnkgc2l6ZXMgb2YgbW9sbHksIG9yIHBvdGVudGlhbGx5IHRvIHVuY292ZXIgYSByZWxhdGlvbnNoaXAgYmV0d2VlbiBzaXplLCB0YW5rIGNvbXBsZXhpdHksIGFuZCBhZ2dyZXNzaW9uLiBIb3dldmVyLCB0aGlzIGlzIG5vdCB0aGUgZ29hbCBvZiB0aGUgc3R1ZHkuIElmIHRoZXJlIGlzIGV2aWRlbmNlIHRoYXQgc2l6ZSBpbmZsdWVjZXMgdGhlc2UgZG9taW5hbmNlIGludGVyYWN0aW9ucywgSSB3b3VsZCBkZXNpZ24gYW5kIGNvbmR1Y3QgYW5vdGhlciBleHBlcmltZW50IHRvIHRlc3QgdGhpcyBleHBsaWNpdGx5Lg==</div>
 
 
 

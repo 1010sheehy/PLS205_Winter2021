@@ -1,0 +1,49 @@
+---
+title: "Know Your Audience, Choose Your Stage"
+output:
+  word_document: default
+  html_notebook: default
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r include = FALSE}
+library(lme4)
+library(lmerTest)
+library(emmeans)
+```
+## 1. Experimental Overview
+
+Animal behavior is often modified by the animal's environment. I propose to examine whether spatial complexity affects dominance interactions in the Amazon molly, a naturally genetically clonal (and all female) species of fish. In addition to being clones, these fish are a useful study system to study dominance interactions as fish of the same size will reliably engage in fights for dominance.
+
+Fish will be placed in 10 groups of 10 size-matched fish. After this, a pair will be randomly selected from the group and placed into a Dominance Interaction tank. This tank will either have a covering which obscures 1/2 of the tank (Complex) or be completely open and visible (Simple). The remainder of their group will be placed in an adjacent Audience Tank, where they will be allowed to observe the pair in the Dominance Interaction tank. Fish are readily able to view each other tank to tank (except when the barrier is in place, which obscures 1/2 of the view).
+
+The dominance pair will be allowed to fight for 5 minutes. Aggressive acts (bites, tail beats, and chases) will be recorded and combined to create a single "Aggression" score for the pair's interaction.
+
+## 2. Design Table
+
+| Structure | Variable        | Type    | #levels | EU              |
+|-----------|-----------------|---------|---------|-----------------|
+| Treatment | Tank Complexity | Cat     | 2       | Group:Comp      |
+| Design    | Group           | Cat     | 10      |                 |
+|           | Pair            | Cat     | 50      |                 |
+| Response  | Aggression      | Numeric | 50      |                 |
+
+> The treatment of complexity is uniformly applied at the pair level. However, I have chosen group as the EU. It is difficult to rear enough fish of the same size, so we need to create several smaller size-matched groups (blocks). Pairs are nested within group.
+
+
+## 3. Linear model
+
+> mollymolly_model <- lmer(Aggression ~ Complexity + (1|Group))
+
+
+## 4. Effect Estimates
+
+> I will use an ANOVA to test the null hypothesis, that tank complexity has no effect on aggression in the Amazon Molly. I will then compare within and across groups to determine if complexity increased or decreased aggression.
+
+> Example Statement: We found that there was a significant effect of Tank Complexity on molly aggression (p << 0.05). Tank complexity always decreased aggression, indicating that in the presence of an audience, tank complexity reduces aggression.
+
+## 5. Blocking
+
+> My experiment will be a Complete Block Design, as every treatment occurs in every Group. As mentioned above, it is difficult to rear enough fish of the same size. We will need to create several smaller size-matched groups (blocks) in order to achiece an appropriate sample size. This has the unexpected added benefit of possibly being able to generalize my results across many sizes of molly, or potentially to uncover a relationship between size, tank complexity, and aggression. However, this is not the goal of the study. If there is evidence that size influeces these dominance interactions, I would design and conduct another experiment to test this explicitly.
