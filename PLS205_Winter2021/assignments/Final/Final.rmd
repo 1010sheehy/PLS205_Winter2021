@@ -168,11 +168,12 @@ biomass_1_model <- lmer(perc_biomass ~ nitrogen + weed + nitrogen:weed + (1|tray
 Use an ANOVA to answer this question. 
 Provide a statement describing the interpretation of the ANOVA results. Be very specific about how you measured the evidence and what you can conclude from this analysis.
 ```{r}
-# nitrogen model
-nitrogen_model <- lmer(perc_biomass ~ weed + nitrogen:weed + (1|tray), data = biomass_1)
+# Does nitrogen ever affect biomass?
+# Nitrogen is the specific effect, so we drop it from the model
+biomass_1_specific <- lmer(perc_biomass ~ weed + nitrogen:weed + (1|tray), data = biomass_1)
 
-# nitrogen anova
-anova(nitrogen_model, ddf = 'K')
+# specific effect anova
+anova(biomass_1_specific, ddf = 'K')
 ```
 > There is strong evidence that nitrogen has an effect on biomass (p = 0.0002253). Additionally, the F value is relatively high (F value = 23.240) meaning that variation due to nitrogen (between trays) is higher than variation within a tray. This means that nitrogen levels explain at least part of the variation in biomass that we observe. We can not conclude how different nitrogen levels affects the biomass of the different weed treatments. We also can not determine which nitrogen treatments resulted in the highest or lowest biomass. It is possible that there is an interaction between the nitrogen treatment and the weed treatment and more tests are needed to determine if this is the case.
 
@@ -183,11 +184,14 @@ Describe the findings. You do not need to specifically describe each contrast, b
 You may include a figure if you'd like.
 ```{r}
 # specific effects - nitrogen at each level of weed
-means_by_nitrogen <- emmeans(biomass_1_model, specs = 'nitrogen', by = 'weed')
-means_by_nitrogen
+biomass_1_specific_means <- emmeans(biomass_1_model, specs = 'nitrogen', by = 'weed')
 
-nitrogen_effects <- contrast(means_by_nitrogen, 'pairwise')
-cld(means_by_nitrogen, level = 0.05/3)
+
+biomass_1_specific_effects <- contrast(biomass_1_specific_means, method = 'pairwise')
+biomass_1_specific_effects_bind <- rbind(biomass_1_specific_effects)
+summary(biomass_1_specific_effects_bind, infer = c(T,T))
+
+# plot(biomass_1_specific_effects_bind, horiz=F)
 ```
 > Biomass for Weed_1 was not affected by the four different Nitrogen treatments. The Nitr_1 treatment had the highest biomass across weed treatments, but it was only distinguishable from Nitr_3 and Nitr_4 for both Weed_2 and Weed_3.
 
@@ -197,18 +201,36 @@ Then estimate how much the nitrogen effects change for species "Weed_2" relative
 Describe the findings. Include a description of an example interaction effect.
 ```{r}
 # Is the effect of nitrogen greater for some weed species than others?
-spec_eff_nitrogen_model <- lmer(perc_biomass ~ nitrogen + nitrogen:weed + (1|tray), data = biomass_1)
-anova(spec_eff_nitrogen_model)
+# # building a model to test the interaction effects of weed
+# interaction_model <- lmer(perc_biomass ~ nitrogen + nitrogen:weed + (1|tray), data = biomass_1)
+# anova(spec_eff_nitrogen_model)
 
-# interaction effects - changes in the specific effects between weeds
+# Is the effect of nitrogen greater for some weed species than others?
+# Are there interaction effects? 
+anova(biomass_1_model)
+
+biomass_interaction <- contrast(variety_effects,method = 'pairwise')
+summary(interaction_effects,infer = c(F,T))
+
+nitrogen_effects_lab6 <- contrast(nitrogen_means, method = 'trt.vs.ctrl')
+nitrogen_effects_lab6_bind <- rbind(nitrogen_effects_lab6)
+summary(nitrogen_effects_lab6_bind,infer = c(T,T))
+
+
 interaction_effects = contrast(variety_effects,method = 'pairwise')
 summary(interaction_effects,infer = c(F,T))
 
-# Estimate how much nitrogen effects change for species Weed_2 relative to Weed_1.
-transformed_means = emmeans(transformed_model,spec = 'Variety',by = 'Soil')
+
+# needed?
+cld(specific_effects_bind)
+
+# .... do I need the above? below? both?
+nitrogen_effects <- contrast(nitrogen_means, 'pairwise')
+cld(nitrogen_means, level = 0.05/3)
+
 ```
 
-> ENTER YOUR RESPONSE HERE
+> According to our ANOVA, there is strong evidence that there are interactions between nitrogen and weed species. There is a very low p-value and a large F value, meaning that the specific effects of nitrogen change between levels of weed.
 
 ## 2.6 Which specific effects would you expect to be estimated with the greatest precision? Why? [5 points]
 The previous questions used nitrogen as the focal treatment and calculated specific effects of nitrogen for each weed species.
