@@ -147,14 +147,11 @@ Give a justification for each EU that you specify.
 |           | nitrogen:weed      | factor    | 12       | tray:nitrogen:weed |
 | Design    | tray               | factor    | 8        |                    |
 |           | tray:weed          | factor    | 24       |                    |
-|           | tray:nitrogen      | factor    | 8        |                    | #
 |           | tray:nitrogen:weed | factor    | 24       |                    |
 |           | wetland            | factor    | 24       |                    |
 | Response  | perc_biomass       | numerical | 24       |                    |
 
-> Because the randomization process happens separately for the different treatments, the EUs for nitrogen, weed, and nitrogen:weed are different. The nitrogen treatment is more restricted, and is thus applied/randomized at the EU level, tray. The less restricted factor, weed, is applied at the wetland (basket) level. However, because wetland is nested within tray, we use tray:weed as our EU because tray is the outer block.
-
-
+> Because the randomization process happens separately for the different treatments, the EUs for nitrogen, weed, and nitrogen:weed are different. The nitrogen treatment is more restricted, and is thus applied/randomized at the EU level, tray. The less restricted factor, weed, is applied at the wetland (basket) level. However, because wetland is nested within tray, we use tray:weed as our EU because tray is the outer block. Similarly, the nitrogen:weed treatment is applied at the wetland level, which is nested within tray, so our EU is tray:nitrogen:weed.
 
 ## 2.2 Write an appropriate linear model for the analysis [4 points]
 ```{r}
@@ -185,10 +182,12 @@ Use 95% confidence intervals adjusted for the number of comparisons.
 Describe the findings. You do not need to specifically describe each contrast, but provide an overall summary of the main findings.
 You may include a figure if you'd like.
 ```{r}
-# nitrogen levels effect on biomass
-nitrogen_means = emmeans(biomass_1_model,spec = 'nitrogen',by = 'weed')
-nitrogen_effects = contrast(nitrogen_means,'pairwise')
-cld(nitrogen_means,level = 1-0.05/3)
+# specific effects - nitrogen at each level of weed
+means_by_nitrogen <- emmeans(biomass_1_model, specs = 'nitrogen', by = 'weed')
+means_by_nitrogen
+
+nitrogen_effects <- contrast(means_by_nitrogen, 'pairwise')
+cld(means_by_nitrogen, level = 0.05/3)
 ```
 > Biomass for Weed_1 was not affected by the four different Nitrogen treatments. The Nitr_1 treatment had the highest biomass across weed treatments, but it was only distinguishable from Nitr_3 and Nitr_4 for both Weed_2 and Weed_3.
 
@@ -201,14 +200,12 @@ Describe the findings. Include a description of an example interaction effect.
 spec_eff_nitrogen_model <- lmer(perc_biomass ~ nitrogen + nitrogen:weed + (1|tray), data = biomass_1)
 anova(spec_eff_nitrogen_model)
 
+# interaction effects - changes in the specific effects between weeds
+interaction_effects = contrast(variety_effects,method = 'pairwise')
+summary(interaction_effects,infer = c(F,T))
+
 # Estimate how much nitrogen effects change for species Weed_2 relative to Weed_1.
 transformed_means = emmeans(transformed_model,spec = 'Variety',by = 'Soil')
-
-# nitrogen levels effect on biomass
-nitrogen_means = emmeans(biomass_1_model,spec = 'nitrogen',by = 'weed')
-nitrogen_effects = contrast(nitrogen_means,'pairwise')
-cld(nitrogen_means,level = 1-0.05/3)
-
 ```
 
 > ENTER YOUR RESPONSE HERE
