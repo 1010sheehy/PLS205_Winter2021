@@ -1,0 +1,745 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Final key},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{Final key}
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{instructions}{%
+\section{Instructions}\label{instructions}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Be sure to read every question carefully and answer all
+  parts.}
+\item
+  \textbf{Clarification questions should be sent to the professors or
+  TAs.} We will post to Piazza if everyone should see the answer. No
+  consultation with other students or outside experts is allowed during
+  the exam period (including R programming). You may use any notes /
+  printed material / online resources.
+\item
+  \textbf{Include all \texttt{R} code used to answer each question.} Be
+  sure to include a command so that your results are printed out to the
+  knitted output. Be sure to run all code again before submitting (Run
+  -\textgreater{} Run All) so that all answers are included in your
+  output.
+\item
+  Some questions can be answered without any \texttt{R} code.
+\item
+  \textbf{Use \url{http://www.tablesgenerator.com/markdown_tables} to
+  easily convert excel tables to markdown} You can create your model
+  tables in Excel, paste them into the website, and then copy the
+  correctly formatted table back into this document.
+\item
+  \textbf{Do not include your name in the file name.} We hide your names
+  during grading to prevent bias.
+\end{itemize}
+
+\begin{longtable}[]{@{}l@{}}
+\toprule
+\endhead
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\# Question 1 - part 1 A yield trial was performed at an English orchard
+to evaluate different management treatments for the ground between
+trees. The orchard was divided into blocks and each treatment(trt) was
+applied to a single row of each block. From each row, the total number
+of apples in the center 3 trees was counted at the end of the season
+(yield). The `S' treatment was the standard practice of keeping the land
+clean in the summer.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{r\ apples\ =\ read.csv(\textquotesingle{}Apple\_yield.csv\textquotesingle{},stringsAsFactors\ =\ TRUE)\ str(apples)}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{\#\#\ \textquotesingle{}data.frame\textquotesingle{}:\ \ \ \ 24\ obs.\ of\ \ 4\ variables:\ \#\#\ \ \$\ row\ \ :\ int\ \ 5\ 2\ 4\ 6\ 3\ 1\ 4\ 2\ 5\ 1\ ...\ \#\#\ \ \$\ block:\ Factor\ w/\ 4\ levels\ "B1","B2","B3",..:\ 1\ 1\ 1\ 1\ 1\ 1\ 2\ 2\ 2\ 2\ ...\ \#\#\ \ \$\ trt\ \ :\ Factor\ w/\ 6\ levels\ "A","B","C","D",..:\ 1\ 2\ 3\ 4\ 5\ 6\ 1\ 2\ 3\ 4\ ...\ \#\#\ \ \$\ yield:\ num\ \ 290\ 274\ 278\ 265\ 274\ ...}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\#\# 1.1 Create a design table for this experiment {[}8 points{]}
+\textbar{} Structure \textbar{} Variable \textbar{} Type \textbar{} \#
+levels \textbar{} EU \textbar{}
+\textbar-----------\textbar----------\textbar---------\textbar----------\textbar-----------\textbar{}
+\textbar{} Treatment \textbar{} trt \textbar{} Categ \textbar{} 6
+\textbar{} block:trt \textbar{} \textbar{} Design \textbar{} block
+\textbar{} Categ \textbar{} 4 \textbar{} \textbar{} \textbar{}
+\textbar{} block:trt\textbar{} Categ \textbar{} 24 \textbar{} \textbar{}
+\textbar{} \textbar{} row \textbar{} Categ \textbar{} 24 \textbar{}
+\textbar{} \textbar{} Response \textbar{} yield \textbar{} Numeric
+\textbar{} 24 \textbar{} \textbar{}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textgreater{} 6 points for correct terms, 2 for EU \textgreater{} row
+can be 6 if they explain that they consider row 1 to be similar in each
+block.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\#\# 1.2 Write an appropriate linear model for the analysis {[}4
+points{]}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{r\ apple\_model\ =\ lm(yield\ \textasciitilde{}\ block\ +\ trt,data\ =\ apples)}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textgreater{} -1 per inconsistency with table\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\#\# 1.3 Can you conclude that any of the ground managment techniques
+increase yield relative to the control `S'? {[}5 points{]} Use alpha =
+0.05.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{r\ apple\_means\ =\ emmeans(apple\_model,spec\ =\ \textquotesingle{}trt\textquotesingle{})\ apple\_effects\ =\ contrast(apple\_means,\textquotesingle{}trt.vs.ctrl\textquotesingle{},ref\ =\ \textquotesingle{}S\textquotesingle{})\ summary(apple\_effects,infer\ =\ T)}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{\#\#\ \ contrast\ estimate\ \ \ SE\ df\ lower.CL\ upper.CL\ t.ratio\ p.value\ \#\#\ \ A\ -\ S\ \ \ \ \ \ \ \ 29.7\ 11.4\ 15\ \ \ \ -2.62\ \ \ \ \ 62.1\ 2.608\ \ \ 0.0771\ \#\#\ \ B\ -\ S\ \ \ \ \ \ \ \ 15.9\ 11.4\ 15\ \ \ -16.46\ \ \ \ \ 48.2\ 1.393\ \ \ 0.5120\ \#\#\ \ C\ -\ S\ \ \ \ \ \ \ \ 23.4\ 11.4\ 15\ \ \ \ -8.96\ \ \ \ \ 55.7\ 2.051\ \ \ 0.2039\ \#\#\ \ D\ -\ S\ \ \ \ \ \ \ \ 30.7\ 11.4\ 15\ \ \ \ -1.61\ \ \ \ \ 63.1\ 2.697\ \ \ 0.0653\ \#\#\ \ E\ -\ S\ \ \ \ \ \ \ \ 50.8\ 11.4\ 15\ \ \ \ 18.48\ \ \ \ \ 83.2\ 4.459\ \ \ 0.0020\ \#\#\ \#\#\ Results\ are\ averaged\ over\ the\ levels\ of:\ block\ \#\#\ Confidence\ level\ used:\ 0.95\ \#\#\ Conf-level\ adjustment:\ dunnettx\ method\ for\ 5\ estimates\ \#\#\ P\ value\ adjustment:\ dunnettx\ method\ for\ 5\ tests}
+\textgreater{} Yes, we can conclude that E increases yield relative to S
+at alpha = 0.05 \textgreater{} 1 for Dunnett \textgreater{} 1 for
+statement \textgreater{} 3 for rest of analysis\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\# Question 1 - part 2 Given these promising results, you decide to
+expand the experiment by adding two additional orchards. You replicate
+the same design over those two additional orchards and add them to your
+data table.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{r\ apples\_2\ =\ read.csv(\textquotesingle{}Apples\_yield\_2.csv\textquotesingle{},stringsAsFactors\ =\ TRUE)\ str(apples\_2)}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{\#\#\ \textquotesingle{}data.frame\textquotesingle{}:\ \ \ \ 72\ obs.\ of\ \ 4\ variables:\ \#\#\ \ \$\ Field:\ int\ \ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ 1\ ...\ \#\#\ \ \$\ block:\ Factor\ w/\ 12\ levels\ "1.B1","1.B2",..:\ 1\ 1\ 1\ 1\ 1\ 1\ 2\ 2\ 2\ 2\ ...\ \#\#\ \ \$\ trt\ \ :\ Factor\ w/\ 6\ levels\ "A","B","C","D",..:\ 1\ 2\ 3\ 4\ 5\ 6\ 1\ 2\ 3\ 4\ ...\ \#\#\ \ \$\ yield:\ num\ \ 290\ 274\ 278\ 265\ 274\ ...}
+\#\# 1.4 Create a design table for this larger experiment {[}8
+points{]}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textbar{} Structure \textbar{} Variable \textbar{} Type \textbar{} \#
+levels \textbar{} EU \textbar{}
+\textbar-----------\textbar-----------\textbar---------\textbar----------\textbar-----------\textbar{}
+\textbar{} Treatment \textbar{} trt \textbar{} Categ \textbar{} 6
+\textbar{} Field:trt \textbar{} \textbar{} Design \textbar{} Field
+\textbar{} Categ \textbar{} 3 \textbar{} \textbar{} \textbar{}
+\textbar{} Field:trt \textbar{} Categ \textbar{} 18 \textbar{}
+\textbar{} \textbar{} \textbar{} block \textbar{} Categ \textbar{} 12
+\textbar{} \textbar{} \textbar{} \textbar{} row \textbar{} Categ
+\textbar{} 72 \textbar{} \textbar{} \textbar{} Response \textbar{} yield
+\textbar{} Numeric \textbar{} 72 \textbar{} \textbar{}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textgreater{} 6 for terms, 2 for EU\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\#\# 1.5 Write an appropriate linear model for the analysis {[}4
+points{]}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{r\ apple\_model\_2\ =\ lmer(yield\ \textasciitilde{}\ Field\ +\ (1\textbar{}Field:trt)\ +\ block\ +\ trt,data\ =\ apples\_2)}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{\#\#\ fixed-effect\ model\ matrix\ is\ rank\ deficient\ so\ dropping\ 1\ column\ /\ coefficient}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textgreater{} -1 per inconsistency with table\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\#\# 1.6 Compare the results of this larger experiment to the first
+experiment. {[}6 points{]} Have your conclusions changed? You've done 3x
+the work. Have you gained precision in your estimates relative to the
+first (smaller experiment)? How has the \emph{interpretation} of your
+treatment effects changed with the new experiment?\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{r\ apple\_means\_2\ =\ emmeans(apple\_model\_2,specs\ =\ \textquotesingle{}trt\textquotesingle{})\ apple\_effects\_2\ =\ contrast(apple\_means\_2,\textquotesingle{}trt.vs.ctrl\textquotesingle{},ref\ =\ \textquotesingle{}S\textquotesingle{})\ summary(apple\_effects\_2,infer\ =\ T)}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{\#\#\ \ contrast\ estimate\ \ \ SE\ df\ lower.CL\ upper.CL\ t.ratio\ p.value\ \#\#\ \ A\ -\ S\ \ \ \ \ \ \ \ 34.2\ 14.2\ 10\ \ \ \ -8.77\ \ \ \ \ 77.1\ 2.402\ \ \ 0.1335\ \#\#\ \ B\ -\ S\ \ \ \ \ \ \ \ 26.7\ 14.2\ 10\ \ \ -16.28\ \ \ \ \ 69.6\ 1.874\ \ \ 0.2900\ \#\#\ \ C\ -\ S\ \ \ \ \ \ \ \ 26.1\ 14.2\ 10\ \ \ -16.89\ \ \ \ \ 69.0\ 1.831\ \ \ 0.3074\ \#\#\ \ D\ -\ S\ \ \ \ \ \ \ \ 25.5\ 14.2\ 10\ \ \ -17.42\ \ \ \ \ 68.5\ 1.794\ \ \ 0.3232\ \#\#\ \ E\ -\ S\ \ \ \ \ \ \ \ 51.9\ 14.2\ 10\ \ \ \ \ 8.98\ \ \ \ \ 94.9\ 3.649\ \ \ 0.0180\ \#\#\ \#\#\ Results\ are\ averaged\ over\ the\ levels\ of:\ block\ \#\#\ Degrees-of-freedom\ method:\ kenward-roger\ \#\#\ Confidence\ level\ used:\ 0.95\ \#\#\ Conf-level\ adjustment:\ dunnettx\ method\ for\ 5\ estimates\ \#\#\ P\ value\ adjustment:\ dunnettx\ method\ for\ 5\ tests}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{r\ summary(apple\_effects,infer\ =\ T)}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\texttt{\#\#\ \ contrast\ estimate\ \ \ SE\ df\ lower.CL\ upper.CL\ t.ratio\ p.value\ \#\#\ \ A\ -\ S\ \ \ \ \ \ \ \ 29.7\ 11.4\ 15\ \ \ \ -2.62\ \ \ \ \ 62.1\ 2.608\ \ \ 0.0771\ \#\#\ \ B\ -\ S\ \ \ \ \ \ \ \ 15.9\ 11.4\ 15\ \ \ -16.46\ \ \ \ \ 48.2\ 1.393\ \ \ 0.5120\ \#\#\ \ C\ -\ S\ \ \ \ \ \ \ \ 23.4\ 11.4\ 15\ \ \ \ -8.96\ \ \ \ \ 55.7\ 2.051\ \ \ 0.2039\ \#\#\ \ D\ -\ S\ \ \ \ \ \ \ \ 30.7\ 11.4\ 15\ \ \ \ -1.61\ \ \ \ \ 63.1\ 2.697\ \ \ 0.0653\ \#\#\ \ E\ -\ S\ \ \ \ \ \ \ \ 50.8\ 11.4\ 15\ \ \ \ 18.48\ \ \ \ \ 83.2\ 4.459\ \ \ 0.0020\ \#\#\ \#\#\ Results\ are\ averaged\ over\ the\ levels\ of:\ block\ \#\#\ Confidence\ level\ used:\ 0.95\ \#\#\ Conf-level\ adjustment:\ dunnettx\ method\ for\ 5\ estimates\ \#\#\ P\ value\ adjustment:\ dunnettx\ method\ for\ 5\ tests}
+\textgreater{} We can still declare E better than the control (at alpha
+= 0.05), and the estimates of the treatment effects are still fairly
+similar, overall our precision is lower. The standard error of each
+contrast is larger in the larger experiment, and the DfE is smaller (10
+vs 15). Therefore, it seems like that extra work was wasted.
+\textgreater{} However, the interpretation of the treatment effects has
+changed now, so it's not a fair comparison. In the first experiment, we
+estimated the effect of the ground covers IN THAT ONE FIELD. In the
+second experiment, we estimated the average effect of the ground covers
+in any similar field. So we're less confident mostly because we're
+trying to do something harder - make conclusions relevant to fields we
+haven't yet studied.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.07\columnwidth}\raggedright
+\textgreater{} 2 for analysis \textgreater{} 2 for comparison
+\textgreater{} 2 for discussion of interpretation\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{question-2}{%
+\section{Question 2}\label{question-2}}
+
+A researcher ran a microcosm experiment to study the effect of nitrogen
+runoff on biodiversity in wetland communities. They were interested in
+how weeds might out-compete native grasses under elevated nitrogen
+levels. They chose three weed species to test. The experiment was run in
+small artificial wetlands (rectangular wire baskets) that included a
+combination of a native grass and single weed species.
+
+The artificial wetlands were set in large trays with water containing a
+defined level of nitrogen. In total, there were 8 trays, with two trays
+for each of the four levels of nitrogen. Each tray held three artificial
+wetlands, one for each of the three weed species.
+
+At the end of 8 weeks, the plant material in each wetland was harvested
+and divided between weed and native grass, and the percentage of biomass
+that remained as grass was recorded.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{biomass_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'weed_biomass_small.csv'}\NormalTok{,}\DataTypeTok{stringsAsFactors =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{str}\NormalTok{(biomass_}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    24 obs. of  5 variables:
+##  $ tray        : Factor w/ 8 levels "Tray_1","Tray_2",..: 1 1 1 2 2 2 3 3 3 4 ...
+##  $ wetland     : Factor w/ 24 levels "Wetland_1","Wetland_10",..: 1 12 18 19 20 21 22 23 24 2 ...
+##  $ nitrogen    : Factor w/ 4 levels "Nitr_1","Nitr_2",..: 1 1 1 2 2 2 3 3 3 4 ...
+##  $ weed        : Factor w/ 3 levels "Weed_1","Weed_2",..: 1 2 3 1 2 3 1 2 3 1 ...
+##  $ perc_biomass: num  87.2 70.4 75.9 80.5 59.2 59.5 76.8 47.8 48.4 77.7 ...
+\end{verbatim}
+
+\hypertarget{create-a-design-table-for-this-experiment-8-points}{%
+\subsection{2.1 Create a design table for this experiment {[}8
+points{]}}\label{create-a-design-table-for-this-experiment-8-points}}
+
+Give a justification for each EU that you specify.
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Structure & Variable & Type & \# levels & EU\tabularnewline
+\midrule
+\endhead
+Treatment & nitrogen & Categ & 4 & tray\tabularnewline
+& weed & Categ & 3 & tray:weed\tabularnewline
+& nitrogen:weed & Categ & 12 & tray:weed\tabularnewline
+Design & tray & Categ & 8 &\tabularnewline
+& tray:weed & Categ & 24 &\tabularnewline
+& wetland & Categ & 24 &\tabularnewline
+Response & perc\_biomass & Numeric & 24 &\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{quote}
+tray is a block for weed and nitrogen weed, which determines their EUs.
+Nitrogen levels are randomized to trays, thus their EU. Note: since tray
+is nested in nitrogen, we don't need to make tray:nitrogen, or
+tray:nitrogen:weed. This means that tray:weed is a fine EU for
+nitrogen:weed. tray:nitrogen:weed would also be acceptable. wetland is
+also not required for the table. Accept tray:nitrogen
+\end{quote}
+
+\begin{quote}
+5 for terms, 3 for EU
+\end{quote}
+
+\hypertarget{write-an-appropriate-linear-model-for-the-analysis-4-points}{%
+\subsection{2.2 Write an appropriate linear model for the analysis {[}4
+points{]}}\label{write-an-appropriate-linear-model-for-the-analysis-4-points}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{biomass_model_}\DecValTok{1}\NormalTok{ <-}\StringTok{ }\KeywordTok{lmer}\NormalTok{(perc_biomass }\OperatorTok{~}\StringTok{ }\NormalTok{nitrogen }\OperatorTok{+}\StringTok{ }\NormalTok{weed }\OperatorTok{+}\StringTok{ }\NormalTok{nitrogen}\OperatorTok{:}\NormalTok{weed }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{tray),}\DataTypeTok{data =}\NormalTok{ biomass_}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+-1 per inconsistency with table
+\end{quote}
+
+\hypertarget{how-much-evidence-do-you-have-that-nitrogen-levels-ever-affect-the-proportion-of-non-weed-biomass-6-points}{%
+\subsection{2.3 How much evidence do you have that nitrogen levels EVER
+affect the proportion of non-weed biomass? {[}6
+points{]}}\label{how-much-evidence-do-you-have-that-nitrogen-levels-ever-affect-the-proportion-of-non-weed-biomass-6-points}}
+
+Use an ANOVA to answer this question. Provide a statement describing the
+interpretation of the ANOVA results. Be very specific about how you
+measured the evidence and what you can conclude from this analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reduced_biomass_model_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{lmer}\NormalTok{(perc_biomass }\OperatorTok{~}\StringTok{ }\NormalTok{weed }\OperatorTok{+}\StringTok{ }\NormalTok{nitrogen}\OperatorTok{:}\NormalTok{weed }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{tray),}\DataTypeTok{data =}\NormalTok{ biomass_}\DecValTok{1}\NormalTok{)}
+\KeywordTok{anova}\NormalTok{(reduced_biomass_model_}\DecValTok{1}\NormalTok{,}\DataTypeTok{ddf =} \StringTok{'K'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Type III Analysis of Variance Table with Kenward-Roger's method
+##               Sum Sq Mean Sq NumDF  DenDF F value    Pr(>F)    
+## weed          252.02 126.012     2 8.0000  48.779 3.299e-05 ***
+## weed:nitrogen 576.11  64.013     9 6.9159  23.240 0.0002253 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{quote}
+There is strong evidence (p = 0.0002253) that nitrogen levels alter the
+perc\_biomass at least for some weed species.
+\end{quote}
+
+\begin{quote}
+3 for model, 3 for interpretation
+\end{quote}
+
+\hypertarget{estimate-the-effects-of-changing-nitrogen-levels-on-the-percent-of-non-weed-biomass-6-points}{%
+\subsection{2.4 Estimate the effects of changing nitrogen levels on the
+percent of non-weed biomass {[}6
+points{]}}\label{estimate-the-effects-of-changing-nitrogen-levels-on-the-percent-of-non-weed-biomass-6-points}}
+
+Present a table/display giving estimates and confidence intervals for
+the nitrogen effects. Use 95\% confidence intervals adjusted for the
+number of comparisons. Describe the findings. You do not need to
+specifically describe each contrast, but provide an overall summary of
+the main findings. You may include a figure if you'd like.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nitrogen_means_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{emmeans}\NormalTok{(biomass_model_}\DecValTok{1}\NormalTok{,}\DataTypeTok{specs =} \StringTok{'nitrogen'}\NormalTok{,}\DataTypeTok{by =} \StringTok{'weed'}\NormalTok{)}
+\NormalTok{nitrogen_effects =}\StringTok{ }\KeywordTok{contrast}\NormalTok{(nitrogen_means_}\DecValTok{1}\NormalTok{,}\DataTypeTok{method =} \StringTok{'pairwise'}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(nitrogen_effects,}\DataTypeTok{level =} \DecValTok{1}\FloatTok{-0.05}\OperatorTok{/}\DecValTok{3}\NormalTok{,}\DataTypeTok{infer =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## weed = Weed_1:
+##  contrast        estimate   SE  df lower.CL upper.CL t.ratio p.value
+##  Nitr_1 - Nitr_2     2.55 3.55 5.3   -14.30     19.4 0.718   0.8864 
+##  Nitr_1 - Nitr_3     3.10 3.55 5.3   -13.75     19.9 0.872   0.8192 
+##  Nitr_1 - Nitr_4     6.10 3.55 5.3   -10.75     22.9 1.717   0.4004 
+##  Nitr_2 - Nitr_3     0.55 3.55 5.3   -16.30     17.4 0.155   0.9985 
+##  Nitr_2 - Nitr_4     3.55 3.55 5.3   -13.30     20.4 0.999   0.7568 
+##  Nitr_3 - Nitr_4     3.00 3.55 5.3   -13.85     19.8 0.844   0.8323 
+## 
+## weed = Weed_2:
+##  contrast        estimate   SE  df lower.CL upper.CL t.ratio p.value
+##  Nitr_1 - Nitr_2     9.35 3.55 5.3    -7.50     26.2 2.631   0.1455 
+##  Nitr_1 - Nitr_3    18.60 3.55 5.3     1.75     35.4 5.234   0.0108 
+##  Nitr_1 - Nitr_4    30.40 3.55 5.3    13.55     47.2 8.555   0.0011 
+##  Nitr_2 - Nitr_3     9.25 3.55 5.3    -7.60     26.1 2.603   0.1502 
+##  Nitr_2 - Nitr_4    21.05 3.55 5.3     4.20     37.9 5.924   0.0062 
+##  Nitr_3 - Nitr_4    11.80 3.55 5.3    -5.05     28.6 3.321   0.0680 
+## 
+## weed = Weed_3:
+##  contrast        estimate   SE  df lower.CL upper.CL t.ratio p.value
+##  Nitr_1 - Nitr_2    11.60 3.55 5.3    -5.25     28.4 3.264   0.0722 
+##  Nitr_1 - Nitr_3    20.60 3.55 5.3     3.75     37.4 5.797   0.0068 
+##  Nitr_1 - Nitr_4    30.50 3.55 5.3    13.65     47.3 8.583   0.0010 
+##  Nitr_2 - Nitr_3     9.00 3.55 5.3    -7.85     25.8 2.533   0.1626 
+##  Nitr_2 - Nitr_4    18.90 3.55 5.3     2.05     35.7 5.318   0.0101 
+##  Nitr_3 - Nitr_4     9.90 3.55 5.3    -6.95     26.7 2.786   0.1223 
+## 
+## Degrees-of-freedom method: kenward-roger 
+## Confidence level used: 0.983333333333333 
+## Conf-level adjustment: tukey method for comparing a family of 4 estimates 
+## P value adjustment: tukey method for comparing a family of 4 estimates
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cld}\NormalTok{(nitrogen_means_}\DecValTok{1}\NormalTok{,}\DataTypeTok{alpha =} \FloatTok{0.05}\OperatorTok{/}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## weed = Weed_1:
+##  nitrogen emmean   SE  df lower.CL upper.CL .group
+##  Nitr_4     76.6 2.51 5.3     70.2     83.0  1    
+##  Nitr_3     79.6 2.51 5.3     73.2     86.0  1    
+##  Nitr_2     80.2 2.51 5.3     73.8     86.5  1    
+##  Nitr_1     82.7 2.51 5.3     76.3     89.1  1    
+## 
+## weed = Weed_2:
+##  nitrogen emmean   SE  df lower.CL upper.CL .group
+##  Nitr_4     37.4 2.51 5.3     31.0     43.7  1    
+##  Nitr_3     49.1 2.51 5.3     42.8     55.5  12   
+##  Nitr_2     58.4 2.51 5.3     52.0     64.8   23  
+##  Nitr_1     67.8 2.51 5.3     61.4     74.1    3  
+## 
+## weed = Weed_3:
+##  nitrogen emmean   SE  df lower.CL upper.CL .group
+##  Nitr_4     40.1 2.51 5.3     33.7     46.5  1    
+##  Nitr_3     50.0 2.51 5.3     43.6     56.4  12   
+##  Nitr_2     59.0 2.51 5.3     52.6     65.4   23  
+##  Nitr_1     70.6 2.51 5.3     64.2     77.0    3  
+## 
+## Degrees-of-freedom method: kenward-roger 
+## Confidence level used: 0.95 
+## P value adjustment: tukey method for comparing a family of 4 estimates 
+## significance level used: alpha = 0.0166666666666667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{emmip}\NormalTok{(nitrogen_means_}\DecValTok{1}\NormalTok{,nitrogen}\OperatorTok{~}\NormalTok{weed,}\DataTypeTok{CIs =}\NormalTok{ T,}\DataTypeTok{level =} \DecValTok{1}\FloatTok{-0.05}\OperatorTok{/}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Final_key_files/figure-latex/unnamed-chunk-11-1.pdf}
+\textgreater{} The main findings are that increasing amounts of nitrogen
+decrease the percentage of grass biomass, but the effect is much
+stronger for weed species 2 and 3 than for weed 1. At alpha = 0.05, we
+cannot declare any effect of nitrogen for weed\_1, but we can for the
+other two species.
+
+\begin{quote}
+This can be answered with a CLD display, a table of the pairwise
+contrasts, or a table of contrasts against Nitr\_1. They are not all
+needed. The figure is not required, but may help summarize conclusions.
+Check in summary(), cld(), and any figure that the alpha is corrected
+for the number of weed species.
+\end{quote}
+
+\begin{quote}
+3 for table, 3 for interpretation
+\end{quote}
+
+\hypertarget{you-should-have-observed-above-that-effects-of-nitrogen-appear-much-greater-for-some-weed-species-than-others.-6-points}{%
+\subsection{2.5 You should have observed above that effects of nitrogen
+appear much greater for some weed species than others. {[}6
+points{]}}\label{you-should-have-observed-above-that-effects-of-nitrogen-appear-much-greater-for-some-weed-species-than-others.-6-points}}
+
+Test this hypothesis using an ANOVA. Then estimate how much the nitrogen
+effects change for species ``Weed\_2'' relative to species ``Weed\_1''.
+Describe the findings. Include a description of an example interaction
+effect.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(biomass_model_}\DecValTok{1}\NormalTok{,}\DataTypeTok{ddf =} \StringTok{'K'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Type III Analysis of Variance Table with Kenward-Roger's method
+##               Sum Sq Mean Sq NumDF DenDF F value    Pr(>F)    
+## nitrogen       127.5   42.49     3     4  16.447   0.01028 *  
+## weed          3540.2 1770.09     2     8 685.196 1.135e-09 ***
+## nitrogen:weed  448.6   74.77     6     8  28.945 5.250e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{biomass_effects_by_contrast =}\StringTok{ }\KeywordTok{emmeans}\NormalTok{(nitrogen_effects,}\DataTypeTok{specs =} \StringTok{'weed'}\NormalTok{,}\DataTypeTok{by =} \StringTok{'contrast'}\NormalTok{)}
+\KeywordTok{contrast}\NormalTok{(biomass_effects_by_contrast,}\StringTok{'trt.vs.ctrl'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## contrast = Nitr_1 - Nitr_2:
+##  contrast1       estimate   SE df t.ratio p.value
+##  Weed_2 - Weed_1     6.80 2.27  8  2.992  0.0322 
+##  Weed_3 - Weed_1     9.05 2.27  8  3.981  0.0077 
+## 
+## contrast = Nitr_1 - Nitr_3:
+##  contrast1       estimate   SE df t.ratio p.value
+##  Weed_2 - Weed_1    15.50 2.27  8  6.819  0.0003 
+##  Weed_3 - Weed_1    17.50 2.27  8  7.699  0.0001 
+## 
+## contrast = Nitr_1 - Nitr_4:
+##  contrast1       estimate   SE df t.ratio p.value
+##  Weed_2 - Weed_1    24.30 2.27  8 10.691  <.0001 
+##  Weed_3 - Weed_1    24.40 2.27  8 10.735  <.0001 
+## 
+## contrast = Nitr_2 - Nitr_3:
+##  contrast1       estimate   SE df t.ratio p.value
+##  Weed_2 - Weed_1     8.70 2.27  8  3.827  0.0095 
+##  Weed_3 - Weed_1     8.45 2.27  8  3.718  0.0111 
+## 
+## contrast = Nitr_2 - Nitr_4:
+##  contrast1       estimate   SE df t.ratio p.value
+##  Weed_2 - Weed_1    17.50 2.27  8  7.699  0.0001 
+##  Weed_3 - Weed_1    15.35 2.27  8  6.753  0.0003 
+## 
+## contrast = Nitr_3 - Nitr_4:
+##  contrast1       estimate   SE df t.ratio p.value
+##  Weed_2 - Weed_1     8.80 2.27  8  3.871  0.0089 
+##  Weed_3 - Weed_1     6.90 2.27  8  3.036  0.0302 
+## 
+## Degrees-of-freedom method: kenward-roger 
+## P value adjustment: dunnettx method for 2 tests
+\end{verbatim}
+
+\begin{quote}
+There is strong evidence (p = 5.250e-05) that the effects of nitrogen
+change depending on species. Overall, effects of nitrogen are always
+greater for ``Weed\_2'' than ``Weed\_1'', ranging from
+\textasciitilde6-24 precentages larger depending on which nitrogen
+levels are compared. For example, the Nitr\_1 - Nitr\_4 effect caused a
+change in perc\_biomass by 24.3 more in Weed\_2 than Weed\_1.
+\end{quote}
+
+\begin{quote}
+2 for ANOVA, 2 for specific effects, 2 for example interpretation
+\end{quote}
+
+\hypertarget{which-specific-effects-would-you-expect-to-be-estimated-with-the-greatest-precision-why-5-points}{%
+\subsection{2.6 Which specific effects would you expect to be estimated
+with the greatest precision? Why? {[}5
+points{]}}\label{which-specific-effects-would-you-expect-to-be-estimated-with-the-greatest-precision-why-5-points}}
+
+The previous questions used nitrogen as the focal treatment and
+calculated specific effects of nitrogen for each weed species. We could
+have instead treated weed species as the focal treatment and calculated
+specific effects for each level of nitrogen. Would each specific effect
+in each set have the same standard error and size of its confidence
+interval? Why or why not?
+
+\begin{quote}
+We would expect the specific effects of weed species to be estimated
+with greater precision because these comparisons happen within trays,
+while the nitrogen specific effects are estimated across trays. This
+means that the variation among trays contributes to the error in
+estimating nitrogen effects but not weed species effects. We don't
+expect the various specific effects of Nitrogen do have different SEs.
+All SEs for nitrogen will be the same.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{weed_means_}\DecValTok{1}\NormalTok{ =}\StringTok{ }\KeywordTok{emmeans}\NormalTok{(biomass_model_}\DecValTok{1}\NormalTok{,}\DataTypeTok{specs =} \StringTok{'weed'}\NormalTok{,}\DataTypeTok{by =} \StringTok{'nitrogen'}\NormalTok{)}
+\NormalTok{weed_effects =}\StringTok{ }\KeywordTok{contrast}\NormalTok{(weed_means_}\DecValTok{1}\NormalTok{,}\DataTypeTok{method =} \StringTok{'pairwise'}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(weed_effects,}\DataTypeTok{level=} \DecValTok{1}\FloatTok{-0.05}\OperatorTok{/}\DecValTok{4}\NormalTok{,}\DataTypeTok{infer =}\NormalTok{ T)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## nitrogen = Nitr_1:
+##  contrast        estimate   SE df lower.CL upper.CL t.ratio p.value
+##  Weed_1 - Weed_2    14.95 1.61  8     8.81    21.09  9.301  <.0001 
+##  Weed_1 - Weed_3    12.10 1.61  8     5.96    18.24  7.528  0.0002 
+##  Weed_2 - Weed_3    -2.85 1.61  8    -8.99     3.29 -1.773  0.2385 
+## 
+## nitrogen = Nitr_2:
+##  contrast        estimate   SE df lower.CL upper.CL t.ratio p.value
+##  Weed_1 - Weed_2    21.75 1.61  8    15.61    27.89 13.532  <.0001 
+##  Weed_1 - Weed_3    21.15 1.61  8    15.01    27.29 13.159  <.0001 
+##  Weed_2 - Weed_3    -0.60 1.61  8    -6.74     5.54 -0.373  0.9267 
+## 
+## nitrogen = Nitr_3:
+##  contrast        estimate   SE df lower.CL upper.CL t.ratio p.value
+##  Weed_1 - Weed_2    30.45 1.61  8    24.31    36.59 18.945  <.0001 
+##  Weed_1 - Weed_3    29.60 1.61  8    23.46    35.74 18.416  <.0001 
+##  Weed_2 - Weed_3    -0.85 1.61  8    -6.99     5.29 -0.529  0.8597 
+## 
+## nitrogen = Nitr_4:
+##  contrast        estimate   SE df lower.CL upper.CL t.ratio p.value
+##  Weed_1 - Weed_2    39.25 1.61  8    33.11    45.39 24.420  <.0001 
+##  Weed_1 - Weed_3    36.50 1.61  8    30.36    42.64 22.709  <.0001 
+##  Weed_2 - Weed_3    -2.75 1.61  8    -8.89     3.39 -1.711  0.2593 
+## 
+## Degrees-of-freedom method: kenward-roger 
+## Confidence level used: 0.9875 
+## Conf-level adjustment: tukey method for comparing a family of 3 estimates 
+## P value adjustment: tukey method for comparing a family of 3 estimates
+\end{verbatim}
+
+\begin{quote}
+-1 if only answer 1st question
+\end{quote}
+
+\hypertarget{challenge-problem-5-bonus-points-but-only-if-100-correct.-max-score-70}{%
+\section{Challenge problem: (5 bonus points but only if 100\% correct.
+Max score =
+70)}\label{challenge-problem-5-bonus-points-but-only-if-100-correct.-max-score-70}}
+
+The above data set is from a classic experiment used to demonstrate
+split plots. In the original experiment, each of the 24 wetlands was
+further divided into two halves, and one half was randomly selected for
+trimming (clipping) to simulate mowing after 1 week. Furthermore, the 8
+trays were divided between two tables, with one tray/nitrogen level on
+each table. Create the design table for this experiment and write the
+corresponding linear model
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{biomass_full =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{'weed_biomass2.csv'}\NormalTok{,}\DataTypeTok{stringsAsFactors =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{str}\NormalTok{(biomass_full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    48 obs. of  7 variables:
+##  $ table       : Factor w/ 2 levels "Table1","Table2": 1 1 1 1 1 1 1 1 1 1 ...
+##  $ tray        : Factor w/ 8 levels "Tray_1","Tray_2",..: 1 1 1 1 1 1 2 2 2 2 ...
+##  $ wetland     : Factor w/ 24 levels "Wetland_1","Wetland_10",..: 1 1 12 12 18 18 19 19 20 20 ...
+##  $ nitrogen    : Factor w/ 4 levels "Nitr_1","Nitr_2",..: 1 1 1 1 1 1 2 2 2 2 ...
+##  $ clipping    : Factor w/ 2 levels "cut","none": 2 1 2 1 2 1 2 1 2 1 ...
+##  $ weed        : Factor w/ 3 levels "Weed_1","Weed_2",..: 1 1 2 2 3 3 1 1 2 2 ...
+##  $ perc_biomass: num  87.2 88.8 70.4 75.7 75.9 80.6 80.5 83.8 59.2 61.5 ...
+\end{verbatim}
+
+\begin{longtable}[]{@{}lllll@{}}
+\toprule
+Structure & Variable & Type & \# levels & EU\tabularnewline
+\midrule
+\endhead
+Treatment & nitrogen & Categ & 4 & table:nitrogen\tabularnewline
+& weed & Categ & 3 & table:weed\tabularnewline
+& clipping & Categ & 2 & table:clipping\tabularnewline
+& nitrogen:weed & Categ & 12 & table:nitrogen:weed\tabularnewline
+& nitrogen:clipping & Categ & 8 & table:nitrogen:clipping\tabularnewline
+& weed:clipping & Categ & 6 & table:weed:clipping\tabularnewline
+& nitrogen:weed:clipping & Categ & 24 &
+table:nitrogen:weed:clipping\tabularnewline
+Design & table & Categ & 2 &\tabularnewline
+& table:nitrogen & Categ & 8 &\tabularnewline
+& table:weed & Categ & 6 &\tabularnewline
+& table:clipping & Categ & 4 &\tabularnewline
+& table:nitrogen:weed & Categ & 24 &\tabularnewline
+& table:nitrogen:clipping & Categ & 16 &\tabularnewline
+& table:weed:clipping & Categ & 12 &\tabularnewline
+& table:nitrogen:weed:clipping & Categ & 48 &\tabularnewline
+& tray & Categ & 8 &\tabularnewline
+& wetland & Categ & 24 &\tabularnewline
+Response & perc\_biomass & Numeric & 48 &\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{full_model =}\StringTok{ }\KeywordTok{lmer}\NormalTok{(perc_biomass }\OperatorTok{~}\StringTok{ }\NormalTok{table }\OperatorTok{+}\StringTok{ }
+\StringTok{                    }\NormalTok{nitrogen}\OperatorTok{+}\NormalTok{weed}\OperatorTok{+}\NormalTok{clipping }\OperatorTok{+}\StringTok{ }\NormalTok{nitrogen}\OperatorTok{:}\NormalTok{weed }\OperatorTok{+}\StringTok{ }\NormalTok{nitrogen}\OperatorTok{:}\NormalTok{clipping }\OperatorTok{+}\StringTok{ }\NormalTok{weed}\OperatorTok{:}\NormalTok{clipping }\OperatorTok{+}\StringTok{ }\NormalTok{nitrogen}\OperatorTok{:}\NormalTok{weed}\OperatorTok{:}\NormalTok{clipping }\OperatorTok{+}
+\StringTok{                    }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{table}\OperatorTok{:}\NormalTok{nitrogen) }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{table}\OperatorTok{:}\NormalTok{weed) }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{table}\OperatorTok{:}\NormalTok{clipping) }\OperatorTok{+}\StringTok{ }
+\StringTok{                    }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{table}\OperatorTok{:}\NormalTok{nitrogen}\OperatorTok{:}\NormalTok{weed) }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{table}\OperatorTok{:}\NormalTok{nitrogen}\OperatorTok{:}\NormalTok{clipping) }\OperatorTok{+}\StringTok{ }\NormalTok{(}\DecValTok{1}\OperatorTok{|}\NormalTok{table}\OperatorTok{:}\NormalTok{weed}\OperatorTok{:}\NormalTok{clipping),}\DataTypeTok{data =}\NormalTok{ biomass_full)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## boundary (singular) fit: see ?isSingular
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Model failed to converge with 1 negative eigenvalue: -6.6e-01
+\end{verbatim}
+
+\end{document}
